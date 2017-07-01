@@ -6,10 +6,19 @@
     <description>Recent content in R on Biranjan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 23 Jul 2015 21:13:14 -0500</lastBuildDate>
+    <lastBuildDate>Sat, 01 Jul 2017 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/categories/r/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Getting Started with Hugo and blogdown in GitHub</title>
+      <link>/2017/07/first-post/</link>
+      <pubDate>Sat, 01 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/2017/07/first-post/</guid>
+      <description>Intro When I wanted to start a blog in git-hub first I thought Jekyll was the only option. Although Jekyll is natively supported by git-hub however it is not the only static site that git-hub can handle. Fortuitously I stumbled into this article from www.rweekly.org. Since I do quite a lot of my work in R-studio it looked quite promising to me and I decided to use Hugo.The article explains all the concepts and also refer to great many other sources to get you started with Hugo and R-studio but the article mainly focuses on hosting the site in Netlify.</description>
+    </item>
     
     <item>
       <title>Hello R Markdown</title>

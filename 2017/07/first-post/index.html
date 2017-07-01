@@ -23,7 +23,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Hugo 0.24.1">
     <meta name="theme" content="Tranquilpeak 0.3.1-BETA">
-    <title>First Post</title>
+    <title>Getting Started with Hugo and blogdown in GitHub</title>
     <meta name="author" content="Biranjan Raut">
     <meta name="keywords" content="">
 
@@ -31,15 +31,15 @@
     
 
     
-    <meta name="description" content="">
-    <meta property="og:description" content="">
+    <meta name="description" content="Intro When I wanted to start a blog in git-hub first I thought Jekyll was the only option. Although Jekyll is natively supported by git-hub however it is not the only static site that git-hub can handle. Fortuitously I stumbled into this article from www.rweekly.org. Since I do quite a lot of my work in R-studio it looked quite promising to me and I decided to use Hugo.The article explains all the concepts and also refer to great many other sources to get you started with Hugo and R-studio but the article mainly focuses on hosting the site in Netlify.">
+    <meta property="og:description" content="Intro When I wanted to start a blog in git-hub first I thought Jekyll was the only option. Although Jekyll is natively supported by git-hub however it is not the only static site that git-hub can handle. Fortuitously I stumbled into this article from www.rweekly.org. Since I do quite a lot of my work in R-studio it looked quite promising to me and I decided to use Hugo.The article explains all the concepts and also refer to great many other sources to get you started with Hugo and R-studio but the article mainly focuses on hosting the site in Netlify.">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="First Post">
+    <meta property="og:title" content="Getting Started with Hugo and blogdown in GitHub">
     <meta property="og:url" content="/2017/07/first-post/">
     <meta property="og:site_name" content="Biranjan">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Biranjan">
-    <meta name="twitter:description" content="">
+    <meta name="twitter:description" content="Intro When I wanted to start a blog in git-hub first I thought Jekyll was the only option. Although Jekyll is natively supported by git-hub however it is not the only static site that git-hub can handle. Fortuitously I stumbled into this article from www.rweekly.org. Since I do quite a lot of my work in R-studio it looked quite promising to me and I decided to use Hugo.The article explains all the concepts and also refer to great many other sources to get you started with Hugo and R-studio but the article mainly focuses on hosting the site in Netlify.">
     
     
 
@@ -211,7 +211,7 @@
             <div class="post-header main-content-wrap text-left">
   
     <h1 class="post-title" itemprop="headline">
-      First Post
+      Getting Started with Hugo and blogdown in GitHub
     </h1>
   
   <div class="postShorten-meta post-meta">
@@ -223,6 +223,14 @@
     </time>
   
   
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="/categories/r">R</a>
+    
+  
+
 
 </div>
 
@@ -231,11 +239,114 @@
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
               
+
+<h1 id="intro">Intro</h1>
+
+<p>When I wanted to start a blog in git-hub first I thought Jekyll was the only option. Although Jekyll is natively supported by git-hub however it is not the only static site that git-hub can handle.
+Fortuitously I stumbled into this <a href="https://apreshill.rbind.io/post/up-and-running-with-blogdown/">article</a> from www.rweekly.org. Since I do quite a lot of my work in R-studio it looked quite promising to me and I decided to use Hugo.The article explains all the concepts and also refer to great many other sources to get you started with Hugo and R-studio but the article mainly focuses on hosting the site in Netlify. Netlify offers some features not available at github and it is easier to host Hugo on Netlify but I decided just to go with the Git-hub hosting. If you choose to host in netflify I guess you can just follow the article listed above.
+I tried to follow along some articles but it didn&rsquo;t work for me so I decided to write my own once I managed to get the Hugo up and running in Git-hub.</p>
+
+<h1 id="getting-your-hand-dirty">Getting your hand dirty</h1>
+
+<p>Git-hub natively supports Jekyll, and there is difference between how Jekyll and Hugo renders the site.You can read more about it <a href="https://bookdown.org/yihui/blogdown/github-pages.html">here</a> by author of blogdown. So this is where things get dirty. There might be other (may be more efficient) approach of doing this but I followed the default structure of a Hugo website and initialize the GIT repository under the public/ directory. This might seem confusing at first but have some patience and I will show you how I did it.</p>
+
+<h1 id="seting-up-the-github-repository-and-r-project">Seting up the github repository and R-project</h1>
+
+<p>I assume that you already know about GitHub. GitHub offers a free sub domain username.github.io.</p>
+
+<ol>
+<li>Create on GitHub <em>your-project</em>-Hugo repository (it will host Hugo’s content)</li>
+<li>Create on GitHub <em>your-username</em>.github.io repository (it will host the public folder: the static website)</li>
+<li>Create a local directory for example &ldquo;blog&rdquo; and in terminal git clone <em>your-project</em>-hugo-url in that directory.</li>
+<li>Open r-studio and create a project in the folder blog</li>
+<li>In the project install the blogdown, Hugo and create a new Hugo site inside <em>your-project</em> folder</li>
+</ol>
+
+<pre><code class="language-r">setwd(&quot;your-project&quot;)
+devtools::install_github(&quot;rstudio/blogdown&quot;)
+library(blogdown)
+install_hugo()
+new_site()
+# if you like to install your own prefred theme then you can do
+install_theme(&quot;github-link to the your theme&quot;, theme_example = TRUE, update_config = TRUE)
+</code></pre>
+
+<p>Now you should already see a site generated at in r-studio and if you check your project folder you shall see files create by Hugo to serve static website.</p>
+
+<h1 id="initializing-the-website-in-github">Initializing the website in github</h1>
+
+<ol>
+<li>Now open the terminal or git-bash and set working directory to <em>your-project</em> and type the following command, replace the username with your username.</li>
+</ol>
+
+<pre><code class="language-bash">  git submodule add -b master git@github.com:&lt;username&gt;/&lt;username&gt;.github.io.git public
+</code></pre>
+
+<div class="alert info ">
+  <p>if you get error then use the URL of you <em>your-username</em>.github.io like this.</p>
+</div>
+
+<pre><code class="language-bash"> git submodule add -b master https://github.com/&lt;username/&lt;username&gt;.github.io.git public
+</code></pre>
+
+<ol>
+<li>Almost done: add a deploy.sh script to your project file. Copy the code and save it as deploy.sh script in your project file and run it on the git bash or terminal. Just run bash deploy.sh in terminal.</li>
+</ol>
+
+<pre><code> #!/bin/bash
+
+echo -e &quot;\033[0;32mDeploying updates to GitHub...\033[0m&quot;
+
+# Build the project.
+hugo # if using a theme, replace by `hugo -t &lt;yourtheme&gt;`
+
+# Go To Public folder
+cd public
+# Add changes to git.
+git add -A
+
+# Commit changes.
+msg=&quot;rebuilding site `date`&quot;
+if [ $# -eq 1 ]
+  then msg=&quot;$1&quot;
+fi
+git commit -m &quot;$msg&quot;
+
+# Push source and build repos.
+git push origin master
+
+# Come Back
+cd ..
+</code></pre>
+
+<p>If you didn&rsquo;t encountered any error then you should be able to see the site once you type in <a href="http://yourusername.github.io/">http://yourusername.github.io/</a>
+okay now your are almost done. If you encountered some problem do check the official <a href="https://gohugo.io/tutorials/github-pages-blog/">documentation</a>, see the part where it mentiones about <strong>Hosting Personal/Organization Pages</strong>.</p>
+
+<h1 id="setting-rstudio-to-serve-site-locally-and-creating-your-first-post">Setting Rstudio to serve site locally and creating your first post</h1>
+
+<p>Well since the article mentioned in the beginning already talks about how to do that, please start reading from <a href="https://apreshill.rbind.io/post/up-and-running-with-blogdown/"><strong>6.2 Update project options</strong></a> and then finally you will get you blog up and ready in GitHub.</p>
+
+<p>~Enjoy blogging</p>
+
               
             </div>
           </div>
           <div id="post-footer" class="post-footer main-content-wrap">
             
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="//tags/r-studio/">R-studio</a>
+
+  <a class="tag tag--primary tag--small" href="//tags/hugo/">Hugo</a>
+
+  <a class="tag tag--primary tag--small" href="//tags/blogdown/">blogdown</a>
+
+                  </div>
+                
               
             
             <div class="post-actions-wrap">
@@ -252,7 +363,7 @@
         </li>
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="/2017/07/fist-post/" data-tooltip="Fist Post">
+            <a class="post-action-btn btn btn--default tooltip--top" href="/2016/12/a-plain-markdown-post/" data-tooltip="A Plain Markdown Post">
           
             <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
             <i class="fa fa-angle-right"></i>
@@ -333,7 +444,7 @@
         </li>
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="/2017/07/fist-post/" data-tooltip="Fist Post">
+            <a class="post-action-btn btn btn--default tooltip--top" href="/2016/12/a-plain-markdown-post/" data-tooltip="A Plain Markdown Post">
           
             <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
             <i class="fa fa-angle-right"></i>
@@ -458,31 +569,14 @@
             
             <div class="media-body">
               <a class="link-unstyled" href="/2017/07/first-post/">
-                <h3 class="media-heading">First Post</h3>
+                <h3 class="media-heading">Getting Started with Hugo and blogdown in GitHub</h3>
               </a>
               <span class="media-meta">
                 <span class="media-date text-small">
                   Jul 7, 2017
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather"></div>
-            </div>
-            <div style="clear:both;"></div>
-            <hr>
-          </div>
-        
-          <div class="media">
-            
-            <div class="media-body">
-              <a class="link-unstyled" href="/2017/07/fist-post/">
-                <h3 class="media-heading">Fist Post</h3>
-              </a>
-              <span class="media-meta">
-                <span class="media-date text-small">
-                  Jul 7, 2017
-                </span>
-              </span>
-              <div class="media-content hide-xs font-merryweather"></div>
+              <div class="media-content hide-xs font-merryweather">Intro When I wanted to start a blog in git-hub first I thought Jekyll was the only option. Although Jekyll is natively supported by git-hub however it is not the only static site that git-hub can handle. Fortuitously I stumbled into this article from www.rweekly.org. Since I do quite a lot of my work in R-studio it looked quite promising to me and I decided to use Hugo.The article explains all the concepts and also refer to great many other sources to get you started with Hugo and R-studio but the article mainly focuses on hosting the site in Netlify.</div>
             </div>
             <div style="clear:both;"></div>
             <hr>
@@ -631,6 +725,24 @@ summary(cars) ## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 2
             <hr>
           </div>
         
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2014/08/hidden-social-section-showcase/">
+                <h3 class="media-heading">Hidden social section showcase</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Aug 8, 2014
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"><p>This post is used to show how a site looks if the social section is hidden.
+</p></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
       </div>
     </div>
     <div class="modal-footer">
@@ -638,7 +750,7 @@ summary(cars) ## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 2
          data-message-zero="no post found"
          data-message-one="1 post found"
          data-message-other="{n} posts found">
-         18 posts found
+         17 posts found
       </p>
     </div>
   </div>
