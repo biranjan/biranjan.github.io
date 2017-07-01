@@ -3,6 +3,16 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/2017/07/first-post/</loc>
+    <lastmod>2017-07-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2017/07/fist-post/</loc>
+    <lastmod>2017-07-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/2016/12/a-plain-markdown-post/</loc>
     <lastmod>2016-12-30T21:49:57-07:00</lastmod>
   </url>
@@ -88,6 +98,12 @@
   </url>
   
   <url>
+    <loc>/</loc>
+    <lastmod>2017-07-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/categories/</loc>
     <priority>0</priority>
   </url>
@@ -159,12 +175,6 @@
   </url>
   
   <url>
-    <loc>/</loc>
-    <lastmod>2016-12-30T21:49:57-07:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>/tags/image-gallery/</loc>
     <lastmod>2013-02-18T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -196,7 +206,7 @@
   
   <url>
     <loc>/post/</loc>
-    <lastmod>2016-12-30T21:49:57-07:00</lastmod>
+    <lastmod>2017-07-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
