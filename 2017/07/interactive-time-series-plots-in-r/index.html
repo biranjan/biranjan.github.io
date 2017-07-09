@@ -1,0 +1,730 @@
+
+
+  
+    
+  
+
+
+  
+
+
+
+
+
+  
+
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Hugo 0.24.1">
+    <meta name="theme" content="Tranquilpeak 0.3.1-BETA">
+    <title>Interactive time-series plots in R</title>
+    <meta name="author" content="Biranjan Raut">
+    <meta name="keywords" content="">
+
+    <link rel="icon" href="/favicon.png">
+    
+
+    
+    <meta name="description" content="Plotting Time Series Object There are lots of good plotting packages in R. And in this post I would like to show some of the interactive charting libraries to plot time series in R. If the object that you are trying to plot is a time-series object then one can plot it really easily.
+lungDeaths &lt;- cbind(mdeaths, fdeaths) str(lungDeaths) ## Time-Series [1:72, 1:2] from 1974 to 1980: 2134 1863 1877 1877 1492 .">
+    <meta property="og:description" content="Plotting Time Series Object There are lots of good plotting packages in R. And in this post I would like to show some of the interactive charting libraries to plot time series in R. If the object that you are trying to plot is a time-series object then one can plot it really easily.
+lungDeaths &lt;- cbind(mdeaths, fdeaths) str(lungDeaths) ## Time-Series [1:72, 1:2] from 1974 to 1980: 2134 1863 1877 1877 1492 .">
+    <meta property="og:type" content="blog">
+    <meta property="og:title" content="Interactive time-series plots in R">
+    <meta property="og:url" content="/2017/07/interactive-time-series-plots-in-r/">
+    <meta property="og:site_name" content="Biranjan">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Biranjan">
+    <meta name="twitter:description" content="Plotting Time Series Object There are lots of good plotting packages in R. And in this post I would like to show some of the interactive charting libraries to plot time series in R. If the object that you are trying to plot is a time-series object then one can plot it really easily.
+lungDeaths &lt;- cbind(mdeaths, fdeaths) str(lungDeaths) ## Time-Series [1:72, 1:2] from 1974 to 1980: 2134 1863 1877 1877 1492 .">
+    
+    
+
+    
+    
+
+    
+      <meta property="og:image" content="https://cdn1.iconfinder.com/data/icons/ninja-things-1/1772/ninja-simple-512.png">
+    
+
+    
+    
+    
+
+    
+
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" />
+    
+    
+    <link rel="stylesheet" href="/css/style-u6mk0ojoywresbx8iepslrmmhl4stuhrsxuwhkpwrkrx7mryjcaimasnk4pi.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="/">Biranjan</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://cdn1.iconfinder.com/data/icons/ninja-things-1/1772/ninja-simple-512.png" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="/#about">
+          <img class="sidebar-profile-picture" src="https://cdn1.iconfinder.com/data/icons/ninja-things-1/1772/ninja-simple-512.png" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Biranjan Raut</h4>
+        
+          <h5 class="sidebar-profile-bio">Data enthusiast</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/archives">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/#about">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://stackoverflow.com/users/6194257/biranjan">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-stack-overflow"></i>
+      
+      <span class="sidebar-button-desc">Stack Overflow</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/biranjan">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="4"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      Interactive time-series plots in R
+    </h1>
+  
+  <div class="postShorten-meta post-meta">
+  
+    <time itemprop="datePublished" datetime="2017-07-08T00:00:00Z">
+      
+  July 8, 2017
+
+    </time>
+  
+  
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="/categories/r">R</a>, 
+    
+      <a class="category-link" href="/categories/data-visualization">data-visualization</a>, 
+    
+      <a class="category-link" href="/categories/interactive">interactive</a>
+    
+  
+
+
+</div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="/rmarkdown-libs/jquery/jquery.min.js"></script>
+<link href="/rmarkdown-libs/dygraphs/dygraph.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/dygraphs/dygraph-combined.js"></script>
+<script src="/rmarkdown-libs/moment/moment.js"></script>
+<script src="/rmarkdown-libs/moment-timezone/moment-timezone-with-data.js"></script>
+<script src="/rmarkdown-libs/moment-fquarter/moment-fquarter.min.js"></script>
+<script src="/rmarkdown-libs/dygraphs-binding/dygraphs.js"></script>
+
+
+<div id="plotting-time-series-object" class="section level2">
+<h2>Plotting Time Series Object</h2>
+<p>There are lots of good plotting packages in R. And in this post I would like to show some of the interactive charting libraries to plot time series in R. If the object that you are trying to plot is a time-series object then one can plot it really easily.</p>
+<pre class="r"><code>lungDeaths &lt;- cbind(mdeaths, fdeaths)
+str(lungDeaths)</code></pre>
+<pre><code>##  Time-Series [1:72, 1:2] from 1974 to 1980: 2134 1863 1877 1877 1492 ...
+##  - attr(*, &quot;dimnames&quot;)=List of 2
+##   ..$ : NULL
+##   ..$ : chr [1:2] &quot;mdeaths&quot; &quot;fdeaths&quot;</code></pre>
+<div id="plotting-with-dygraph" class="section level3">
+<h3>Plotting with dygraph</h3>
+<pre class="r"><code>dygraph(lungDeaths) %&gt;%
+  dySeries(&quot;mdeaths&quot;,label=&quot;male&quot;) %&gt;%
+  dySeries(&quot;fdeaths&quot;,label=&quot;female&quot;)</code></pre>
+<div id="htmlwidget-1" style="width:672px;height:480px;" class="dygraphs html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"attrs":{"labels":["month","male","female"],"legend":"auto","retainDateWindow":false,"axes":{"x":{"pixelsPerLabel":60}},"series":{"male":{"axis":"y"},"female":{"axis":"y"}}},"scale":"monthly","annotations":[],"shadings":[],"events":[],"format":"date","data":[["1974-01-01T00:00:00.000Z","1974-02-01T00:00:00.000Z","1974-03-01T00:00:00.000Z","1974-04-01T00:00:00.000Z","1974-05-01T00:00:00.000Z","1974-06-01T00:00:00.000Z","1974-07-01T00:00:00.000Z","1974-08-01T00:00:00.000Z","1974-09-01T00:00:00.000Z","1974-10-01T00:00:00.000Z","1974-11-01T00:00:00.000Z","1974-12-01T00:00:00.000Z","1975-01-01T00:00:00.000Z","1975-02-01T00:00:00.000Z","1975-03-01T00:00:00.000Z","1975-04-01T00:00:00.000Z","1975-05-01T00:00:00.000Z","1975-06-01T00:00:00.000Z","1975-07-01T00:00:00.000Z","1975-08-01T00:00:00.000Z","1975-09-01T00:00:00.000Z","1975-10-01T00:00:00.000Z","1975-11-01T00:00:00.000Z","1975-12-01T00:00:00.000Z","1976-01-01T00:00:00.000Z","1976-02-01T00:00:00.000Z","1976-03-01T00:00:00.000Z","1976-04-01T00:00:00.000Z","1976-05-01T00:00:00.000Z","1976-06-01T00:00:00.000Z","1976-07-01T00:00:00.000Z","1976-08-01T00:00:00.000Z","1976-09-01T00:00:00.000Z","1976-10-01T00:00:00.000Z","1976-11-01T00:00:00.000Z","1976-12-01T00:00:00.000Z","1977-01-01T00:00:00.000Z","1977-02-01T00:00:00.000Z","1977-03-01T00:00:00.000Z","1977-04-01T00:00:00.000Z","1977-05-01T00:00:00.000Z","1977-06-01T00:00:00.000Z","1977-07-01T00:00:00.000Z","1977-08-01T00:00:00.000Z","1977-09-01T00:00:00.000Z","1977-10-01T00:00:00.000Z","1977-11-01T00:00:00.000Z","1977-12-01T00:00:00.000Z","1978-01-01T00:00:00.000Z","1978-02-01T00:00:00.000Z","1978-03-01T00:00:00.000Z","1978-04-01T00:00:00.000Z","1978-05-01T00:00:00.000Z","1978-06-01T00:00:00.000Z","1978-07-01T00:00:00.000Z","1978-08-01T00:00:00.000Z","1978-09-01T00:00:00.000Z","1978-10-01T00:00:00.000Z","1978-11-01T00:00:00.000Z","1978-12-01T00:00:00.000Z","1979-01-01T00:00:00.000Z","1979-02-01T00:00:00.000Z","1979-03-01T00:00:00.000Z","1979-04-01T00:00:00.000Z","1979-05-01T00:00:00.000Z","1979-06-01T00:00:00.000Z","1979-07-01T00:00:00.000Z","1979-08-01T00:00:00.000Z","1979-09-01T00:00:00.000Z","1979-10-01T00:00:00.000Z","1979-11-01T00:00:00.000Z","1979-12-01T00:00:00.000Z"],[2134,1863,1877,1877,1492,1249,1280,1131,1209,1492,1621,1846,2103,2137,2153,1833,1403,1288,1186,1133,1053,1347,1545,2066,2020,2750,2283,1479,1189,1160,1113,970,999,1208,1467,2059,2240,1634,1722,1801,1246,1162,1087,1013,959,1179,1229,1655,2019,2284,1942,1423,1340,1187,1098,1004,970,1140,1110,1812,2263,1820,1846,1531,1215,1075,1056,975,940,1081,1294,1341],[901,689,827,677,522,406,441,393,387,582,578,666,830,752,785,664,467,438,421,412,343,440,531,771,767,1141,896,532,447,420,376,330,357,445,546,764,862,660,663,643,502,392,411,348,387,385,411,638,796,853,737,546,530,446,431,362,387,430,425,679,821,785,727,612,478,429,405,379,393,411,487,574]]},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="plotting-with-highchart" class="section level3">
+<h3>Plotting with highchart</h3>
+<p><strong>If you are using highchart for business or governmental use please take note of its use policy you need to buy license to use it.</strong></p>
+<pre class="r"><code>highchart1 &lt;- hchart(mdeaths) %&gt;% hc_add_series(fdeaths)
+highchart1</code></pre>
+<iframe seamless src="../figures_2/fig1/index.html" width="100%" height="500" id="iframe_container">
+</iframe>
+</div>
+</div>
+<div id="plotting-data-frame" class="section level2">
+<h2>Plotting data frame</h2>
+<p>Most of the time your data don’t come nicely wrapped as a time series object often in R they come as data frame. Lets plot some data frame</p>
+<pre class="r"><code># Create sequence of dates 
+dates &lt;- seq(ymd(&#39;2012-04-07&#39;),ymd(&#39;2012-04-07&#39;)+143,by=&#39;days&#39;)
+# Creeate a data frame
+
+passenger &lt;- data.frame(dates,AirPassengers) %&gt;%
+            mutate(BusPassenger = AirPassengers + 100)</code></pre>
+<pre><code>## Warning in mutate_impl(.data, dots): &#39;.Random.seed&#39; is not an integer
+## vector but of type &#39;NULL&#39;, so ignored</code></pre>
+<div id="plotting-with-dygraph-1" class="section level3">
+<h3>Plotting with dygraph</h3>
+<p>In order to use dygraph we need to convert it into time series object here we are using <strong>ts</strong> package</p>
+<pre class="r"><code>dyplot2 &lt;- dygraph(xts(passenger[,2:length(passenger)],passenger$dates),
+                              ylab = &quot;number&quot;,main=&quot;Air Passengers Vs Bus Passengers&quot;) %&gt;%
+  dyOptions(colors = RColorBrewer::brewer.pal(5, &quot;Set2&quot;),
+            strokeWidth=2,drawGrid=T,fillAlpha=0.7,gridLineWidth=0.09) %&gt;%
+  dyHighlight(highlightCircleSize = 5, 
+              highlightSeriesBackgroundAlpha = 0.2,
+              hideOnMouseOut = FALSE,
+              highlightSeriesOpts = list(strokeWidth = 3)) %&gt;%
+  dyRangeSelector()%&gt;%
+  dyRangeSelector(height = 20,fillColor=&quot;Tomato&quot;,strokeColor=&quot;orange&quot;)
+
+dyplot2</code></pre>
+<div id="htmlwidget-2" style="width:672px;height:480px;" class="dygraphs html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2">{"x":{"attrs":{"title":"Air Passengers Vs Bus Passengers","ylabel":"number","labels":["day","AirPassengers","BusPassenger"],"legend":"auto","retainDateWindow":false,"axes":{"x":{"pixelsPerLabel":60,"drawAxis":true},"y":{"drawAxis":true}},"stackedGraph":false,"fillGraph":false,"fillAlpha":0.7,"stepPlot":false,"drawPoints":false,"pointSize":1,"drawGapEdgePoints":false,"connectSeparatedPoints":false,"strokeWidth":2,"strokeBorderColor":"white","colors":["#66C2A5","#FC8D62","#8DA0CB","#E78AC3","#A6D854"],"colorValue":0.5,"colorSaturation":1,"includeZero":false,"drawAxesAtZero":false,"logscale":false,"axisTickSize":3,"axisLineColor":"black","axisLineWidth":0.3,"axisLabelColor":"black","axisLabelFontSize":14,"axisLabelWidth":60,"drawGrid":true,"gridLineWidth":0.09,"rightGap":5,"digitsAfterDecimal":2,"labelsKMB":false,"labelsKMG2":false,"labelsUTC":false,"maxNumberWidth":6,"animatedZooms":false,"mobileDisableYTouch":true,"highlightCircleSize":5,"highlightSeriesBackgroundAlpha":0.2,"highlightSeriesOpts":{"strokeWidth":3},"hideOverlayOnMouseOut":false,"showRangeSelector":true,"rangeSelectorHeight":20,"rangeSelectorPlotFillColor":"Tomato","rangeSelectorPlotStrokeColor":"orange","interactionModel":"Dygraph.Interaction.defaultModel"},"scale":"daily","annotations":[],"shadings":[],"events":[],"format":"date","data":[["2012-04-07T00:00:00.000Z","2012-04-08T00:00:00.000Z","2012-04-09T00:00:00.000Z","2012-04-10T00:00:00.000Z","2012-04-11T00:00:00.000Z","2012-04-12T00:00:00.000Z","2012-04-13T00:00:00.000Z","2012-04-14T00:00:00.000Z","2012-04-15T00:00:00.000Z","2012-04-16T00:00:00.000Z","2012-04-17T00:00:00.000Z","2012-04-18T00:00:00.000Z","2012-04-19T00:00:00.000Z","2012-04-20T00:00:00.000Z","2012-04-21T00:00:00.000Z","2012-04-22T00:00:00.000Z","2012-04-23T00:00:00.000Z","2012-04-24T00:00:00.000Z","2012-04-25T00:00:00.000Z","2012-04-26T00:00:00.000Z","2012-04-27T00:00:00.000Z","2012-04-28T00:00:00.000Z","2012-04-29T00:00:00.000Z","2012-04-30T00:00:00.000Z","2012-05-01T00:00:00.000Z","2012-05-02T00:00:00.000Z","2012-05-03T00:00:00.000Z","2012-05-04T00:00:00.000Z","2012-05-05T00:00:00.000Z","2012-05-06T00:00:00.000Z","2012-05-07T00:00:00.000Z","2012-05-08T00:00:00.000Z","2012-05-09T00:00:00.000Z","2012-05-10T00:00:00.000Z","2012-05-11T00:00:00.000Z","2012-05-12T00:00:00.000Z","2012-05-13T00:00:00.000Z","2012-05-14T00:00:00.000Z","2012-05-15T00:00:00.000Z","2012-05-16T00:00:00.000Z","2012-05-17T00:00:00.000Z","2012-05-18T00:00:00.000Z","2012-05-19T00:00:00.000Z","2012-05-20T00:00:00.000Z","2012-05-21T00:00:00.000Z","2012-05-22T00:00:00.000Z","2012-05-23T00:00:00.000Z","2012-05-24T00:00:00.000Z","2012-05-25T00:00:00.000Z","2012-05-26T00:00:00.000Z","2012-05-27T00:00:00.000Z","2012-05-28T00:00:00.000Z","2012-05-29T00:00:00.000Z","2012-05-30T00:00:00.000Z","2012-05-31T00:00:00.000Z","2012-06-01T00:00:00.000Z","2012-06-02T00:00:00.000Z","2012-06-03T00:00:00.000Z","2012-06-04T00:00:00.000Z","2012-06-05T00:00:00.000Z","2012-06-06T00:00:00.000Z","2012-06-07T00:00:00.000Z","2012-06-08T00:00:00.000Z","2012-06-09T00:00:00.000Z","2012-06-10T00:00:00.000Z","2012-06-11T00:00:00.000Z","2012-06-12T00:00:00.000Z","2012-06-13T00:00:00.000Z","2012-06-14T00:00:00.000Z","2012-06-15T00:00:00.000Z","2012-06-16T00:00:00.000Z","2012-06-17T00:00:00.000Z","2012-06-18T00:00:00.000Z","2012-06-19T00:00:00.000Z","2012-06-20T00:00:00.000Z","2012-06-21T00:00:00.000Z","2012-06-22T00:00:00.000Z","2012-06-23T00:00:00.000Z","2012-06-24T00:00:00.000Z","2012-06-25T00:00:00.000Z","2012-06-26T00:00:00.000Z","2012-06-27T00:00:00.000Z","2012-06-28T00:00:00.000Z","2012-06-29T00:00:00.000Z","2012-06-30T00:00:00.000Z","2012-07-01T00:00:00.000Z","2012-07-02T00:00:00.000Z","2012-07-03T00:00:00.000Z","2012-07-04T00:00:00.000Z","2012-07-05T00:00:00.000Z","2012-07-06T00:00:00.000Z","2012-07-07T00:00:00.000Z","2012-07-08T00:00:00.000Z","2012-07-09T00:00:00.000Z","2012-07-10T00:00:00.000Z","2012-07-11T00:00:00.000Z","2012-07-12T00:00:00.000Z","2012-07-13T00:00:00.000Z","2012-07-14T00:00:00.000Z","2012-07-15T00:00:00.000Z","2012-07-16T00:00:00.000Z","2012-07-17T00:00:00.000Z","2012-07-18T00:00:00.000Z","2012-07-19T00:00:00.000Z","2012-07-20T00:00:00.000Z","2012-07-21T00:00:00.000Z","2012-07-22T00:00:00.000Z","2012-07-23T00:00:00.000Z","2012-07-24T00:00:00.000Z","2012-07-25T00:00:00.000Z","2012-07-26T00:00:00.000Z","2012-07-27T00:00:00.000Z","2012-07-28T00:00:00.000Z","2012-07-29T00:00:00.000Z","2012-07-30T00:00:00.000Z","2012-07-31T00:00:00.000Z","2012-08-01T00:00:00.000Z","2012-08-02T00:00:00.000Z","2012-08-03T00:00:00.000Z","2012-08-04T00:00:00.000Z","2012-08-05T00:00:00.000Z","2012-08-06T00:00:00.000Z","2012-08-07T00:00:00.000Z","2012-08-08T00:00:00.000Z","2012-08-09T00:00:00.000Z","2012-08-10T00:00:00.000Z","2012-08-11T00:00:00.000Z","2012-08-12T00:00:00.000Z","2012-08-13T00:00:00.000Z","2012-08-14T00:00:00.000Z","2012-08-15T00:00:00.000Z","2012-08-16T00:00:00.000Z","2012-08-17T00:00:00.000Z","2012-08-18T00:00:00.000Z","2012-08-19T00:00:00.000Z","2012-08-20T00:00:00.000Z","2012-08-21T00:00:00.000Z","2012-08-22T00:00:00.000Z","2012-08-23T00:00:00.000Z","2012-08-24T00:00:00.000Z","2012-08-25T00:00:00.000Z","2012-08-26T00:00:00.000Z","2012-08-27T00:00:00.000Z","2012-08-28T00:00:00.000Z"],[112,118,132,129,121,135,148,148,136,119,104,118,115,126,141,135,125,149,170,170,158,133,114,140,145,150,178,163,172,178,199,199,184,162,146,166,171,180,193,181,183,218,230,242,209,191,172,194,196,196,236,235,229,243,264,272,237,211,180,201,204,188,235,227,234,264,302,293,259,229,203,229,242,233,267,269,270,315,364,347,312,274,237,278,284,277,317,313,318,374,413,405,355,306,271,306,315,301,356,348,355,422,465,467,404,347,305,336,340,318,362,348,363,435,491,505,404,359,310,337,360,342,406,396,420,472,548,559,463,407,362,405,417,391,419,461,472,535,622,606,508,461,390,432],[212,218,232,229,221,235,248,248,236,219,204,218,215,226,241,235,225,249,270,270,258,233,214,240,245,250,278,263,272,278,299,299,284,262,246,266,271,280,293,281,283,318,330,342,309,291,272,294,296,296,336,335,329,343,364,372,337,311,280,301,304,288,335,327,334,364,402,393,359,329,303,329,342,333,367,369,370,415,464,447,412,374,337,378,384,377,417,413,418,474,513,505,455,406,371,406,415,401,456,448,455,522,565,567,504,447,405,436,440,418,462,448,463,535,591,605,504,459,410,437,460,442,506,496,520,572,648,659,563,507,462,505,517,491,519,561,572,635,722,706,608,561,490,532]],"fixedtz":false,"tzone":"UTC"},"evals":["attrs.interactionModel"],"jsHooks":[]}</script>
+<p>Ther is plenty of opiton to customize the dygraph and if you like to know more see <a href="https://rstudio.github.io/dygraphs/gallery-series-options.html">here</a></p>
+</div>
+<div id="plotting-with-highchart-1" class="section level3">
+<h3>Plotting with highchart</h3>
+<pre class="r"><code>highchart2 &lt;- highchart(type = &quot;stock&quot;) %&gt;% 
+              hc_title(text = &quot;Air Passenger Vs Bus Passenger&quot;) %&gt;% 
+              hc_subtitle(text = &quot;Weekly-Data&quot;) %&gt;%
+              hc_add_series(xts(passenger[,2],passenger$dates),name=&quot;Bus Passenger&quot;) %&gt;%
+              hc_add_series(xts(passenger[,3],passenger$dates),name=&quot;Air Passenger&quot;)
+
+highchart2</code></pre>
+<iframe seamless src="../figures_2/high2/index.html" width="100%" height="500" id="iframe_container">
+</iframe>
+<p>If you do not want to convert data into time series in highchart there is still another way. First we have to convert or wide data frame to long dataframe using **reshape2&quot; pcakage. If you are unfamiliar with this cocenpt of wide and long format see <a href="http://www.cookbook-r.com/Manipulating_data/Converting_data_between_wide_and_long_format/">here</a> for more.</p>
+<pre class="r"><code># Convering wide data to long
+melted_passenger &lt;- melt(passenger,id=&quot;dates&quot;)</code></pre>
+<pre class="r"><code>highchart3 &lt;- hchart(melted_passenger,type=&quot;line&quot;,hcaes(x=dates,y=value,group=variable)) %&gt;%
+              hc_title(text = &quot;Air Vs Bus Passenger&quot;) %&gt;%
+              hc_yAxis(title = list(text = &quot;number of people&quot;))
+highchart3</code></pre>
+<iframe seamless src="../figures_2/high3/index.html" width="100%" height="500" id="iframe_container">
+</iframe>
+</div>
+<div id="plotting-with-plotly" class="section level3">
+<h3>Plotting with plotly</h3>
+<pre class="r"><code>plotly1 &lt;- plot_ly(passenger,x= ~dates, y = ~AirPassengers, name = &#39;trace 0&#39;, type = &#39;scatter&#39;, mode = &#39;lines&#39;) %&gt;%
+          add_trace(y = ~BusPassenger, name = &#39;trace 1&#39;, mode = &#39;lines+markers&#39;)
+
+plotly1</code></pre>
+<iframe seamless src="../figures_2/plotly1/index.html" width="100%" height="500" id="iframe_container">
+</iframe>
+<p><strong>You can also use the melted data frame in ploty to plot similar chart and I like using the following as I think it is more elegant R way of plotting chart</strong></p>
+<pre class="r"><code>plotly2 &lt;- plot_ly(melted_passenger, x = ~dates, y = ~value, color= ~variable) %&gt;%
+            add_lines() %&gt;%
+          layout(title = &#39;Air Vs Bus Passengers&#39;,
+         xaxis = list(title = &#39;Date&#39;),
+         yaxis = list (title = &#39;Number of People&#39;))
+
+plotly2</code></pre>
+<iframe seamless src="../figures_2/plotly2/index.html" width="100%" height="500" id="iframe_container">
+</iframe>
+</div>
+</div>
+<div id="final-thoughts" class="section level2">
+<h2>Final Thoughts</h2>
+<p>I like plotting with highchart as I like the way its looks and with hihgchart there it is easy to plot all kind of interactive plots; however it comes with some cost if you are using for a business (although I would say it is worth paying for). I like dygraphs too it can be customized and it easy to plot if the plotting object is time series and it also offer high ineracitve properties. Plotly is good too with plenty of documentation and you can also easily share your charts. Another interactive plotting library that I didn’t show here was <strong>rCharts</strong> it is quite promising and frustrating at the same time as it does not go down well with the mark-down files. See here for what can you do with <a href="http://www.rpubs.com/dnchari/rcharts">rCharts</a></p>
+</div>
+
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="//tags/highcahrtr/">highcahrtr</a>
+
+  <a class="tag tag--primary tag--small" href="//tags/dygraph/">dygraph</a>
+
+  <a class="tag tag--primary tag--small" href="//tags/plotly/">plotly</a>
+
+  <a class="tag tag--primary tag--small" href="//tags/time-series/">time-series</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  <nav>
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--disabled">
+          
+            <i class="fa fa-angle-left"></i>
+            <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+          </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="/2017/07/first-post/" data-tooltip="Getting Started with Hugo and blogdown in GitHub">
+          
+            <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+            <i class="fa fa-angle-right"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </nav>
+  <ul class="post-actions post-action-share">
+    
+      <li class="post-action hide-lg hide-md hide-sm">
+        <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+          <i class="fa fa-share-alt"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=%2f2017%2f07%2finteractive-time-series-plots-in-r%2f">
+          <i class="fa fa-google-plus"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2f2017%2f07%2finteractive-time-series-plots-in-r%2f">
+          <i class="fa fa-facebook-official"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=%2f2017%2f07%2finteractive-time-series-plots-in-r%2f">
+          <i class="fa fa-twitter"></i>
+        </a>
+      </li>
+    
+    
+      <li class="post-action">
+        <a class="post-action-btn btn btn--default" href="#disqus_thread">
+          <i class="fa fa-comment-o"></i>
+        </a>
+      </li>
+    
+    <li class="post-action">
+      
+        <a class="post-action-btn btn btn--default" href="#">
+      
+        <i class="fa fa-list"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+            
+              
+                <div id="disqus_thread">
+  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2017 Biranjan Raut. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        <div class="post-actions-wrap">
+  <nav>
+    <ul class="post-actions post-action-nav">
+      
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--disabled">
+          
+            <i class="fa fa-angle-left"></i>
+            <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+          </a>
+        </li>
+        <li class="post-action">
+          
+            <a class="post-action-btn btn btn--default tooltip--top" href="/2017/07/first-post/" data-tooltip="Getting Started with Hugo and blogdown in GitHub">
+          
+            <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+            <i class="fa fa-angle-right"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </nav>
+  <ul class="post-actions post-action-share">
+    
+      <li class="post-action hide-lg hide-md hide-sm">
+        <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+          <i class="fa fa-share-alt"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=%2f2017%2f07%2finteractive-time-series-plots-in-r%2f">
+          <i class="fa fa-google-plus"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2f2017%2f07%2finteractive-time-series-plots-in-r%2f">
+          <i class="fa fa-facebook-official"></i>
+        </a>
+      </li>
+      <li class="post-action hide-xs">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=%2f2017%2f07%2finteractive-time-series-plots-in-r%2f">
+          <i class="fa fa-twitter"></i>
+        </a>
+      </li>
+    
+    
+      <li class="post-action">
+        <a class="post-action-btn btn btn--default" href="#disqus_thread">
+          <i class="fa fa-comment-o"></i>
+        </a>
+      </li>
+    
+    <li class="post-action">
+      
+        <a class="post-action-btn btn btn--default" href="#">
+      
+        <i class="fa fa-list"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <ul class="share-options">
+    <li class="share-option">
+      <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=%2f2017%2f07%2finteractive-time-series-plots-in-r%2f">
+        <i class="fa fa-google-plus"></i><span>Share on Google Plus</span>
+      </a>
+    </li>
+    <li class="share-option">
+      <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2f2017%2f07%2finteractive-time-series-plots-in-r%2f">
+        <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+      </a>
+    </li>
+    <li class="share-option">
+      <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=%2f2017%2f07%2finteractive-time-series-plots-in-r%2f">
+        <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+      </a>
+    </li>
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://cdn1.iconfinder.com/data/icons/ninja-things-1/1772/ninja-simple-512.png" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Biranjan Raut</h4>
+    
+      <div id="about-card-bio">Data enthusiast</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Data Analyst
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        Finland
+      </div>
+    
+  </div>
+</div>
+
+    <div id="algolia-search-modal" class="modal-container">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="close-button"><i class="fa fa-close"></i></span>
+      <a href="https://algolia.com" target="_blank" class="searchby-algolia text-color-light link-unstyled">
+        <span class="searchby-algolia-text text-color-light text-small">by</span>
+        <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+      </a>
+      <i class="search-icon fa fa-search"></i>
+      <form id="algolia-search-form">
+        <input type="text" id="algolia-search-input" name="search"
+          class="form-control input--large search-input" placeholder="Search" />
+      </form>
+    </div>
+    <div class="modal-body">
+      <div class="no-result text-color-light text-center">no post found</div>
+      <div class="results">
+        
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2017/07/interactive-time-series-plots-in-r/">
+                <h3 class="media-heading">Interactive time-series plots in R</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jul 7, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Plotting Time Series Object There are lots of good plotting packages in R. And in this post I would like to show some of the interactive charting libraries to plot time series in R. If the object that you are trying to plot is a time-series object then one can plot it really easily.
+lungDeaths &lt;- cbind(mdeaths, fdeaths) str(lungDeaths) ## Time-Series [1:72, 1:2] from 1974 to 1980: 2134 1863 1877 1877 1492 .</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/2017/07/first-post/">
+                <h3 class="media-heading">Getting Started with Hugo and blogdown in GitHub</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jul 7, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather">Intro When I wanted to start a blog in git-hub first I thought Jekyll was the only option. Although Jekyll is natively supported by git-hub however it is not the only static site that git-hub can handle. Fortuitously I stumbled into this article from www.rweekly.org. Since I do quite a lot of my work in R-studio it looked quite promising to me and I decided to use Hugo.The article explains all the concepts and also refer to great many other sources to get you started with Hugo and R-studio but the article mainly focuses on hosting the site in Netlify.</div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+          <div class="media">
+            
+            <div class="media-body">
+              <a class="link-unstyled" href="/post/">
+                <h3 class="media-heading">Posts</h3>
+              </a>
+              <span class="media-meta">
+                <span class="media-date text-small">
+                  Jul 7, 2017
+                </span>
+              </span>
+              <div class="media-content hide-xs font-merryweather"></div>
+            </div>
+            <div style="clear:both;"></div>
+            <hr>
+          </div>
+        
+      </div>
+    </div>
+    <div class="modal-footer">
+      <p class="results-count text-medium"
+         data-message-zero="no post found"
+         data-message-one="1 post found"
+         data-message-other="{n} posts found">
+         3 posts found
+      </p>
+    </div>
+  </div>
+</div>
+    
+  
+    
+    <div id="cover" style="background-image:url('/images/cover.jpg');"></div>
+  
+
+
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.js"></script>
+
+
+<script src="/js/script-wl33z0n6ocaypepiqrazthtivfrliqijej4rq8ek8gvrv1awftmgjuv8k4zc.min.js"></script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight').each(function(i, block) {
+    var code = "";
+    hljs.highlightAuto(block.innerText).value.split(/\r\n|\r|\n/).forEach(function(line) {
+      code += "<span class=\"line\">" + line + "</span><br>";
+    });
+    if (code.length > 0) {
+      block.innerHTML = code;  
+    }
+  });
+  $('pre > code').each(function(i, block) {
+    $(this).addClass('codeblock');
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = '\/2017\/07\/interactive-time-series-plots-in-r\/';
+          
+            this.page.identifier = '\/2017\/07\/interactive-time-series-plots-in-r\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'https-biranjan-github-io';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+
+
+
+    
+  </body>
+</html>
+

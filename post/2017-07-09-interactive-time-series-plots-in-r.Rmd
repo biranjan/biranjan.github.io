@@ -1,0 +1,156 @@
+---
+title: Interactive time-series plots in R
+author: ~
+date: '2017-07-08'
+slug: interactive-time-series-plots-in-r
+categories: ["R","data-visualization","interactive"]
+tags: ["highcahrtr","dygraph","plotly","time-series"]
+---
+
+```{r,echo=FALSE,warning=FALSE,message=FALSE}
+
+library(ggplot2)
+library(dygraphs)
+library(highcharter)
+library(rCharts)
+library(plotly)
+library(rNVD3)
+library(lubridate)
+library(reshape2)
+library(xts)
+library(rbokeh)
+library(htmlwidgets)
+library(htmltools)
+```
+
+
+## Plotting Time Series Object
+
+There are lots of good plotting packages in R. And in this post I would like to show some of the interactive charting libraries to plot time series in R.
+If the object that you are trying to plot is a time-series object then one can plot it really easily.
+```{r}
+lungDeaths <- cbind(mdeaths, fdeaths)
+str(lungDeaths)
+```
+
+### Plotting with dygraph
+```{r}
+dygraph(lungDeaths) %>%
+  dySeries("mdeaths",label="male") %>%
+  dySeries("fdeaths",label="female")
+```
+
+### Plotting with highchart
+
+
+**If you are using highchart for business or governmental use please take note of its use policy you need to buy license to use it.**
+
+```{r,eval=FALSE}
+
+highchart1 <- hchart(mdeaths) %>% hc_add_series(fdeaths)
+highchart1
+
+
+```
+
+<iframe seamless src="../figures_2/fig1/index.html" width = "100%" height="500" id="iframe_container"></iframe>
+
+## Plotting data frame
+
+Most of the time your data don't come nicely wrapped as a time series object often in R they come as data frame. Lets plot some data frame
+
+```{r}
+# Create sequence of dates 
+dates <- seq(ymd('2012-04-07'),ymd('2012-04-07')+143,by='days')
+# Creeate a data frame
+
+passenger <- data.frame(dates,AirPassengers) %>%
+            mutate(BusPassenger = AirPassengers + 100)
+
+```
+
+### Plotting with dygraph
+In order to use dygraph we need to convert it into time series object here we are using **ts** package
+
+```{r}
+dyplot2 <- dygraph(xts(passenger[,2:length(passenger)],passenger$dates),
+                              ylab = "number",main="Air Passengers Vs Bus Passengers") %>%
+  dyOptions(colors = RColorBrewer::brewer.pal(5, "Set2"),
+            strokeWidth=2,drawGrid=T,fillAlpha=0.7,gridLineWidth=0.09) %>%
+  dyHighlight(highlightCircleSize = 5, 
+              highlightSeriesBackgroundAlpha = 0.2,
+              hideOnMouseOut = FALSE,
+              highlightSeriesOpts = list(strokeWidth = 3)) %>%
+  dyRangeSelector()%>%
+  dyRangeSelector(height = 20,fillColor="Tomato",strokeColor="orange")
+
+dyplot2
+
+```
+
+Ther is plenty of opiton to customize the dygraph and if you like to know more see [here](https://rstudio.github.io/dygraphs/gallery-series-options.html)
+
+### Plotting with highchart
+
+```{r,eval=FALSE}
+highchart2 <- highchart(type = "stock") %>% 
+              hc_title(text = "Air Passenger Vs Bus Passenger") %>% 
+              hc_subtitle(text = "Weekly-Data") %>%
+              hc_add_series(xts(passenger[,2],passenger$dates),name="Bus Passenger") %>%
+              hc_add_series(xts(passenger[,3],passenger$dates),name="Air Passenger")
+
+highchart2
+
+```
+<iframe seamless src="../figures_2/high2/index.html" width = "100%" height="500" id="iframe_container"></iframe>
+
+If you do not want to convert data into  time series in highchart there is still another way. First we have to convert or wide data frame to long dataframe using **reshape2" pcakage. If you are unfamiliar with this cocenpt of wide and long format see [here](http://www.cookbook-r.com/Manipulating_data/Converting_data_between_wide_and_long_format/) for more.
+
+```{r}
+# Convering wide data to long
+melted_passenger <- melt(passenger,id="dates")
+
+```
+
+
+```{r,eval=FALSE}
+highchart3 <- hchart(melted_passenger,type="line",hcaes(x=dates,y=value,group=variable)) %>%
+              hc_title(text = "Air Vs Bus Passenger") %>%
+              hc_yAxis(title = list(text = "number of people"))
+highchart3
+```
+
+<iframe seamless src="../figures_2/high3/index.html" width = "100%" height="500" id="iframe_container"></iframe>
+
+### Plotting with plotly
+```{r, eval=FALSE}
+plotly1 <- plot_ly(passenger,x= ~dates, y = ~AirPassengers, name = 'trace 0', type = 'scatter', mode = 'lines') %>%
+          add_trace(y = ~BusPassenger, name = 'trace 1', mode = 'lines+markers')
+
+plotly1
+
+```
+<iframe seamless src="../figures_2/plotly1/index.html" width = "100%" height="500" id="iframe_container"></iframe>
+
+
+**You can also use the melted data frame in ploty to plot similar chart and I like using the following as I think it is more elegant R way of plotting chart**
+
+```{r,eval=FALSE}
+plotly2 <- plot_ly(melted_passenger, x = ~dates, y = ~value, color= ~variable) %>%
+            add_lines() %>%
+          layout(title = 'Air Vs Bus Passengers',
+         xaxis = list(title = 'Date'),
+         yaxis = list (title = 'Number of People'))
+
+plotly2
+
+```
+<iframe seamless src="../figures_2/plotly2/index.html" width = "100%" height="500" id="iframe_container"></iframe>
+
+
+
+## Final Thoughts
+
+I like plotting with highchart as I like the way its looks and with hihgchart there it is easy to plot all kind of interactive plots; however it comes with some cost if you are using for a business (although I would say it is worth paying for). I like dygraphs too it can be customized and it easy to plot if the plotting object is time series and it also offer high ineracitve properties. Plotly is good too with plenty of documentation and you can also easily share your charts.
+Another interactive plotting library that I didn't show here was **rCharts** it is quite promising and frustrating at the same time as it does not go down well with the mark-down files. See here for what can you do with [rCharts](http://www.rpubs.com/dnchari/rcharts)
+

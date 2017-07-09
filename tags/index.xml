@@ -21,6 +21,24 @@
     </item>
     
     <item>
+      <title>Dygraph</title>
+      <link>/tags/dygraph/</link>
+      <pubDate>Sat, 08 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/dygraph/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Highcahrtr</title>
+      <link>/tags/highcahrtr/</link>
+      <pubDate>Sat, 08 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/highcahrtr/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Hugo</title>
       <link>/tags/hugo/</link>
       <pubDate>Sat, 01 Jul 2017 00:00:00 +0000</pubDate>
@@ -30,11 +48,29 @@
     </item>
     
     <item>
+      <title>Plotly</title>
+      <link>/tags/plotly/</link>
+      <pubDate>Sat, 08 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/plotly/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>R Studio</title>
       <link>/tags/r-studio/</link>
       <pubDate>Sat, 01 Jul 2017 00:00:00 +0000</pubDate>
       
       <guid>/tags/r-studio/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Time Series</title>
+      <link>/tags/time-series/</link>
+      <pubDate>Sat, 08 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/time-series/</guid>
       <description></description>
     </item>
     
