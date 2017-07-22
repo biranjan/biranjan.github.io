@@ -7,6 +7,13 @@ categories: ["R","data-visualization","interactive"]
 tags: ["highcahrtr","dygraph","plotly","time-series"]
 ---
 
+## Plotting Time Series Object
+
+There are lots of good plotting packages in R. And in this post I would like to show some of the interactive charting libraries to plot time series in R.
+If the object that you are trying to plot is a time-series object then one can plot it really easily.
+
+<!--more-->
+
 ```{r,echo=FALSE,warning=FALSE,message=FALSE}
 
 library(ggplot2)
@@ -24,10 +31,8 @@ library(htmltools)
 ```
 
 
-## Plotting Time Series Object
 
-There are lots of good plotting packages in R. And in this post I would like to show some of the interactive charting libraries to plot time series in R.
-If the object that you are trying to plot is a time-series object then one can plot it really easily.
+
 ```{r}
 lungDeaths <- cbind(mdeaths, fdeaths)
 str(lungDeaths)
