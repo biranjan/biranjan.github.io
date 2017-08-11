@@ -21,7 +21,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Hugo 0.24.1">
     <meta name="theme" content="Tranquilpeak 0.3.1-BETA">
-    <title>Getting Started with Hugo and blogdown in GitHub</title>
+    <title>How to take your predictive model to next Level using Shiny</title>
     <meta name="author" content="Biranjan Raut">
     <meta name="keywords" content="">
 
@@ -29,21 +29,15 @@
     
 
     
-    <meta name="description" content="When I wanted to start a blog in git-hub first I thought Jekyll was the only option. Although Jekyll is natively supported by git-hub however it is not the only static site that git-hub can handle.
-
-">
-    <meta property="og:description" content="When I wanted to start a blog in git-hub first I thought Jekyll was the only option. Although Jekyll is natively supported by git-hub however it is not the only static site that git-hub can handle.
-
-">
+    <meta name="description" content="Building a predictive model must be one of the usual task for students to do in their machine learning or predictive modelling class.However, when I was student I often had lingering question what to do with model now ? In this post I will talk about how to take your predictive model to the next level and make a web app where other people can interact with your model. The final outcome will look like this.">
+    <meta property="og:description" content="Building a predictive model must be one of the usual task for students to do in their machine learning or predictive modelling class.However, when I was student I often had lingering question what to do with model now ? In this post I will talk about how to take your predictive model to the next level and make a web app where other people can interact with your model. The final outcome will look like this.">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="Getting Started with Hugo and blogdown in GitHub">
-    <meta property="og:url" content="/2017/07/first-post/">
+    <meta property="og:title" content="How to take your predictive model to next Level using Shiny">
+    <meta property="og:url" content="/2017/08/how-to-take-your-predictive-model-to-next-level-using-shiny/">
     <meta property="og:site_name" content="Biranjan">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Biranjan">
-    <meta name="twitter:description" content="When I wanted to start a blog in git-hub first I thought Jekyll was the only option. Although Jekyll is natively supported by git-hub however it is not the only static site that git-hub can handle.
-
-">
+    <meta name="twitter:description" content="Building a predictive model must be one of the usual task for students to do in their machine learning or predictive modelling class.However, when I was student I often had lingering question what to do with model now ? In this post I will talk about how to take your predictive model to the next level and make a web app where other people can interact with your model. The final outcome will look like this.">
     
     
 
@@ -225,14 +219,14 @@
             <div class="post-header main-content-wrap text-left">
   
     <h1 class="post-title" itemprop="headline">
-      Getting Started with Hugo and blogdown in GitHub
+      How to take your predictive model to next Level using Shiny
     </h1>
   
   <div class="postShorten-meta post-meta">
   
-    <time itemprop="datePublished" datetime="2017-07-01T00:00:00Z">
+    <time itemprop="datePublished" datetime="2017-08-06T00:00:00Z">
       
-  July 1, 2017
+  August 6, 2017
 
     </time>
   
@@ -240,6 +234,8 @@
   
   
     <span>in</span>
+    
+      <a class="category-link" href="/categories/shiny">shiny</a>, 
     
       <a class="category-link" href="/categories/r">R</a>
     
@@ -252,94 +248,164 @@
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <p>When I wanted to start a blog in git-hub first I thought Jekyll was the only option. Although Jekyll is natively supported by git-hub however it is not the only static site that git-hub can handle.</p>
+              
 
-<p></p>
+<p>Building a predictive model must be one of the usual task for students to do in their machine learning or predictive modelling class.However, when I was student I often had lingering question what to do with model now ? In this post I will talk about how to take your predictive model to the next level and make a web app where other people
+can interact with your model. The final outcome will look like <a href="https://biranjan.shinyapps.io/titanic_shinnyapp/">this</a>. If the apps is not available due to the free account limit clone it from my git hub repository from <a href="https://github.com/biranjan/titanic_shinnyApp">here</a> and run it locally.</p>
 
-<p>Fortuitously I stumbled into this <a href="https://apreshill.rbind.io/post/up-and-running-with-blogdown/">article</a> from www.rweekly.org. Since I do quite a lot of my work in R-studio it looked quite promising to me and I decided to use Hugo.The article explains all the concepts and also refer to great many other sources to get you started with Hugo and R-studio but the article mainly focuses on hosting the site in Netlify. Netlify offers some features not available at github and it is easier to host Hugo on Netlify but I decided just to go with the Git-hub hosting. If you choose to host in netflify I guess you can just follow the article listed above.
-I tried to follow along some articles but it didn&rsquo;t work for me so I decided to write my own once I managed to get the Hugo up and running in Git-hub.</p>
+<p><img src="http://res.cloudinary.com/dstcxl6nt/image/upload/c_scale,h_400,w_500/v1502471534/titanic_shinyApp_kujeym.png" alt="screen shot of app" title="screen shot" /></p>
 
-<h1 id="getting-your-hand-dirty">Getting your hand dirty</h1>
+<h2 id="designing-predictive-model">Designing  Predictive Model</h2>
 
-<p>Git-hub natively supports Jekyll, and there is difference between how Jekyll and Hugo renders the site.You can read more about it <a href="https://bookdown.org/yihui/blogdown/github-pages.html">here</a> by author of blogdown. So this is where things get dirty. There might be other (may be more efficient) approach of doing this but I followed the default structure of a Hugo website and initialize the GIT repository under the public/ directory. This might seem confusing at first but have some patience and I will show you how I did it.</p>
+<p>The data used here is from the Titanic data set which can be downloaded from <a href="https://www.kaggle.com/c/titanic">kaggle</a>. Probably there you can learn few tricks on making your model accuracy higher I think highest accuracy might be almost 99 %. Here, I am using simple <em>glm</em> model to predict the survival rate using five explanatory variable passenger class(Pclass),Sex,Age, port of embarkation(Embarked), title of person (Title). I think the accuracy is about 70%.</p>
 
-<h1 id="seting-up-the-github-repository-and-r-project">Seting up the github repository and R-project</h1>
+<pre><code class="language-r"># if you wnat to know more about glm 
+?glm()
 
-<p>I assume that you already know about GitHub. GitHub offers a free sub domain username.github.io.</p>
+# loading the data
+mydata &lt;- read.csv(&quot;Data/Titanic_data.csv&quot;)
 
-<ol>
-<li>Create on GitHub <em>your-project</em>-Hugo repository (it will host Hugo’s content)</li>
-<li>Create on GitHub <em>your-username</em>.github.io repository (it will host the public folder: the static website)</li>
-<li>Create a local directory for example &ldquo;blog&rdquo; and in terminal git clone <em>your-project</em>-hugo-url in that directory.</li>
-<li>Open r-studio and create a project in the folder blog</li>
-<li>In the project install the blogdown, Hugo and create a new Hugo site inside <em>your-project</em> folder</li>
-</ol>
+# making predictive model
+# try to validate by partitioning your dataset into test and train 
+log_mod &lt;- glm(Survived~Pclass+Sex+Age+Embarked+Title,
+               data=mydata,family = &quot;binomial&quot;)
 
-<pre><code class="language-r">setwd(&quot;your-project&quot;)
-devtools::install_github(&quot;rstudio/blogdown&quot;)
-library(blogdown)
-install_hugo()
-new_site()
-# if you like to install your own prefred theme then you can do
-install_theme(&quot;github-link to the your theme&quot;, theme_example = TRUE, update_config = TRUE)
 </code></pre>
 
-<p>Now you should already see a site generated at in r-studio and if you check your project folder you shall see files create by Hugo to serve static website.</p>
+<p>Predicting from model is really simple once you have the model you feed a new data in the model. You need to make sure that data types are the same as previously used in the model otherwise it might produce an error.</p>
 
-<h1 id="initializing-the-website-in-github">Initializing the website in github</h1>
+<pre><code class="language-r"># Creating new data to predict on
+# See the data description to know about the variable
+Pclass = c(1)
+Sex = c(&quot;Male&quot;)
+Age = c(25)
+Embarked = c(&quot;C&quot;)
+Title =  c(&quot;Mr&quot;)
 
-<ol>
-<li>Now open the terminal or git-bash and set working directory to <em>your-project</em> and type the following command, replace the username with your username.</li>
-</ol>
+# loading the data
+mydata &lt;- read.csv(&quot;Data/Titanic_data.csv&quot;)
 
-<pre><code class="language-bash">  git submodule add -b master git@github.com:&lt;username&gt;/&lt;username&gt;.github.io.git public
+# making your predictive 
+# try to validate by partitioning your dataset into test and train 
+log_mod &lt;- glm(Survived~Pclass+Sex+Age+Embarked+Title,
+               data=mydata,family = &quot;binomial&quot;)
+
 </code></pre>
 
-<div class="alert info ">
-  <p>if you get error then use the URL of you <em>your-username</em>.github.io like this.</p>
-</div>
+<h2 id="the-next-step">The next Step</h2>
 
-<pre><code class="language-bash"> git submodule add -b master https://github.com/&lt;username/&lt;username&gt;.github.io.git public
+<p>The next step includes wrapping the model in web application. Here we use shiny web framework for R. It is as easy going to rstudio and clicking on shiny web app from file menu. Here, I assume that you know something about shiny. Shiny basically needs Ui file and server file, In Ui we define how things are shown and in server we define the logic and operations.</p>
+
+<h3 id="working-in-ui">Working in Ui</h3>
+
+<p>In file Ui.R we will define input elements ( see <a href="http://shiny.rstudio.com/gallery/widget-gallery.html">here examples</a> if you are not familiar with them) where user can input the Pclass,gender,age,title and embarkation place. And we use that to predict whether they are going to die or survive.
+Shiny has predefined input elements so we use that and we put them in sidebar. Once we have the input element ready we can move to Server.</p>
+
+<pre><code class="language-r">
+ sidebarLayout(
+        sidebarPanel(
+            helpText((&quot;Your information&quot;)),
+            
+            radioButtons(&quot;Title&quot;,
+                         label = &quot;title&quot;,
+                        choices = list(&quot;Mr&quot;,&quot;Miss&quot;,&quot;Other&quot;),
+                        selected = &quot;Mr&quot;),
+            
+            textInput(&quot;Name&quot;,
+                      label = &quot;Your name&quot;),
+            
+            selectInput(&quot;Sex&quot;,
+                        label = &quot;Select your gender&quot;,
+                        choices = list(&quot;male&quot;,&quot;female&quot;),
+                        selected = &quot;male&quot;),
+            
+            radioButtons(&quot;Pclass&quot;,
+                        label = &quot;Select your Passenger class&quot;,
+                        choices = list(&quot;choice 1&quot;=1,&quot;choice 2&quot;=2,
+                                       &quot;choice 3&quot;=3,&quot;choice 4&quot;=4)),
+            
+            numericInput(&quot;Age&quot;, 
+                         label = (&quot;Select your Age&quot;),  
+                         value = 20),
+            
+            
+            radioButtons(&quot;Embark&quot;,
+                         label = &quot;Select the port of embarkation&quot;,
+                         choices = list(&quot;Cherbourg&quot;=&quot;C&quot;,&quot;Queenstown&quot;=&quot;Q&quot;,&quot;Southampton&quot;=&quot;S&quot;),
+                         selected = &quot;C&quot; ),
+            
+            actionButton(&quot;Confirm&quot;,
+                            &quot;Confrim ticket&quot;)
+                         
+            
+        )
+
 </code></pre>
 
-<ol>
-<li>Almost done: add a deploy.sh script to your project file. Copy the code and save it as deploy.sh script in your project file and run it on the git bash or terminal. Just run bash deploy.sh in terminal.</li>
-</ol>
+<h3 id="working-in-server">Working in Server</h3>
 
-<pre><code> #!/bin/bash
+<p>You can save your model as R object and load in R that way you don&rsquo;t need the data file and run the glm function but here I am going to load the data and create glm model in server.If you data is big than we might want to rethink this approach. In server we pull the variable that have been inserted through ui and use them to predict the survival rate.</p>
 
-echo -e &quot;\033[0;32mDeploying updates to GitHub...\033[0m&quot;
+<p>Here we are using <em>highcharter</em> package to build interactive pie chart displaying your chances of survival. And I also added if statement to display text saying whether you might survive or not based on the probability gained from predict function, it simply checks whether the probability is higher that 50 % or not.</p>
 
-# Build the project.
-hugo # if using a theme, replace by `hugo -t &lt;yourtheme&gt;`
+<pre><code class="language-r">shinyServer(function(input, output) {
+    
+    
+  observeEvent(input$Confirm, {
+   
+   # getting the varibale from ui input 
+   
+   Pclass &lt;- as.numeric(input$Pclass)
+   Age &lt;- input$Age
+   Sex &lt;- input$Sex
+   Title &lt;- input$Title
+   Embarked &lt;- input$Embark
+  
+   # creating a data frame from the input
+   newdat1 &lt;- data.frame(Pclass,Sex,Age,Embarked,Title)
+   # predicting on new data
+   pred1 &lt;- predict(log_mod,newdata = newdat1,type = &quot;response&quot;)
+   # making a data frame to make a pie chart
+   pie_frame &lt;- data.frame(pie = c(round(pred1,2),round(1-pred1,2)))
+   
+   # rendering pie chart
+   output$dem_pie &lt;- renderHighchart({
+     
+       hchart(type=&quot;pie&quot;,pie_frame, hcaes(y=pie,x=c(&quot;Alive&quot;,&quot;Dead&quot;)),name=&quot;Total&quot;,colors=list(&quot;lightgreen&quot;,&quot;tomato&quot;)) 
+       
+   })
+   
+   output$pred &lt;-  renderText({
+        if(pred1 &gt; 0.5) {
+        paste(&quot;Helo &quot;,input$Name, &quot;! Yout might just survive the journey&quot;)
+        } else {
+          paste(&quot;Helo &quot;,input$Name,&quot;You might not survive the jounrney&quot;)
+        }
+          })
+      
+    })
 
-# Go To Public folder
-cd public
-# Add changes to git.
-git add -A
-
-# Commit changes.
-msg=&quot;rebuilding site `date`&quot;
-if [ $# -eq 1 ]
-  then msg=&quot;$1&quot;
-fi
-git commit -m &quot;$msg&quot;
-
-# Push source and build repos.
-git push origin master
-
-# Come Back
-cd ..
 </code></pre>
 
-<p>If you didn&rsquo;t encountered any error then you should be able to see the site once you type in <a href="http://yourusername.github.io/">http://yourusername.github.io/</a>
-okay now your are almost done. If you encountered some problem do check the official <a href="https://gohugo.io/tutorials/github-pages-blog/">documentation</a>, see the part where it mentiones about <strong>Hosting Personal/Organization Pages</strong>.</p>
+<h3 id="back-again-to-ui">Back Again to Ui</h3>
 
-<h1 id="setting-rstudio-to-serve-site-locally-and-creating-your-first-post">Setting Rstudio to serve site locally and creating your first post</h1>
+<p>Since we crated some elements to display on ui from server so we need to place those objects in Ui. Here we are going to put the elements fro server in main panel.</p>
 
-<p>Well since the article mentioned in the beginning already talks about how to do that, please start reading from <a href="https://apreshill.rbind.io/post/up-and-running-with-blogdown/"><strong>6.2 Update project options</strong></a> and then finally you will get you blog up and ready in GitHub.</p>
+<pre><code class="language-r"> mainPanel(
+            
+            div(id = &quot;panel&quot;,textOutput(&quot;text2&quot;),
+            div(uiOutput(&quot;pred&quot;))),
+            div(id = &quot;placeholder&quot;),
+            highchartOutput(&quot;dem_pie&quot;),
+            img(img(src=&quot;img/pic.png&quot;,width=&quot;600px&quot;))
+            )
 
-<p>~Enjoy blogging</p>
+</code></pre>
+
+<h2 id="we-are-done">We Are Done</h2>
+
+<p>To see the full code please head over the to my git hub <a href="https://git hub.com/biranjan/titanic_shinnyApp">repository</a>. This one simple approach to use your model in a meaningful way and it is fun for yourself and hopefully others too to interact with the model you built. If the model is not complex wrapping it in shiny shouldn&rsquo;t be hard.</p>
+
               
             </div>
           </div>
@@ -351,11 +417,13 @@ okay now your are almost done. If you encountered some problem do check the offi
                   <div class="post-footer-tags">
                     <span class="text-color-light text-small">TAGGED IN</span><br/>
                     
-  <a class="tag tag--primary tag--small" href="//tags/r-studio/">R-studio</a>
+  <a class="tag tag--primary tag--small" href="//tags/glm/">glm</a>
 
-  <a class="tag tag--primary tag--small" href="//tags/hugo/">Hugo</a>
+  <a class="tag tag--primary tag--small" href="//tags/highchater/">highchater</a>
 
-  <a class="tag tag--primary tag--small" href="//tags/blogdown/">blogdown</a>
+  <a class="tag tag--primary tag--small" href="//tags/shiny/">shiny</a>
+
+  <a class="tag tag--primary tag--small" href="//tags/r/">R</a>
 
                   </div>
                 
@@ -367,7 +435,7 @@ okay now your are almost done. If you encountered some problem do check the offi
       
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="/2017/07/interactive-time-series-plots-in-r/" data-tooltip="Interactive time-series plots in R">
+            <a class="post-action-btn btn btn--disabled">
           
             <i class="fa fa-angle-left"></i>
             <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -375,7 +443,7 @@ okay now your are almost done. If you encountered some problem do check the offi
         </li>
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--disabled">
+            <a class="post-action-btn btn btn--default tooltip--top" href="/2017/07/creating-your-personal-finance-dashboard-in-r/" data-tooltip="How I made my personal finance dashboard">
           
             <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
             <i class="fa fa-angle-right"></i>
@@ -392,17 +460,17 @@ okay now your are almost done. If you encountered some problem do check the offi
         </a>
       </li>
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=%2f2017%2f07%2ffirst-post%2f">
+        <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=%2f2017%2f08%2fhow-to-take-your-predictive-model-to-next-level-using-shiny%2f">
           <i class="fa fa-google-plus"></i>
         </a>
       </li>
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2f2017%2f07%2ffirst-post%2f">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2f2017%2f08%2fhow-to-take-your-predictive-model-to-next-level-using-shiny%2f">
           <i class="fa fa-facebook-official"></i>
         </a>
       </li>
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=%2f2017%2f07%2ffirst-post%2f">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=%2f2017%2f08%2fhow-to-take-your-predictive-model-to-next-level-using-shiny%2f">
           <i class="fa fa-twitter"></i>
         </a>
       </li>
@@ -449,7 +517,7 @@ okay now your are almost done. If you encountered some problem do check the offi
       
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--default tooltip--top" href="/2017/07/interactive-time-series-plots-in-r/" data-tooltip="Interactive time-series plots in R">
+            <a class="post-action-btn btn btn--disabled">
           
             <i class="fa fa-angle-left"></i>
             <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
@@ -457,7 +525,7 @@ okay now your are almost done. If you encountered some problem do check the offi
         </li>
         <li class="post-action">
           
-            <a class="post-action-btn btn btn--disabled">
+            <a class="post-action-btn btn btn--default tooltip--top" href="/2017/07/creating-your-personal-finance-dashboard-in-r/" data-tooltip="How I made my personal finance dashboard">
           
             <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
             <i class="fa fa-angle-right"></i>
@@ -474,17 +542,17 @@ okay now your are almost done. If you encountered some problem do check the offi
         </a>
       </li>
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=%2f2017%2f07%2ffirst-post%2f">
+        <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=%2f2017%2f08%2fhow-to-take-your-predictive-model-to-next-level-using-shiny%2f">
           <i class="fa fa-google-plus"></i>
         </a>
       </li>
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2f2017%2f07%2ffirst-post%2f">
+        <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2f2017%2f08%2fhow-to-take-your-predictive-model-to-next-level-using-shiny%2f">
           <i class="fa fa-facebook-official"></i>
         </a>
       </li>
       <li class="post-action hide-xs">
-        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=%2f2017%2f07%2ffirst-post%2f">
+        <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=%2f2017%2f08%2fhow-to-take-your-predictive-model-to-next-level-using-shiny%2f">
           <i class="fa fa-twitter"></i>
         </a>
       </li>
@@ -511,17 +579,17 @@ okay now your are almost done. If you encountered some problem do check the offi
       <div id="share-options-bar" class="share-options-bar" data-behavior="4">
   <ul class="share-options">
     <li class="share-option">
-      <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=%2f2017%2f07%2ffirst-post%2f">
+      <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=%2f2017%2f08%2fhow-to-take-your-predictive-model-to-next-level-using-shiny%2f">
         <i class="fa fa-google-plus"></i><span>Share on Google Plus</span>
       </a>
     </li>
     <li class="share-option">
-      <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2f2017%2f07%2ffirst-post%2f">
+      <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=%2f2017%2f08%2fhow-to-take-your-predictive-model-to-next-level-using-shiny%2f">
         <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
       </a>
     </li>
     <li class="share-option">
-      <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=%2f2017%2f07%2ffirst-post%2f">
+      <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=%2f2017%2f08%2fhow-to-take-your-predictive-model-to-next-level-using-shiny%2f">
         <i class="fa fa-twitter"></i><span>Share on Twitter</span>
       </a>
     </li>
@@ -728,9 +796,9 @@ $(document).ready(function() {
     
       <script>
         var disqus_config = function () {
-          this.page.url = '\/2017\/07\/first-post\/';
+          this.page.url = '\/2017\/08\/how-to-take-your-predictive-model-to-next-level-using-shiny\/';
           
-            this.page.identifier = '\/2017\/07\/first-post\/'
+            this.page.identifier = '\/2017\/08\/how-to-take-your-predictive-model-to-next-level-using-shiny\/'
           
         };
         (function() {

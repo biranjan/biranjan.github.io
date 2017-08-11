@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/2017/08/how-to-take-your-predictive-model-to-next-level-using-shiny/</loc>
+    <lastmod>2017-08-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/2017/07/creating-your-personal-finance-dashboard-in-r/</loc>
     <lastmod>2017-07-22T00:00:00+00:00</lastmod>
   </url>
@@ -29,7 +34,7 @@
   
   <url>
     <loc>/</loc>
-    <lastmod>2017-07-22T00:00:00+00:00</lastmod>
+    <lastmod>2017-08-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -63,8 +68,20 @@
   </url>
   
   <url>
+    <loc>/tags/glm/</loc>
+    <lastmod>2017-08-06T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/tags/highcahrtr/</loc>
     <lastmod>2017-07-08T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/highchater/</loc>
+    <lastmod>2017-08-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -88,19 +105,37 @@
   
   <url>
     <loc>/post/</loc>
-    <lastmod>2017-07-22T00:00:00+00:00</lastmod>
+    <lastmod>2017-08-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/categories/r/</loc>
-    <lastmod>2017-07-22T00:00:00+00:00</lastmod>
+    <lastmod>2017-08-06T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/r/</loc>
+    <lastmod>2017-08-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/tags/r-studio/</loc>
     <lastmod>2017-07-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/shiny/</loc>
+    <lastmod>2017-08-06T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/shiny/</loc>
+    <lastmod>2017-08-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
