@@ -30,6 +30,15 @@
     </item>
     
     <item>
+      <title>Datatable</title>
+      <link>/tags/datatable/</link>
+      <pubDate>Sun, 03 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/datatable/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Dygraph</title>
       <link>/tags/dygraph/</link>
       <pubDate>Sat, 08 Jul 2017 00:00:00 +0000</pubDate>
@@ -75,6 +84,15 @@
     </item>
     
     <item>
+      <title>Interactive</title>
+      <link>/tags/interactive/</link>
+      <pubDate>Sun, 03 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/interactive/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Plotly</title>
       <link>/tags/plotly/</link>
       <pubDate>Sat, 08 Jul 2017 00:00:00 +0000</pubDate>
@@ -107,6 +125,15 @@
       <pubDate>Sun, 06 Aug 2017 00:00:00 +0000</pubDate>
       
       <guid>/tags/shiny/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Table</title>
+      <link>/tags/table/</link>
+      <pubDate>Sun, 03 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/table/</guid>
       <description></description>
     </item>
     

@@ -1,0 +1,86 @@
+---
+title: Let's talk about datatable in R
+author: ~
+date: '2017-09-03'
+slug: let-s-talka-about-datatable-in-r
+categories: [R,DT]
+tags: [table,interactive,datatable]
+draft: no
+---
+# Tables 
+
+Tables are the inevitable part of every data scientist or analyst part. There will always be a situation where data can be best communicated by simply displaying them in rectangular boxes. In those situation I resort to a smart and versatile datatable from DT package.
+
+```{r,eval=FALSE}
+library(DT)
+
+datatable(head(mtcars))
+
+
+```
+<iframe seamless src="../figures/fig1/index.html" width = "100%" height="500" id="iframe_container"></iframe>
+
+Okay if you think it comes with too may bells and whistle then her's a way to tune it down. And also by default datatable show 10 entries even though there is no 10 entries. Her's how to change that 
+
+```{r,eval=FALSE}
+datatable(head(mtcars), options = list(dom='t'))
+
+```
+<iframe seamless src="../figures/fig2/index.html" width = "100%" height="300" id="iframe_container"></iframe>
+
+```{r,eval=FALSE}
+datatable(head(mtcars), options = list(pageLength = 5), class = 'cell-border stripe')
+
+```
+<iframe seamless src="../figures/fig3/index.html" width = "100%" height="300" id="iframe_container"></iframe>
+
+If you are feeling adventurous you can try to change the style, as of this writing you can choose 8 options c(“default”, “bootstrap4”, “bootstrap”, “foundation”, #“jqueryui”, “material”, “semanticui”, “uikit”)
+```{r,eval=FALSE}
+datatable(head(mtcars),style = 'material', class = 'cell-border stripe')
+
+```
+<iframe seamless src="../figures/fig4/index.html" width = "100%" height="300" id="iframe_container"></iframe>
+
+Okay enough fiddling with style. Let's put the style where it matters i.e conditional formatting. Let's change the cells based on certain condition. Here I am using *iris* data set and I am highlighting the Sepal.Width cell whose value is higher than average value using format Style
+
+```{r,eval=FALSE}
+datatable(iris,class = 'cell-border stripe',options = list(dom = 't'))%>% 
+  formatStyle(
+  'Sepal.Width', 
+  backgroundColor = styleInterval(mean(iris$Sepal.Width),c("lightblue","Steelblue"))) %>%
+   formatStyle('Petal.Length',
+  background = styleColorBar(range(iris$Petal.Length), 'lightblue'),
+  backgroundSize = '98% 88%',
+  backgroundRepeat = 'no-repeat',
+  backgroundPosition = 'center')
+
+```
+<iframe seamless src="../figures/fig5/index.html" width = "100%" height="300" id="iframe_container"></iframe>
+
+
+You could also format the one column based on the value of another column here *Sepal.Width* is being formatted based on *Petal.Width*.
+
+```{r,eval=FALSE}
+datatable(iris) %>% formatStyle(
+  'Sepal.Width','Petal.Width',
+  backgroundColor = styleEqual(c(0.2, 0.1), c('grey', 'yellow'))
+)
+
+```
+<iframe seamless src="../figures/fig6/index.html" width = "100%" height="300" id="iframe_container"></iframe>
+
+
+Last but no the least if you are building a shiny application this feature can come handy with user being able to download the table without adding extra buttons. 
+
+```{r,eval=FALSE}
+datatable(
+  head(iris), extensions = 'Buttons', options = list(
+    dom = 'Bfrtip',
+    buttons = c('copy', 'csv', 'excel', 'pdf', 'print')
+  )
+)
+
+```
+<iframe seamless src="../figures/fig7/index.html" width = "100%" height="300" id="iframe_container"></iframe>
+
+To conclude there's plenty of customization for more visit the official documentation [here](http://rstudio.github.io/DT/).
