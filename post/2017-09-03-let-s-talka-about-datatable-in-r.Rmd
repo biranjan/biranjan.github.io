@@ -9,7 +9,7 @@ draft: no
 ---
 # Tables 
 
-Tables are the inevitable part of every data scientist or analyst part. There will always be a situation where data can be best communicated by simply displaying them in rectangular boxes. In those situation I resort to a smart and versatile datatable from DT package.
+Tables are the inevitable part of every data scientist or analyst job. There will always be a situation where data can be best communicated by simply displaying them in rectangular boxes. In those situation I resort to a smart and versatile datatable from DT package.
 
 ```{r,eval=FALSE}
 library(DT)

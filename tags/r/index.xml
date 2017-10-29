@@ -6,10 +6,21 @@
     <description>Recent content in R on Biranjan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 06 Aug 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 29 Oct 2017 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/r/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Making Twitter Bot with R</title>
+      <link>/2017/10/making-twitter-bot-with-r/</link>
+      <pubDate>Sun, 29 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/2017/10/making-twitter-bot-with-r/</guid>
+      <description>&lt;p&gt;I was just playing with Twitter API so that I could automatically like Tweets from certain twitter account like for example work. And then I realized
+you can do quite more than just like the tweet. You can re-tweet the tweet, follow people, send messages and lot more.
+&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>How to take your predictive model to next Level using Shiny</title>
