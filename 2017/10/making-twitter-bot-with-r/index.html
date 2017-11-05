@@ -29,11 +29,11 @@
     
 
     
-    <meta name="description" content="I was just playing with Twitter API so that I could automatically like Tweets from certain twitter account like for example work. And then I realized
-you can do quite more than just like the tweet. You can re-tweet the tweet, follow people, send messages and lot more.
+    <meta name="description" content="I was just playing with Twitter API so that I could automatically like Tweets from certain twitter account (for example twitter account of my workplace). And then I realized
+you can do quite more than just like the tweet. You can re-tweet the tweet, follow people, send messages and lot more. In this post I am going to show the basics of how to set-up the twitter automation and you can add your own tricks on top of my basic scripts.
 ">
-    <meta property="og:description" content="I was just playing with Twitter API so that I could automatically like Tweets from certain twitter account like for example work. And then I realized
-you can do quite more than just like the tweet. You can re-tweet the tweet, follow people, send messages and lot more.
+    <meta property="og:description" content="I was just playing with Twitter API so that I could automatically like Tweets from certain twitter account (for example twitter account of my workplace). And then I realized
+you can do quite more than just like the tweet. You can re-tweet the tweet, follow people, send messages and lot more. In this post I am going to show the basics of how to set-up the twitter automation and you can add your own tricks on top of my basic scripts.
 ">
     <meta property="og:type" content="blog">
     <meta property="og:title" content="Making Twitter Bot with R">
@@ -41,8 +41,8 @@ you can do quite more than just like the tweet. You can re-tweet the tweet, foll
     <meta property="og:site_name" content="Biranjan">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Biranjan">
-    <meta name="twitter:description" content="I was just playing with Twitter API so that I could automatically like Tweets from certain twitter account like for example work. And then I realized
-you can do quite more than just like the tweet. You can re-tweet the tweet, follow people, send messages and lot more.
+    <meta name="twitter:description" content="I was just playing with Twitter API so that I could automatically like Tweets from certain twitter account (for example twitter account of my workplace). And then I realized
+you can do quite more than just like the tweet. You can re-tweet the tweet, follow people, send messages and lot more. In this post I am going to show the basics of how to set-up the twitter automation and you can add your own tricks on top of my basic scripts.
 ">
     
     
@@ -258,13 +258,13 @@ you can do quite more than just like the tweet. You can re-tweet the tweet, foll
           
           <div class="post-content markdown" itemprop="articleBody">
             <div class="main-content-wrap">
-              <p>I was just playing with Twitter API so that I could automatically like Tweets from certain twitter account like for example work. And then I realized
-you can do quite more than just like the tweet. You can re-tweet the tweet, follow people, send messages and lot more.
+              <p>I was just playing with Twitter API so that I could automatically like Tweets from certain twitter account (for example twitter account of my workplace). And then I realized
+you can do quite more than just like the tweet. You can re-tweet the tweet, follow people, send messages and lot more. In this post I am going to show the basics of how to set-up the twitter automation and you can add your own tricks on top of my basic scripts.
 </p>
 
 <p>Before we fire R-studio or R console first you need to set up the twitter app and get the API credential.The R package that we also be using is Rtweet and the package page in git-hub has a detail instruction on how to set up your twitter API <a href="http://rtweet.info/articles/auth.html">here</a>.</p>
 
-<p>Once everything is done let&rsquo;s load the required package</p>
+<p>Once everything is done let&rsquo;s load the required packages.</p>
 
 <pre><code>library(rtweet)
 library(httr)
@@ -272,7 +272,7 @@ library(httr)
 </code></pre>
 
 <p><em>Rtweet</em> is a wonderful package to do data mining task using data from twitter API, it also has ability to use
-twitter live streaming API which allows to get the real-time tweets. And I am using <em>httr</em> in addition to rtweet as I couldn&rsquo;t find some certain post request so I am going to post tweet using <em>httr</em> post function.</p>
+twitter live streaming API which allows access to real-time tweets. And I am using <em>httr</em> in addition to rtweet as I couldn&rsquo;t find some certain post request so I am going to post tweet using <em>httr</em> post function.</p>
 
 <p>Let&rsquo;s authenticate the app so that we can pull tweets from twitter. Once you run the code below it should redirect you to browser so that you can authenticate the app to use your twitter account.</p>
 
@@ -319,7 +319,7 @@ twitter_token &lt;- oauth1.0_token(oauth_endpoints(&quot;twitter&quot;), myapp2)
 <pre><code>POST(paste0(&quot;https://api.twitter.com/1.1/statuses/retweet/&quot;,rt2$status_id[1]),config(token = twitter_token))
 </code></pre>
 
-<p>This should re-tweet the the first tweet from the data-frame rt2. If you want to re-tweet all then we can just write a loop.</p>
+<p>This should re-tweet the first tweet from the data-frame rt2. If you want to re-tweet all tweet, then we can just write a loop.</p>
 
 <pre><code># Here I am going to retweet the original tweet not the retweet and I will also pause for a whilte before I retweet next tweet so that I wouldn't fire all the retweet in a fraction of seconds(so that my tweet doesn't look suspicious)
 
@@ -336,7 +336,7 @@ for(n in 1:nrow(rt2)){
 }
 </code></pre>
 
-<p>As I said earlier you can do more than re-tweet this time using the <em>rtweet</em> package you can follow or favorite the tweet to without leaving your R console. See all the trick on the git-hub page pf <a href="http://rtweet.info/index.html">rtweet</a></p>
+<p>As I said earlier you can do more than re-tweet. Now using the <em>rtweet</em> package you can follow or favorite the tweet without leaving your R console. See all the trick on the git-hub page pf <a href="http://rtweet.info/index.html">rtweet</a></p>
 
 <pre><code># If you want to follow the user
 post_follow(rt2$user_id[1])
@@ -346,7 +346,7 @@ post_favorite(rt2$status_id[1])
 plain_tweets(&quot;txt&quot;)
 </code></pre>
 
-<p>Okay there we go, the above script will give you a basic skeleton to automate your re-tweet or tweet. You can schedule the script to run certain time using cron job or create a loop that keeps finding a new tweet and keeps re-tweeting it. You can automate however you want to, I hope you&rsquo;d find my script helpful.</p>
+<p>Okay there we go, the above script will give you a basic skeleton to automate your re-tweet or tweet. You can schedule the script to run during certain time using cron job or create a loop that keeps finding a new tweet and keeps re-tweeting it. You can automate however you want to, I hope you&rsquo;d find my script helpful.</p>
               
             </div>
           </div>
@@ -609,8 +609,8 @@ plain_tweets(&quot;txt&quot;)
                   Oct 10, 2017
                 </span>
               </span>
-              <div class="media-content hide-xs font-merryweather"><p>I was just playing with Twitter API so that I could automatically like Tweets from certain twitter account like for example work. And then I realized
-you can do quite more than just like the tweet. You can re-tweet the tweet, follow people, send messages and lot more.
+              <div class="media-content hide-xs font-merryweather"><p>I was just playing with Twitter API so that I could automatically like Tweets from certain twitter account (for example twitter account of my workplace). And then I realized
+you can do quite more than just like the tweet. You can re-tweet the tweet, follow people, send messages and lot more. In this post I am going to show the basics of how to set-up the twitter automation and you can add your own tricks on top of my basic scripts.
 </p></div>
             </div>
             <div style="clear:both;"></div>
@@ -788,7 +788,7 @@ $(document).ready(function() {
             return;
           }
           var d = document, s = d.createElement('script');
-          var disqus_shortname = 'https-biranjan-github-io';
+          var disqus_shortname = 'https-biranjan-github-io-1.disqus.com';
           s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
 
           s.setAttribute('data-timestamp', +new Date());

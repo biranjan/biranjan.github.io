@@ -133,14 +133,14 @@
   </url>
   
   <url>
-    <loc>/categories/interactive/</loc>
-    <lastmod>2017-07-08T00:00:00+00:00</lastmod>
+    <loc>/tags/interactive/</loc>
+    <lastmod>2017-09-03T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/interactive/</loc>
-    <lastmod>2017-09-03T00:00:00+00:00</lastmod>
+    <loc>/categories/interactive/</loc>
+    <lastmod>2017-07-08T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -157,13 +157,13 @@
   </url>
   
   <url>
-    <loc>/categories/r/</loc>
+    <loc>/tags/r/</loc>
     <lastmod>2017-10-29T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/r/</loc>
+    <loc>/categories/r/</loc>
     <lastmod>2017-10-29T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -181,13 +181,13 @@
   </url>
   
   <url>
-    <loc>/categories/shiny/</loc>
+    <loc>/tags/shiny/</loc>
     <lastmod>2017-08-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/shiny/</loc>
+    <loc>/categories/shiny/</loc>
     <lastmod>2017-08-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
@@ -211,13 +211,13 @@
   </url>
   
   <url>
-    <loc>/categories/twitter/</loc>
+    <loc>/tags/twitter/</loc>
     <lastmod>2017-10-29T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/twitter/</loc>
+    <loc>/categories/twitter/</loc>
     <lastmod>2017-10-29T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
