@@ -2,183 +2,183 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Biranjan</title>
-    <link>/tags/</link>
+    <link>/biranjan.github.io/tags/</link>
     <description>Recent content in Tags on Biranjan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 01 Jul 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/biranjan.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Blogdown</title>
-      <link>/tags/blogdown/</link>
+      <link>/biranjan.github.io/tags/blogdown/</link>
       <pubDate>Sat, 01 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tags/blogdown/</guid>
+      <guid>/biranjan.github.io/tags/blogdown/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Bot</title>
-      <link>/tags/bot/</link>
+      <link>/biranjan.github.io/tags/bot/</link>
       <pubDate>Sun, 29 Oct 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tags/bot/</guid>
+      <guid>/biranjan.github.io/tags/bot/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Dashboard</title>
-      <link>/tags/dashboard/</link>
+      <link>/biranjan.github.io/tags/dashboard/</link>
       <pubDate>Sat, 22 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tags/dashboard/</guid>
+      <guid>/biranjan.github.io/tags/dashboard/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Datatable</title>
-      <link>/tags/datatable/</link>
+      <link>/biranjan.github.io/tags/datatable/</link>
       <pubDate>Sun, 03 Sep 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tags/datatable/</guid>
+      <guid>/biranjan.github.io/tags/datatable/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Dygraph</title>
-      <link>/tags/dygraph/</link>
+      <link>/biranjan.github.io/tags/dygraph/</link>
       <pubDate>Sat, 08 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tags/dygraph/</guid>
+      <guid>/biranjan.github.io/tags/dygraph/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Glm</title>
-      <link>/tags/glm/</link>
+      <link>/biranjan.github.io/tags/glm/</link>
       <pubDate>Sun, 06 Aug 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tags/glm/</guid>
+      <guid>/biranjan.github.io/tags/glm/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Highcahrtr</title>
-      <link>/tags/highcahrtr/</link>
+      <link>/biranjan.github.io/tags/highcahrtr/</link>
       <pubDate>Sat, 08 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tags/highcahrtr/</guid>
+      <guid>/biranjan.github.io/tags/highcahrtr/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Highchater</title>
-      <link>/tags/highchater/</link>
+      <link>/biranjan.github.io/tags/highchater/</link>
       <pubDate>Sun, 06 Aug 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tags/highchater/</guid>
+      <guid>/biranjan.github.io/tags/highchater/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Httr</title>
-      <link>/tags/httr/</link>
+      <link>/biranjan.github.io/tags/httr/</link>
       <pubDate>Sun, 29 Oct 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tags/httr/</guid>
+      <guid>/biranjan.github.io/tags/httr/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Hugo</title>
-      <link>/tags/hugo/</link>
+      <link>/biranjan.github.io/tags/hugo/</link>
       <pubDate>Sat, 01 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tags/hugo/</guid>
+      <guid>/biranjan.github.io/tags/hugo/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Interactive</title>
-      <link>/tags/interactive/</link>
+      <link>/biranjan.github.io/tags/interactive/</link>
       <pubDate>Sun, 03 Sep 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tags/interactive/</guid>
+      <guid>/biranjan.github.io/tags/interactive/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Plotly</title>
-      <link>/tags/plotly/</link>
+      <link>/biranjan.github.io/tags/plotly/</link>
       <pubDate>Sat, 08 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tags/plotly/</guid>
+      <guid>/biranjan.github.io/tags/plotly/</guid>
       <description></description>
     </item>
     
     <item>
       <title>R</title>
-      <link>/tags/r/</link>
+      <link>/biranjan.github.io/tags/r/</link>
       <pubDate>Sun, 29 Oct 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tags/r/</guid>
+      <guid>/biranjan.github.io/tags/r/</guid>
       <description></description>
     </item>
     
     <item>
       <title>R Studio</title>
-      <link>/tags/r-studio/</link>
+      <link>/biranjan.github.io/tags/r-studio/</link>
       <pubDate>Sat, 01 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tags/r-studio/</guid>
+      <guid>/biranjan.github.io/tags/r-studio/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Rtweet</title>
-      <link>/tags/rtweet/</link>
+      <link>/biranjan.github.io/tags/rtweet/</link>
       <pubDate>Sun, 29 Oct 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tags/rtweet/</guid>
+      <guid>/biranjan.github.io/tags/rtweet/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Shiny</title>
-      <link>/tags/shiny/</link>
+      <link>/biranjan.github.io/tags/shiny/</link>
       <pubDate>Sun, 06 Aug 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tags/shiny/</guid>
+      <guid>/biranjan.github.io/tags/shiny/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Table</title>
-      <link>/tags/table/</link>
+      <link>/biranjan.github.io/tags/table/</link>
       <pubDate>Sun, 03 Sep 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tags/table/</guid>
+      <guid>/biranjan.github.io/tags/table/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Time Series</title>
-      <link>/tags/time-series/</link>
+      <link>/biranjan.github.io/tags/time-series/</link>
       <pubDate>Sat, 08 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tags/time-series/</guid>
+      <guid>/biranjan.github.io/tags/time-series/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Twitter</title>
-      <link>/tags/twitter/</link>
+      <link>/biranjan.github.io/tags/twitter/</link>
       <pubDate>Sun, 29 Oct 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tags/twitter/</guid>
+      <guid>/biranjan.github.io/tags/twitter/</guid>
       <description></description>
     </item>
     
