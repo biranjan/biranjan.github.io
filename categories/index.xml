@@ -2,75 +2,75 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on Biranjan</title>
-    <link>/biranjan.github.io/categories/</link>
+    <link>/categories/</link>
     <description>Recent content in Categories on Biranjan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 29 Oct 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/biranjan.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Automation</title>
-      <link>/biranjan.github.io/categories/automation/</link>
+      <link>/categories/automation/</link>
       <pubDate>Sun, 29 Oct 2017 00:00:00 +0000</pubDate>
       
-      <guid>/biranjan.github.io/categories/automation/</guid>
+      <guid>/categories/automation/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Data Visualization</title>
-      <link>/biranjan.github.io/categories/data-visualization/</link>
+      <link>/categories/data-visualization/</link>
       <pubDate>Sat, 08 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>/biranjan.github.io/categories/data-visualization/</guid>
+      <guid>/categories/data-visualization/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Dt</title>
-      <link>/biranjan.github.io/categories/dt/</link>
+      <link>/categories/dt/</link>
       <pubDate>Sun, 03 Sep 2017 00:00:00 +0000</pubDate>
       
-      <guid>/biranjan.github.io/categories/dt/</guid>
+      <guid>/categories/dt/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Interactive</title>
-      <link>/biranjan.github.io/categories/interactive/</link>
+      <link>/categories/interactive/</link>
       <pubDate>Sat, 08 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>/biranjan.github.io/categories/interactive/</guid>
+      <guid>/categories/interactive/</guid>
       <description></description>
     </item>
     
     <item>
       <title>R</title>
-      <link>/biranjan.github.io/categories/r/</link>
+      <link>/categories/r/</link>
       <pubDate>Sun, 29 Oct 2017 00:00:00 +0000</pubDate>
       
-      <guid>/biranjan.github.io/categories/r/</guid>
+      <guid>/categories/r/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Shiny</title>
-      <link>/biranjan.github.io/categories/shiny/</link>
+      <link>/categories/shiny/</link>
       <pubDate>Sun, 06 Aug 2017 00:00:00 +0000</pubDate>
       
-      <guid>/biranjan.github.io/categories/shiny/</guid>
+      <guid>/categories/shiny/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Twitter</title>
-      <link>/biranjan.github.io/categories/twitter/</link>
+      <link>/categories/twitter/</link>
       <pubDate>Sun, 29 Oct 2017 00:00:00 +0000</pubDate>
       
-      <guid>/biranjan.github.io/categories/twitter/</guid>
+      <guid>/categories/twitter/</guid>
       <description></description>
     </item>
     

@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Dashboard on Biranjan</title>
-    <link>/biranjan.github.io/tags/dashboard/</link>
+    <link>/tags/dashboard/</link>
     <description>Recent content in Dashboard on Biranjan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 22 Jul 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/biranjan.github.io/tags/dashboard/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/dashboard/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>How I made my personal finance dashboard</title>
-      <link>/biranjan.github.io/2017/07/creating-your-personal-finance-dashboard-in-r/</link>
+      <link>/2017/07/creating-your-personal-finance-dashboard-in-r/</link>
       <pubDate>Sat, 22 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>/biranjan.github.io/2017/07/creating-your-personal-finance-dashboard-in-r/</guid>
+      <guid>/2017/07/creating-your-personal-finance-dashboard-in-r/</guid>
       <description>&lt;p&gt;Once in a while I like to know how am I doing with my expenses but my bank doesn&amp;rsquo;t provide any application where I can break down my expenses.
 
 However, my bank does provide a financial statement albeit in a not so helpful .txt format.&lt;/p&gt;</description>

@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>R on Biranjan</title>
-    <link>/biranjan.github.io/tags/r/</link>
+    <link>/tags/r/</link>
     <description>Recent content in R on Biranjan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 29 Oct 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/biranjan.github.io/tags/r/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/r/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Making Twitter Bot with R</title>
-      <link>/biranjan.github.io/2017/10/making-twitter-bot-with-r/</link>
+      <link>/2017/10/making-twitter-bot-with-r/</link>
       <pubDate>Sun, 29 Oct 2017 00:00:00 +0000</pubDate>
       
-      <guid>/biranjan.github.io/2017/10/making-twitter-bot-with-r/</guid>
+      <guid>/2017/10/making-twitter-bot-with-r/</guid>
       <description>&lt;p&gt;I was just playing with Twitter API so that I could automatically like Tweets from certain twitter account (for example twitter account of my workplace). And then I realized
 you can do quite more than just like the tweet. You can re-tweet the tweet, follow people, send messages and lot more. In this post I am going to show the basics of how to set-up the twitter automation and you can add your own tricks on top of my basic scripts.
 &lt;/p&gt;</description>
@@ -24,10 +24,10 @@ you can do quite more than just like the tweet. You can re-tweet the tweet, foll
     
     <item>
       <title>How to take your predictive model to next Level using Shiny</title>
-      <link>/biranjan.github.io/2017/08/how-to-take-your-predictive-model-to-next-level-using-shiny/</link>
+      <link>/2017/08/how-to-take-your-predictive-model-to-next-level-using-shiny/</link>
       <pubDate>Sun, 06 Aug 2017 00:00:00 +0000</pubDate>
       
-      <guid>/biranjan.github.io/2017/08/how-to-take-your-predictive-model-to-next-level-using-shiny/</guid>
+      <guid>/2017/08/how-to-take-your-predictive-model-to-next-level-using-shiny/</guid>
       <description>Building a predictive model must be one of the usual task for students to do in their machine learning or predictive modelling class.However, when I was student I often had lingering question what to do with model now ? In this post I will talk about how to take your predictive model to the next level and make a web app where other people can interact with your model. The final outcome will look like this.</description>
     </item>
     

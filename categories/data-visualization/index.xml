@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Data Visualization on Biranjan</title>
-    <link>/biranjan.github.io/categories/data-visualization/</link>
+    <link>/categories/data-visualization/</link>
     <description>Recent content in Data Visualization on Biranjan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 08 Jul 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/biranjan.github.io/categories/data-visualization/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/categories/data-visualization/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Interactive time-series plots in R</title>
-      <link>/biranjan.github.io/2017/07/interactive-time-series-plots-in-r/</link>
+      <link>/2017/07/interactive-time-series-plots-in-r/</link>
       <pubDate>Sat, 08 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>/biranjan.github.io/2017/07/interactive-time-series-plots-in-r/</guid>
+      <guid>/2017/07/interactive-time-series-plots-in-r/</guid>
       <description>Plotting Time Series Object There are lots of good plotting packages in R. And in this post I would like to show some of the interactive charting libraries to plot time series in R. If the object that you are trying to plot is a time-series object then one can plot it really easily.
  lungDeaths &amp;lt;- cbind(mdeaths, fdeaths) str(lungDeaths) ## Time-Series [1:72, 1:2] from 1974 to 1980: 2134 1863 1877 1877 1492 .</description>
     </item>
