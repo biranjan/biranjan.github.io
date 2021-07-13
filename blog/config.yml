@@ -1,0 +1,6 @@
+baseURL: https://biranjan.github.io
+languageCode: en-us
+title: My New Hugo Site
+theme: "PaperMod"
+publishdir: ".."
+
