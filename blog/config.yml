@@ -1,6 +1,50 @@
-baseURL: http://biranjan.github.io
+baseURL: https://biranjan.github.io
 languageCode: en-us
-title: My New Hugo Site
+title: Hello World!
 theme: "PaperMod"
 publishdir: ".."
 
+params:
+  # defaultTheme: light
+  # defaultTheme: dark
+  defaultTheme: dark
+  ShowReadingTime: true
+  ShowShareButtons: true
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: false
+  disableSpecial1stPost: false
+  disableScrollToTop: false
+  comments: false
+  hidemeta: false
+  hideSummary: false
+  showtoc: false
+  tocopen: false
+   
+  homeInfoParams:
+      Title: Hi there 👋
+      Content: Welcome to my blog Hello World! Here I write about all the interesting stuff that I happen to stumble upon
+
+  socialIcons: # optional
+      - name: "github"
+        url: "https://github.com/biranjan"
+      - name: "linkedin"
+        url: "https://www.linkedin.com/in/biranjan-raut/"
+      # - name: "stackoverflow"
+      #   url: "<link>"
+      # - name: "kofi"
+      #   url: "https://kofi.com"
+      - name: "rss"
+        url: "http://localhost:1313/index.xml#feed"
+
+menu:
+    main:
+        - identifier: categories
+          name: categories
+          url: /categories/
+          weight: 10
+        - identifier: tags
+          name: tags
+          url: /tags/
+          weight: 20
+       
