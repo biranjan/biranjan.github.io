@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Adventure with python decorator 🚣 | Hello World!</title>
+<meta name="keywords" content="decorator" />
+<meta name="description" content="Dive into python decorator 🏊‍♀️">
+<meta name="author" content="Me">
+<link rel="canonical" href="https://canonical.url/to/page" />
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.35cd0f65a15cafa92372b8313deef5960aae04b90ad722f2bbf509eb0468137e.css" integrity="sha256-Nc0PZaFcr6kjcrgxPe71lgquBLkK1yLyu/UJ6wRoE34=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js" integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5&#43;kdJvBz5iKbt6B5PJI="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://biranjan.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://biranjan.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://biranjan.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://biranjan.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://biranjan.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<meta name="generator" content="Hugo 0.85.0" />
+<meta property="og:title" content="Adventure with python decorator 🚣" />
+<meta property="og:description" content="Dive into python decorator 🏊‍♀️" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://biranjan.github.io/posts/test2/" />
+<meta property="og:image" content="https://biranjan.github.io/%3Cimage%20path/url%3E" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-09-15T11:30:03&#43;00:00" />
+<meta property="article:modified_time" content="2020-09-15T11:30:03&#43;00:00" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://biranjan.github.io/%3Cimage%20path/url%3E" />
+<meta name="twitter:title" content="Adventure with python decorator 🚣"/>
+<meta name="twitter:description" content="Dive into python decorator 🏊‍♀️"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Posts",
+      "item": "https://biranjan.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "Adventure with python decorator 🚣",
+      "item": "https://biranjan.github.io/posts/test2/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Adventure with python decorator 🚣",
+  "name": "Adventure with python decorator 🚣",
+  "description": "Dive into python decorator 🏊‍♀️",
+  "keywords": [
+    "decorator"
+  ],
+  "articleBody": "Decorator can be intimidating at first and if you have passed the phase then it might be difficult to find the proper use case here I will try to cover the basics and end with some use case that might be useful.\nStarting with basics 📖 Probably everyone knows that in python functions are just like any other objects, so you can pass them around as arguments and do introspection.\nSo this makes it possible to use decorator in python. Decorator is a function that takes function as argument and returns a function. As you will see below decorator is not limited to just function decorator can be class which takes another class as argument as long as the class object is callable (i.e implements call method) we will see example on this in a while but let see first simple example of decorator.\ndef greet_decorator(func): def wrapper(name): print(\"Before\") func(name) print(\"After\") return wrapper @greet_decorator def greet(name): print(f\"Hi {name}\") greet(\"John\") Output BEFORE Hi John AFTER Ok so that was a very basic example. Let try to come up with slightly more useful application of decorator. Lets assume you building an application and you need input from a web request or any service that do not give you a deterministic output. In other words the object that you are querying may or maynot give the output that you are looking for, consider this function roll_dice.\nimport random def roll_dice(): val = random.randint(1,10) if val % 2 != 0: raise ValueError(val) return val The function roll_dice has equal chance of returning value or an error. But what if you will only like it to return only valid value not an error. Let’s use decorator to make it happen.\nimport random def retry(func): \"\"\" Decorator function that retries when there's a value error \"\"\" def wrapper(*args, **kwargs): \"\"\" wrapper function that modifies the func \"\"\" while True: try: return func(*args, **kwargs) except ValueError as v: print(f\"Retrying after value error: {v}\") return wrapper @retry def roll_dice(min_num, max_num): \"\"\" Returns random int between min and max num \"\"\" val = random.randint(min_num,maxnum) if val % 2 != 0: raise ValueError(val) return val roll_dice(1,100) Output Retrying after value error: 1 Retrying after value error: 5 Retrying after value error: 3 2 Brief Detour 🚧 So lets look at the decorator function retry it takes function as input then passes it to its wrapper function aptly named wrapper, wrapper function takes *args and *kwargs as input. This allows decorator function to accept any arguments in thi case min_num and max_num. Inside the wrapper function you can see there is a while loop that only returns when the function roll_dice return without a value error.\nAlthough the decorator function works fine but here is slight problem. If you inspect the new roll_dice function this is what you get.\n# check for name print(roll_dice.__name__) # check the docstring  print(roll_dice.__doc__) Output wrapper wrapper function that modifys the func So you see the problem once we decorate the roll_dice function with retry decorator the signature of the function roll_dice has been replaced by wrapper function. This might cause some problem if other part of your program relies on the function signature. But fear not we can fix thi by another decorator. Let see the more correct implementation. Below you can see simple wraps decorator from functools library will solve this problem.\nimport random import functools def retry(func): \"\"\" Decorator function that retries when there's a value error\"\"\" @functools.wraps(func) def wrapper(*args, **kwargs): \"\"\" wrapper function that modifys the func \"\"\" while True: try: return func(*args, **kwargs) except ValueError as v: print(f\"Retrying after value error: {v}\") return wrapper @retry def roll_dice(min_num, max_num): \"\"\" Returns random int between min and max num \"\"\" val = random.randint(min_num, max_num) if val % 2 != 0: raise ValueError(val) return val Output roll_dice2 Returns random int between min and max num Next Adventure 🤸 So we made retry decorator and also used funtools.wraps which preserved all the metadata of function that it decorates. But what if we want limit the number of retries. Theoretically the retry decorator the way it is could be retrying forever never returning anything. In order to do so we need someway for decorator function to accept its own argument.\ndef retry(max_retries): def decorator(func): @functools.wraps(func) def wrapper(*args, **kwargs): for _ in range(max_retries): try: return func(*args, **kwargs) except ValueError as v: print(f\"Retrying after value error: {v}\") print(f\"Max retry reached: Tried {max_retries}times\") return wrapper return decorator @retry(max_retries=4) def roll_dice(min_num, max_num): \"\"\" Returns random int between min and max num \"\"\" val = random.randint(min_num, max_num) if val % 2 != 0: raise ValueError(val) return val Output Retrying after value error: 13 Retrying after value error: 11 Retrying after value error: 85 Retrying after value error: 83 Max retry reached: Tried 4 times So as you can see that in order to accept argument we have to add one more layer of function to our decorator.\nFinal show case 💥 So in very beginning of the post I mentioned that decorator is not just limited to function. Decorator in itself can be a class and can also accept class as its input as long as it has call implementation. As our final show case I am going to make a docorator that kind a work like builtin python decorator lru_cache. The basic idea is that decorator function will store the output of the inner function and the next time instead of executing the inner function is imply returns the stored input. I hope the code will make it more clear its not clear yet.\nimport time import functools class Cache: def __init__(self, func): functools.update_wrapper(self, func) self.func = func self._cache = {} def __call__(self,host): if host not in self._cache: self._cache[host] = self.func(host) return self._cache[host] @Cache def long_request(host): print(\"processing request\") time.sleep(10) print(\"finished processing request\") return(\"final value\") # first request long_request(\"google.com\") Output processing request finished processing request 'final value' # second request long_request(\"google.com\") 'final value' So above you can see the decorator implementation on class object. Class Cache is initialized with func argument and cache. Private variable cache stored the output of func. And you can see the implementation of call method in __call__ this is where our logic to modify original function happens. Finally you can see that the first call to decorated function long_request takes long time however subsequent operation happens instantaneously.\nIf you don’t believe that second call returns at no time and you want proof then we can create one more bonus decorator time_it.\nimport time import functools class Cache: def __init__(self, func): functools.update_wrapper(self, func) self.func = func self._cache = {} def __call__(self,host): if host not in self._cache: self._cache[host] = self.func(host) return self._cache[host] def time_it(func): @functools.wraps(func) def wrapper(*args, **kwargs): start = time.time() try: return func(*args, **kwargs) finally: end_ = time.time() - start print(f\"Total execution time of function {func.__name__}: {round(end_,2)}s\") return wrapper @time_it @Cache def long_request(host): print(\"processing request\") time.sleep(10) print(\"finished processing request\") return(\"final value\") # fist try long_request(\"googl.com\") Output processing request finished processing request Total execution time long_request: 10.01 s 'final value' # second try  long_request(\"googl.com\") Output Total execution time long_request: 0.0 s 'final value' So now you can see another decorator time_it stacked on top of the long_function which keeps track of the time took to process the decorated function in this case long_function.\n So this concludes our brief tour of python decorator. From here on you can choose your own adventure and create you own decortor to solve your problem. Thank you for reaing this and hope that this gave you some insight into decorator 🤞.\n",
+  "wordCount" : "1248",
+  "inLanguage": "en",
+  "image":"https://biranjan.github.io/%3Cimage%20path/url%3E","datePublished": "2020-09-15T11:30:03Z",
+  "dateModified": "2020-09-15T11:30:03Z",
+  "author":{
+    "@type": "Person",
+    "name": "Me"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://biranjan.github.io/posts/test2/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Hello World!",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://biranjan.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class=" dark" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    }
+
+</script>
+<noscript>
+    <style type="text/css">
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://biranjan.github.io" accesskey="h" title="Hello World! (Alt + H)">Hello World!</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </span>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://biranjan.github.io/categories/" title="categories">
+                    <span>categories</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://biranjan.github.io/tags/" title="tags">
+                    <span>tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://biranjan.github.io">Home</a>&nbsp;»&nbsp;<a href="https://biranjan.github.io/posts/">Posts</a></div>
+    <h1 class="post-title">
+      Adventure with python decorator 🚣
+    </h1>
+    <div class="post-description">
+      Dive into python decorator 🏊‍♀️
+    </div>
+    <div class="post-meta">September 15, 2020&nbsp;·&nbsp;6 min&nbsp;·&nbsp;Me&nbsp;|&nbsp;<a href="https://github.com/%3cpath_to_repo%3e/content/posts/test2.md" rel="noopener noreferrer" target="_blank">Suggest Changes</a>
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <div class="details">Table of Contents</div>
+        </summary>
+        <div class="inner"><ul><ul>
+                <li>
+                    <a href="#starting-with-basics-" aria-label="Starting with basics 📖">Starting with basics 📖</a></li>
+                <li>
+                    <a href="#brief-detour-" aria-label="Brief Detour 🚧">Brief Detour 🚧</a></li>
+                <li>
+                    <a href="#next-adventure-" aria-label="Next Adventure 🤸">Next Adventure 🤸</a></li></ul>
+                    
+                <li>
+                    <a href="#final-show-case-" aria-label="Final show case 💥">Final show case 💥</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><p>Decorator can be intimidating at first and if you have passed the phase then it might be difficult to find the proper use case here I will try to cover the basics and end with some use case that might be useful.</p>
+<h4 id="starting-with-basics-">Starting with basics 📖<a hidden class="anchor" aria-hidden="true" href="#starting-with-basics-">#</a></h4>
+<p>Probably everyone knows that in python functions are just like any other objects, so you can pass them around as arguments and do introspection.</p>
+<p>So this makes it possible to use decorator in python. Decorator is a function that takes function as argument and returns a function. As you will see below decorator is not limited to just function decorator can be class which takes another class as argument as long as the class object is callable (i.e implements call method) we will see example on this in a while but let see first simple example of decorator.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">greet_decorator</span>(func):
+  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">wrapper</span>(name):
+    print(<span style="color:#e6db74">&#34;Before&#34;</span>)
+    func(name)
+    print(<span style="color:#e6db74">&#34;After&#34;</span>)
+  <span style="color:#66d9ef">return</span> wrapper
+
+<span style="color:#a6e22e">@greet_decorator</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">greet</span>(name):
+  print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Hi </span><span style="color:#e6db74">{</span>name<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+
+greet(<span style="color:#e6db74">&#34;John&#34;</span>)
+</code></pre></div><pre><code><div class="code_output">Output</div>
+BEFORE
+Hi John
+AFTER
+</code></pre><p>Ok so that was a very basic example. Let try to come up with slightly more useful application of decorator. Lets assume you building an application and you need input from a web request or any service that do not give you a deterministic output. In other words the object that you are querying may or maynot give the output that you are looking for, consider this function <strong>roll_dice</strong>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> random
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">roll_dice</span>():
+  val <span style="color:#f92672">=</span> random<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">10</span>)
+  <span style="color:#66d9ef">if</span> val <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>:
+    <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">ValueError</span>(val)
+  <span style="color:#66d9ef">return</span> val
+
+</code></pre></div><p>The function <strong>roll_dice</strong> has equal chance of returning value or an error. But what if you will only like it to return only valid value not an error. Let&rsquo;s use decorator to make it happen.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> random 
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">retry</span>(func):
+  <span style="color:#e6db74">&#34;&#34;&#34; Decorator function that retries when there&#39;s a value error &#34;&#34;&#34;</span>
+  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">wrapper</span>(<span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs):
+    <span style="color:#e6db74">&#34;&#34;&#34; wrapper function that modifies the func &#34;&#34;&#34;</span>
+    <span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
+      <span style="color:#66d9ef">try</span>:
+        <span style="color:#66d9ef">return</span> func(<span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs)
+      <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">ValueError</span> <span style="color:#66d9ef">as</span> v:
+        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Retrying after value error: </span><span style="color:#e6db74">{</span>v<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+  <span style="color:#66d9ef">return</span> wrapper
+
+<span style="color:#a6e22e">@retry</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">roll_dice</span>(min_num, max_num):
+  <span style="color:#e6db74">&#34;&#34;&#34; Returns random int between min and max num &#34;&#34;&#34;</span>
+  val <span style="color:#f92672">=</span> random<span style="color:#f92672">.</span>randint(min_num,maxnum)
+  <span style="color:#66d9ef">if</span> val <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>:
+    <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">ValueError</span>(val)
+  <span style="color:#66d9ef">return</span> val
+
+roll_dice(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">100</span>)  
+</code></pre></div><pre><code><div class="code_output">Output</div>
+Retrying after value error: 1
+Retrying after value error: 5
+Retrying after value error: 3
+2
+</code></pre><h4 id="brief-detour-">Brief Detour 🚧<a hidden class="anchor" aria-hidden="true" href="#brief-detour-">#</a></h4>
+<p>So lets look at the decorator function <strong>retry</strong> it takes function as input then passes it to its wrapper function aptly named wrapper, wrapper function takes *args and *kwargs as input. This allows decorator function to accept any arguments in thi case <em>min_num and max_num</em>. Inside the wrapper function you can see there is a while loop that only returns when the function roll_dice return without a value error.</p>
+<p>Although the decorator function works fine but here is slight problem. If you inspect the new roll_dice function this is what you get.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># check for name</span>
+print(roll_dice<span style="color:#f92672">.</span>__name__)
+<span style="color:#75715e"># check the docstring </span>
+print(roll_dice<span style="color:#f92672">.</span>__doc__)
+</code></pre></div><pre><code><div class="code_output">Output</div>
+wrapper
+wrapper function that modifys the func 
+</code></pre><p>So you see the problem once we decorate the roll_dice function with retry decorator the signature of the function roll_dice has been replaced by wrapper function. This might cause some problem if other part of your program relies on the function signature. But fear not we can fix thi by another decorator. Let see the more correct implementation. Below you can see simple wraps decorator from functools library will solve this problem.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> random
+<span style="color:#f92672">import</span> functools
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">retry</span>(func):
+  <span style="color:#e6db74">&#34;&#34;&#34; Decorator function that retries when there&#39;s a value error&#34;&#34;&#34;</span>
+  <span style="color:#a6e22e">@functools</span><span style="color:#f92672">.</span>wraps(func)
+  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">wrapper</span>(<span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs):
+    <span style="color:#e6db74">&#34;&#34;&#34; wrapper function that modifys the func &#34;&#34;&#34;</span>
+    <span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
+      <span style="color:#66d9ef">try</span>:
+        <span style="color:#66d9ef">return</span> func(<span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs)
+      <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">ValueError</span> <span style="color:#66d9ef">as</span> v:
+        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Retrying after value error: </span><span style="color:#e6db74">{</span>v<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+  <span style="color:#66d9ef">return</span> wrapper
+
+<span style="color:#a6e22e">@retry</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">roll_dice</span>(min_num, max_num):
+  <span style="color:#e6db74">&#34;&#34;&#34; Returns random int between min and max num &#34;&#34;&#34;</span>
+  val <span style="color:#f92672">=</span> random<span style="color:#f92672">.</span>randint(min_num, max_num)
+  <span style="color:#66d9ef">if</span> val <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>:
+    <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">ValueError</span>(val)
+  <span style="color:#66d9ef">return</span> val
+</code></pre></div><pre><code><div class="code_output">Output</div>
+roll_dice2
+ Returns random int between min and max num 
+</code></pre><h4 id="next-adventure-">Next Adventure 🤸<a hidden class="anchor" aria-hidden="true" href="#next-adventure-">#</a></h4>
+<p>So we made retry decorator and also used funtools.wraps which preserved all the metadata of function that it decorates. But what if we want limit the number of retries. Theoretically the retry decorator the way it is could be retrying forever never returning anything. In order to do so we need someway for decorator function to accept its own argument.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">retry</span>(max_retries):
+  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">decorator</span>(func):
+    <span style="color:#a6e22e">@functools</span><span style="color:#f92672">.</span>wraps(func)
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">wrapper</span>(<span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs):
+      <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(max_retries):
+        <span style="color:#66d9ef">try</span>:
+          <span style="color:#66d9ef">return</span> func(<span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs)
+        <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">ValueError</span> <span style="color:#66d9ef">as</span> v:
+          print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Retrying after value error: </span><span style="color:#e6db74">{</span>v<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+      print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Max retry reached: Tried </span><span style="color:#e6db74">{</span>max_retries<span style="color:#e6db74">}</span><span style="color:#e6db74"> times&#34;</span>)
+    <span style="color:#66d9ef">return</span> wrapper
+  <span style="color:#66d9ef">return</span> decorator
+
+<span style="color:#a6e22e">@retry</span>(max_retries<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">roll_dice</span>(min_num, max_num):
+  <span style="color:#e6db74">&#34;&#34;&#34; Returns random int between min and max num &#34;&#34;&#34;</span>
+  val <span style="color:#f92672">=</span> random<span style="color:#f92672">.</span>randint(min_num, max_num)
+  <span style="color:#66d9ef">if</span> val <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>:
+    <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">ValueError</span>(val)
+  <span style="color:#66d9ef">return</span> val
+</code></pre></div><pre><code><div class="code_output">Output</div>
+Retrying after value error: 13
+Retrying after value error: 11
+Retrying after value error: 85
+Retrying after value error: 83
+Max retry reached: Tried 4 times
+</code></pre><p>So as you can see that in order to accept argument we have to add one more layer of function to our decorator.</p>
+<h3 id="final-show-case-">Final show case 💥<a hidden class="anchor" aria-hidden="true" href="#final-show-case-">#</a></h3>
+<p>So in very beginning of the post I mentioned that decorator is not just limited to function. Decorator in itself can be a class and can also accept class as its input as long as it has <strong>call</strong> implementation.
+As our final show case I am going to make a docorator that kind a work like builtin python decorator <a href="https://docs.python.org/3/library/functools.html"><code>lru_cache</code></a>.
+The basic idea is that decorator function will store the output of the inner function and the next time instead of executing the inner function is imply returns the stored input. I hope the code will make it more clear its not clear yet.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> time
+<span style="color:#f92672">import</span> functools
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Cache</span>:
+  <span style="color:#66d9ef">def</span> __init__(self, func):
+    functools<span style="color:#f92672">.</span>update_wrapper(self, func)
+    self<span style="color:#f92672">.</span>func <span style="color:#f92672">=</span> func
+    self<span style="color:#f92672">.</span>_cache <span style="color:#f92672">=</span> {}
+    
+  <span style="color:#66d9ef">def</span> __call__(self,host):
+    <span style="color:#66d9ef">if</span> host <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>_cache:
+      self<span style="color:#f92672">.</span>_cache[host] <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>func(host)
+    <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>_cache[host]
+  
+<span style="color:#a6e22e">@Cache</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">long_request</span>(host):
+  print(<span style="color:#e6db74">&#34;processing request&#34;</span>)
+  time<span style="color:#f92672">.</span>sleep(<span style="color:#ae81ff">10</span>)
+  print(<span style="color:#e6db74">&#34;finished processing request&#34;</span>)
+  <span style="color:#66d9ef">return</span>(<span style="color:#e6db74">&#34;final value&#34;</span>)
+
+<span style="color:#75715e"># first request</span>
+long_request(<span style="color:#e6db74">&#34;google.com&#34;</span>)    
+</code></pre></div><pre><code><div class="code_output">Output</div>
+processing request
+finished processing request
+'final value'
+</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># second request</span>
+long_request(<span style="color:#e6db74">&#34;google.com&#34;</span>)
+<span style="color:#e6db74">&#39;final value&#39;</span>
+</code></pre></div><p>So above you can see the decorator implementation on class object. Class Cache is initialized with func argument and cache. Private variable cache stored the output of func. And you can see the implementation of call method in <code>__call__</code> this is where our logic to modify original function happens. Finally you can see that the first call to decorated function <code>long_request</code> takes long time however subsequent operation happens instantaneously.</p>
+<p>If you don&rsquo;t believe that second call returns at no time and you want proof then we can create one more bonus decorator <code>time_it</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> time
+<span style="color:#f92672">import</span> functools
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Cache</span>:
+  <span style="color:#66d9ef">def</span> __init__(self, func):
+    functools<span style="color:#f92672">.</span>update_wrapper(self, func)
+    self<span style="color:#f92672">.</span>func <span style="color:#f92672">=</span> func
+    self<span style="color:#f92672">.</span>_cache <span style="color:#f92672">=</span> {}
+    
+  <span style="color:#66d9ef">def</span> __call__(self,host):
+    <span style="color:#66d9ef">if</span> host <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>_cache:
+      self<span style="color:#f92672">.</span>_cache[host] <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>func(host)
+    <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>_cache[host]
+  
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">time_it</span>(func):
+  <span style="color:#a6e22e">@functools</span><span style="color:#f92672">.</span>wraps(func)
+  <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">wrapper</span>(<span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs):
+    start <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>time()
+    <span style="color:#66d9ef">try</span>:
+      <span style="color:#66d9ef">return</span> func(<span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs)
+    <span style="color:#66d9ef">finally</span>:
+      end_ <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>time() <span style="color:#f92672">-</span> start
+      print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Total execution time of function </span><span style="color:#e6db74">{</span>func<span style="color:#f92672">.</span>__name__<span style="color:#e6db74">}</span><span style="color:#e6db74">: </span><span style="color:#e6db74">{</span>round(end_,<span style="color:#ae81ff">2</span>)<span style="color:#e6db74">}</span><span style="color:#e6db74"> s&#34;</span>)
+  <span style="color:#66d9ef">return</span> wrapper
+
+<span style="color:#a6e22e">@time_it</span>  
+<span style="color:#a6e22e">@Cache</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">long_request</span>(host):
+  print(<span style="color:#e6db74">&#34;processing request&#34;</span>)
+  time<span style="color:#f92672">.</span>sleep(<span style="color:#ae81ff">10</span>)
+  print(<span style="color:#e6db74">&#34;finished processing request&#34;</span>)
+  <span style="color:#66d9ef">return</span>(<span style="color:#e6db74">&#34;final value&#34;</span>)
+
+<span style="color:#75715e"># fist try</span>
+long_request(<span style="color:#e6db74">&#34;googl.com&#34;</span>)  
+</code></pre></div><pre><code><div class="code_output">Output</div>
+processing request
+finished processing request
+Total execution time long_request: 10.01 s
+'final value'
+</code></pre><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># second try </span>
+long_request(<span style="color:#e6db74">&#34;googl.com&#34;</span>)  
+</code></pre></div><pre><code><div class="code_output">Output</div>
+Total execution time long_request: 0.0 s
+'final value'
+</code></pre><p>So now you can see another decorator <code>time_it</code> stacked on top of the <code>long_function</code> which keeps track of the time took to process the decorated function in this case <code>long_function</code>.</p>
+<hr>
+<p>So this concludes our brief tour of python decorator. From here on you can choose your own adventure and create you own decortor to solve your problem. Thank you for reaing this and hope that this gave you some insight into decorator 🤞.</p>
+
+  </div>
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://biranjan.github.io/tags/decorator/">decorator</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="next" href="https://biranjan.github.io/posts/about_generator/">
+    <span class="title">Next Page »</span>
+    <br>
+    <span>Using python generator to count word frequency in text file 🗒️</span>
+  </a>
+</nav>
+
+<div class="share-buttons">
+    <a target="_blank" rel="noopener noreferrer" aria-label="share Adventure with python decorator 🚣 on twitter"
+        href="https://twitter.com/intent/tweet/?text=Adventure%20with%20python%20decorator%20%f0%9f%9a%a3&amp;url=https%3a%2f%2fbiranjan.github.io%2fposts%2ftest2%2f&amp;hashtags=decorator">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-253.927,424.544c135.939,0 210.268,-112.643 210.268,-210.268c0,-3.218 0,-6.437 -0.153,-9.502c14.406,-10.421 26.973,-23.448 36.935,-38.314c-13.18,5.824 -27.433,9.809 -42.452,11.648c15.326,-9.196 26.973,-23.602 32.49,-40.92c-14.252,8.429 -30.038,14.56 -46.896,17.931c-13.487,-14.406 -32.644,-23.295 -53.946,-23.295c-40.767,0 -73.87,33.104 -73.87,73.87c0,5.824 0.613,11.494 1.992,16.858c-61.456,-3.065 -115.862,-32.49 -152.337,-77.241c-6.284,10.881 -9.962,23.601 -9.962,37.088c0,25.594 13.027,48.276 32.95,61.456c-12.107,-0.307 -23.448,-3.678 -33.41,-9.196l0,0.92c0,35.862 25.441,65.594 59.311,72.49c-6.13,1.686 -12.72,2.606 -19.464,2.606c-4.751,0 -9.348,-0.46 -13.946,-1.38c9.349,29.426 36.628,50.728 68.965,51.341c-25.287,19.771 -57.164,31.571 -91.8,31.571c-5.977,0 -11.801,-0.306 -17.625,-1.073c32.337,21.15 71.264,33.41 112.95,33.41Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share Adventure with python decorator 🚣 on linkedin"
+        href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fbiranjan.github.io%2fposts%2ftest2%2f&amp;title=Adventure%20with%20python%20decorator%20%f0%9f%9a%a3&amp;summary=Adventure%20with%20python%20decorator%20%f0%9f%9a%a3&amp;source=https%3a%2f%2fbiranjan.github.io%2fposts%2ftest2%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share Adventure with python decorator 🚣 on reddit"
+        href="https://reddit.com/submit?url=https%3a%2f%2fbiranjan.github.io%2fposts%2ftest2%2f&title=Adventure%20with%20python%20decorator%20%f0%9f%9a%a3">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share Adventure with python decorator 🚣 on facebook"
+        href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fbiranjan.github.io%2fposts%2ftest2%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share Adventure with python decorator 🚣 on whatsapp"
+        href="https://api.whatsapp.com/send?text=Adventure%20with%20python%20decorator%20%f0%9f%9a%a3%20-%20https%3a%2f%2fbiranjan.github.io%2fposts%2ftest2%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share Adventure with python decorator 🚣 on telegram"
+        href="https://telegram.me/share/url?text=Adventure%20with%20python%20decorator%20%f0%9f%9a%a3&amp;url=https%3a%2f%2fbiranjan.github.io%2fposts%2ftest2%2f">
+        <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28">
+            <path
+                d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
+        </svg>
+    </a>
+</div>
+
+  </footer>
+</article>
+    </main>
+    <footer class="footer">
+    <span>&copy; 2021 <a href="https://biranjan.github.io">Hello World!</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)">
+    <button class="top-link" id="top-link" type="button" accesskey="g">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+            <path d="M12 6H0l6-6z" />
+        </svg>
+    </button>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+    menu.onscroll = function () {
+        localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

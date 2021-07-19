@@ -1,10 +1,38 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Tags on My New Hugo Site</title>
-    <link>http://biranjan.github.io/tags/</link>
-    <description>Recent content in Tags on My New Hugo Site</description>
+    <title>Tags on Hello World!</title>
+    <link>https://biranjan.github.io/tags/</link>
+    <description>Recent content in Tags on Hello World!</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="http://biranjan.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language>
+    <lastBuildDate>Tue, 15 Sep 2020 11:30:03 +0000</lastBuildDate><atom:link href="https://biranjan.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>decorator</title>
+      <link>https://biranjan.github.io/tags/decorator/</link>
+      <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
+      
+      <guid>https://biranjan.github.io/tags/decorator/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>generator</title>
+      <link>https://biranjan.github.io/tags/generator/</link>
+      <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
+      
+      <guid>https://biranjan.github.io/tags/generator/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>map-reduce</title>
+      <link>https://biranjan.github.io/tags/map-reduce/</link>
+      <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
+      
+      <guid>https://biranjan.github.io/tags/map-reduce/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>

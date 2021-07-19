@@ -1,21 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Hello World!</title>
-    <link>https://biranjan.github.io/</link>
-    <description>Recent content on Hello World!</description>
+    <title>map-reduce on Hello World!</title>
+    <link>https://biranjan.github.io/tags/map-reduce/</link>
+    <description>Recent content in map-reduce on Hello World!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 15 Sep 2020 11:30:03 +0000</lastBuildDate><atom:link href="https://biranjan.github.io/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Adventure with python decorator 🚣</title>
-      <link>https://biranjan.github.io/posts/test2/</link>
-      <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
-      
-      <guid>https://biranjan.github.io/posts/test2/</guid>
-      <description>Dive into python decorator 🏊‍♀️</description>
-    </item>
-    
+    <lastBuildDate>Tue, 15 Sep 2020 11:30:03 +0000</lastBuildDate><atom:link href="https://biranjan.github.io/tags/map-reduce/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Using python generator to count word frequency in text file 🗒️</title>
       <link>https://biranjan.github.io/posts/about_generator/</link>

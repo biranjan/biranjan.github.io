@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Using python generator to count word frequency in text file 🗒️ | Hello World!</title>
+<meta name="keywords" content="generator, map-reduce" />
+<meta name="description" content="Using generator in map reduce way">
+<meta name="author" content="Me">
+<link rel="canonical" href="https://canonical.url/to/page" />
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.35cd0f65a15cafa92372b8313deef5960aae04b90ad722f2bbf509eb0468137e.css" integrity="sha256-Nc0PZaFcr6kjcrgxPe71lgquBLkK1yLyu/UJ6wRoE34=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js" integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5&#43;kdJvBz5iKbt6B5PJI="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://biranjan.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://biranjan.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://biranjan.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://biranjan.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://biranjan.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<meta name="generator" content="Hugo 0.85.0" />
+<meta property="og:title" content="Using python generator to count word frequency in text file 🗒️" />
+<meta property="og:description" content="Using generator in map reduce way" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://biranjan.github.io/posts/about_generator/" />
+<meta property="og:image" content="https://biranjan.github.io/%3Cimage%20path/url%3E" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-09-15T11:30:03&#43;00:00" />
+<meta property="article:modified_time" content="2020-09-15T11:30:03&#43;00:00" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://biranjan.github.io/%3Cimage%20path/url%3E" />
+<meta name="twitter:title" content="Using python generator to count word frequency in text file 🗒️"/>
+<meta name="twitter:description" content="Using generator in map reduce way"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Posts",
+      "item": "https://biranjan.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "Using python generator to count word frequency in text file 🗒️",
+      "item": "https://biranjan.github.io/posts/about_generator/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Using python generator to count word frequency in text file 🗒️",
+  "name": "Using python generator to count word frequency in text file 🗒️",
+  "description": "Using generator in map reduce way",
+  "keywords": [
+    "generator", "map-reduce"
+  ],
+  "articleBody": "In this post we will python generator to count the word frequency from a big text file and try use as little memory as possible.\nIn python generator function are function that uses keyword yield to return the result instead of standard return keyworod. Generator function retuwn generator object. They are similar object like lists but they are lazy, in otherwords it doesn’t produce the final object untill you iterate over it or use next over the object. Its lot easier to show it in code then to define it in words, here is an example below.\n# regulalr function def sequence(n): my_list = [] for i in range(n): my_list.append(i) return my_list val = sequence(2) print(val) [0, 1]  # generator function def sequence(n): for i in range(n): yield i val2 = sequence(2) print(val2)  As you can see function that uses yield keyword doesn’t return a generator object. This makes it lazy. In order to get the value we can simply loop over it.\ndef do_something_imp(val): print(val) for i in val2: do_something_imp(i) 0 1  But here is a slight caveat to generator obj if you want to call it twice let’s see what happens\n# first call  for i in val2: do_something_imp(i) # second call for i in val2: do_something_imp(i) 0 1  It only gets printed once. This brings us to the reason why we use generator. Its highly memory efficient it doesn’t store its value in memroy once you loop over it its done and its empty. Obviously if you need to use the generator object twice then you can turn it into the list like this [val for val in gen_obj] but then now you will have all the value in memory and you might not get full benefit out of your generator.\nTime for some action Now I have defined the obligatory definition and example of basic generator now its time to put in use and see how generator can be useful.\nIn this example we will read the text file and list the most used words in the text file. I will use with generator and withoug generator and we can see the pros and cons of each approach.\nThe text file that I am going to use is The Complete Works of William Shakespeare which can be found here.\nFirst I am going to count the occurance of each word and list the most used word in the text without using generator. Here we go.\nfrom collections import OrderedDict from urllib.request import urlopen def download_file(url): with urlopen(url) as response: file = response.read() return file def count_words(file): normalised_doc = [word.lower() if word.isalpha() else \"\" for word in file.decode(\"utf-8\").split()] frequencies = {} for word in normalised_doc: if word != \"\": frequencies[word] = frequencies.get(word,0)+1 sorted_dict = OrderedDict(sorted(frequencies.items(), key=lambda freq:freq[1], reverse=True)) return sorted_dict def main_func(): file = download_file(\"https://ocw.mit.edu/ans7870/6/6.006/s08/lecturenotes/files/t8.shakespeare.txt\") freq_dict = count_words(file) # get top 10 top_ten_items = list(freq_dict.items())[:10] print(top_ten_items) main_func() [('the', 27549), ('and', 26037), ('i', 19540), ('to', 18700), ('of', 18010), ('a', 14383), ('my', 12455), ('in', 10671), ('you', 10630), ('that', 10487)]  So we opened the file from url and loaded into the momory using function download_file then we converted the text file into a giant list callsed nomalised_doc inside the function count_words, there we then converted list into dictionary containing the key as word and value as the number of occurances in the file. Then we simply sorted the dictionary using the value so that highest frequency word are at the top of the dictionary. We used OrderedDict to make sure that dictionary sorted order retains its order every time we request a value from it.\nNow lets solve this using generator. But before I do that I need to explain that we can produce generator object to just from function but also from comprehension. Here is a quick example of it.\n# regular list comprehension a = [i for i in range(2)] print(a) # generator from comprehension b = (i for i in range(2)) print(b) [0, 1] at 0x7f0e96c18350  By simply wrapping the comprehensin expression inside the round bracker () we produce generator object.\nWith that explained we can see the generator way of doing this.\n# generator.py from collections import OrderedDict from urllib.request import urlopen from functools import reduce def gen_line(url): texts = urlopen(url) for line in texts: yield line def count_words(doc): normalised_doc = (word.lower() if word.isalpha() else \"\" for word in doc.decode(\"utf-8\").split()) frequencies = {} for word in normalised_doc: if word != \"\": frequencies[word] = frequencies.get(word,0) + 1 return frequencies def combine_counts(d1, d2): d = d1.copy() for word, count in d2.items(): d[word] = d.get(word,0) + count return d def main_func(): file = gen_line(\"https://ocw.mit.edu/ans7870/6/6.006/s08/lecturenotes/files/t8.shakespeare.txt\") counts = map(count_words, file) total_counts = reduce(combine_counts, counts) d = OrderedDict(sorted(total_counts.items(), key=lambda freq:freq[1], reverse=True)) top_ten_items = list(d.items())[:10] print(top_ten_items) main_func() [('the', 27549), ('and', 26037), ('i', 19540), ('to', 18700), ('of', 18010), ('a', 14383), ('my', 12455), ('in', 10671), ('you', 10630), ('that', 10487)]  So this implementaion is bit involved. Lets go line by line. The first function gen_line is similar to download file however instead of readin the whole file in memory gen_line yields each line. See below, function gen_line return generator and when you loop over it, it returns line in the order they appear in text. Withour storing anyting in memory.\nfile = gen_line(\"https://ocw.mit.edu/ans7870/6/6.006/s08/lecturenotes/files/t8.shakespeare.txt\") print(file) for line in file: print(line) break b'This is the 100th Etext file presented by Project Gutenberg, and\\n'  Function count_words reamins the same. However instead of directly using function count_word we instead use python builtin function map. Which applies the function count_word to the generator object returned by function gen_line, essentally each line generated by gen_line function goes through count_words and prduces list of dictionary which contains words and its frequency on that paricluar line. IF its not clear then lets see the output of map below. And by the way map also returns generator.\nfile = gen_line(\"https://ocw.mit.edu/ans7870/6/6.006/s08/lecturenotes/files/t8.shakespeare.txt\") counts = map(count_words, file) for i in counts: print(i) break {'this': 1, 'is': 1, 'the': 1, 'etext': 1, 'file': 1, 'presented': 1, 'by': 1, 'project': 1, 'and': 1}  so with the application of map over count_words to file object returns a dictionary of words and its frequency at that given line. And obvisoustly this is not what we want. Now finally we need to merge all the dictionary while summing the value that way we can count the words and its frequency throughout the text file not just in each line. So thats why we have function combine_counts which merges two dictionary by summing value if there is a common key. If you would like to know how reduct function work here is nice tutorial.\nHere we have delayed the calculation and loading any value up untill the point where we call reduce function. This helps us to keep it memory efficient. See the result of memory profile between these two approach.\nFilename: generator.py Line # Mem usage Increment Occurences Line Contents ============================================================ 27 39.0 MiB 39.0 MiB 1 @profile(stream = fp) 28 def main_func(): 29 39.0 MiB 0.0 MiB 1 file = gen_line(\"https://ocw.mit.edu/ans7870/6/6.006/s08/lecturenotes/files/t8.shakespeare.txt\") 30 39.0 MiB 0.0 MiB 1 counts = map(count_words, file) 31 49.7 MiB 10.8 MiB 1 total_counts = reduce(combine_counts, counts) 32 55.9 MiB 6.2 MiB 119017 d = OrderedDict(sorted(total_counts.items(), key=lambda freq:freq[1], reverse=True)) 33 56.2 MiB 0.2 MiB 1 top_ten_items = list(d.items())[:10] 34 56.2 MiB 0.0 MiB 1 print(top_ten_items) Filename: general_way.py Line # Mem usage Increment Occurences Line Contents ============================================================ 25 39.0 MiB 39.0 MiB 1 @profile 26 def main_func(): 27 46.5 MiB 7.5 MiB 1 file = download_file(\"https://ocw.mit.edu/ans7870/6/6.006/s08/lecturenotes/files/t8.shakespeare.txt\") 28 121.0 MiB 74.4 MiB 1 freq_dict = count_words(file) 29 # get top 10 30 121.0 MiB 0.0 MiB 1 top_ten_items = list(freq_dict.items())[:10] 31 121.0 MiB 0.0 MiB 1 print(top_ten_items) So here we can say that we save quite a lot of memory using generator. But if you have followed along then you must have noticed that my imlementation of generator way of producing word frequency was very time consuming compared to without generator. And the problem here is not with generator but my implementation of it. In particular the function combine_counts in a line where I am copying dictionary d = d1.copy(). Since we have thousands of dictioanries returned from map fucntion when we dictionary copy thousand of times this cost us on time. To solve this we have to modify our function a bit and slightly take a hit on our accuracy of counting. Here is the faster implementaiton.\ndef gen_line(url): texts = urlopen(url) while True: piece = texts.read(1024*10) if piece: yield piece else: return def count_words(doc): normalised_doc = (word.lower() if word.isalpha() else \"\" for word in doc.decode(\"utf-8\").split()) frequencies = {} for word in normalised_doc: if word != \"\": frequencies[word] = frequencies.get(word,0) + 1 return frequencies def combine_counts(d1, d2): d = d1.copy() for word, count in d2.items(): d[word] = d.get(word,0) + count return d def main_func(): file = gen_line(\"https://ocw.mit.edu/ans7870/6/6.006/s08/lecturenotes/files/t8.shakespeare.txt\") counts = map(count_words, file) # total_counts = {key: counts.get([key],0) + counts.get([key],0) for key in counts} total_counts = reduce(combine_counts, counts) d = OrderedDict(sorted(total_counts.items(), key=lambda freq:freq[1], reverse=True)) top_ten_items = list(d.items())[:10] print(top_ten_items) main_func() [('the', 27546), ('and', 26031), ('i', 19552), ('to', 18698), ('of', 18009), ('a', 14392), ('my', 12455), ('in', 10668), ('you', 10626), ('that', 10486)]  The bottlenect with my implementation of generator was that there was too many nested dictionary from map operation. And this was beacuse the text file has tens of thousand of lines. So I solved the problem by notyielding the line but chunk of 1034 bytes of text each time. Which results in less line which means less nested dictionay this speeds up the time and its now almost the same time compared with wihout genetator but we also save half the memeory. Since I am not taking each line this has slight effect on the number of count as when I yield 1024 bytes it can fetch incomplete words this result in slight undercounting of words.\ndef count_words(doc): normalised_doc = (word.lower() for word in doc.decode(\"utf-8\").split()) frequencies = {} for word in normalised_doc: if word != \"\": frequencies[word] = frequencies.get(word,0) + 1 return frequencies file = gen_line(\"https://ocw.mit.edu/ans7870/6/6.006/s08/lecturenotes/files/t8.shakespeare.txt\") counts = map(count_words, file) ",
+  "wordCount" : "1671",
+  "inLanguage": "en",
+  "image":"https://biranjan.github.io/%3Cimage%20path/url%3E","datePublished": "2020-09-15T11:30:03Z",
+  "dateModified": "2020-09-15T11:30:03Z",
+  "author":{
+    "@type": "Person",
+    "name": "Me"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://biranjan.github.io/posts/about_generator/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Hello World!",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://biranjan.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class=" dark" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    }
+
+</script>
+<noscript>
+    <style type="text/css">
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://biranjan.github.io" accesskey="h" title="Hello World! (Alt + H)">Hello World!</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </span>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://biranjan.github.io/categories/" title="categories">
+                    <span>categories</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://biranjan.github.io/tags/" title="tags">
+                    <span>tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://biranjan.github.io">Home</a>&nbsp;»&nbsp;<a href="https://biranjan.github.io/posts/">Posts</a></div>
+    <h1 class="post-title">
+      Using python generator to count word frequency in text file 🗒️
+    </h1>
+    <div class="post-description">
+      Using generator in map reduce way
+    </div>
+    <div class="post-meta">September 15, 2020&nbsp;·&nbsp;8 min&nbsp;·&nbsp;Me&nbsp;|&nbsp;<a href="https://github.com/%3cpath_to_repo%3e/content/posts/about_generator.md" rel="noopener noreferrer" target="_blank">Suggest Changes</a>
+</div>
+  </header> 
+  <div class="post-content"><p>In this post we will python generator to count the word frequency from a big text file and try use as little memory as possible.</p>
+<p>In python generator function are function that uses keyword <code>yield</code> to return the result instead of standard <code>return</code> keyworod. Generator function retuwn generator object. They are similar object like lists but they are lazy, in otherwords it doesn&rsquo;t produce the final object untill you iterate over it or use <code>next</code> over the object. Its lot easier to show it in code then to define it in words, here is an example below.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># regulalr function</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">sequence</span>(n):  
+  my_list <span style="color:#f92672">=</span> []
+  <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(n):
+    my_list<span style="color:#f92672">.</span>append(i)
+  <span style="color:#66d9ef">return</span> my_list
+ 
+  
+val <span style="color:#f92672">=</span> sequence(<span style="color:#ae81ff">2</span>)
+print(val)
+</code></pre></div><pre><code>[0, 1]
+</code></pre>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># generator function</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">sequence</span>(n):  
+  <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(n):
+    <span style="color:#66d9ef">yield</span> i
+    
+val2 <span style="color:#f92672">=</span> sequence(<span style="color:#ae81ff">2</span>)
+print(val2)
+
+  
+
+</code></pre></div><pre><code>&lt;generator object sequence at 0x7f1cbc43f5f0&gt;
+</code></pre>
+<p>As you can see function that uses <code>yield</code> keyword doesn&rsquo;t return a generator object. This makes it lazy. In order to get the value we can simply loop over it.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">do_something_imp</span>(val):
+  print(val)
+  
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> val2:
+  do_something_imp(i)
+</code></pre></div><pre><code>0
+1
+</code></pre>
+<p>But here is a slight caveat to generator obj if you want to call it twice let&rsquo;s see what happens</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+<span style="color:#75715e"># first call  </span>
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> val2:
+  do_something_imp(i)
+  
+<span style="color:#75715e"># second call</span>
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> val2:
+  do_something_imp(i)
+  
+
+</code></pre></div><pre><code>0
+1
+</code></pre>
+<p>It only gets printed once. This brings us to the reason why we use generator. Its highly memory efficient it doesn&rsquo;t store its value in memroy once you loop over it its done and its empty. Obviously if you need to use the generator object twice then you can turn it into the list like this <code>[val for val in gen_obj]</code> but then now you will have all the value in memory and you might not get full benefit out of your generator.</p>
+<h2 id="time--for-some-action">Time  for some action<a hidden class="anchor" aria-hidden="true" href="#time--for-some-action">#</a></h2>
+<p>Now I have defined the obligatory definition and example of basic generator now its time to put in use and see how generator can be useful.<br>
+In this example we will read the text file and list the most used words in the text file. I will use with generator and withoug generator and we can see the pros and cons of each approach.<br>
+The text file that I am going to use is <em>The Complete Works of William Shakespeare</em> which can be found <a href="https://ocw.mit.edu/ans7870/6/6.006/s08/lecturenotes/files/t8.shakespeare.txt">here</a>.<br>
+First I am going to count the occurance of each word and list the most used word in the text without using generator. Here we go.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> collections <span style="color:#f92672">import</span> OrderedDict
+<span style="color:#f92672">from</span> urllib.request <span style="color:#f92672">import</span> urlopen 
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">download_file</span>(url):
+  <span style="color:#66d9ef">with</span> urlopen(url) <span style="color:#66d9ef">as</span> response:
+    file <span style="color:#f92672">=</span> response<span style="color:#f92672">.</span>read()
+  <span style="color:#66d9ef">return</span> file
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">count_words</span>(file):
+  normalised_doc <span style="color:#f92672">=</span> [word<span style="color:#f92672">.</span>lower() <span style="color:#66d9ef">if</span> word<span style="color:#f92672">.</span>isalpha() <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#34;&#34;</span> <span style="color:#66d9ef">for</span> word <span style="color:#f92672">in</span> file<span style="color:#f92672">.</span>decode(<span style="color:#e6db74">&#34;utf-8&#34;</span>)<span style="color:#f92672">.</span>split()]
+  frequencies <span style="color:#f92672">=</span> {}
+  <span style="color:#66d9ef">for</span> word <span style="color:#f92672">in</span> normalised_doc:
+    <span style="color:#66d9ef">if</span> word <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#34;&#34;</span>:
+      frequencies[word] <span style="color:#f92672">=</span> frequencies<span style="color:#f92672">.</span>get(word,<span style="color:#ae81ff">0</span>)<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>
+  sorted_dict <span style="color:#f92672">=</span> OrderedDict(sorted(frequencies<span style="color:#f92672">.</span>items(), key<span style="color:#f92672">=</span><span style="color:#66d9ef">lambda</span> freq:freq[<span style="color:#ae81ff">1</span>], reverse<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>))  
+  <span style="color:#66d9ef">return</span> sorted_dict
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main_func</span>():
+    file <span style="color:#f92672">=</span> download_file(<span style="color:#e6db74">&#34;https://ocw.mit.edu/ans7870/6/6.006/s08/lecturenotes/files/t8.shakespeare.txt&#34;</span>)
+    freq_dict <span style="color:#f92672">=</span> count_words(file)
+    <span style="color:#75715e"># get top 10</span>
+    top_ten_items <span style="color:#f92672">=</span> list(freq_dict<span style="color:#f92672">.</span>items())[:<span style="color:#ae81ff">10</span>]
+    print(top_ten_items)
+
+main_func()
+</code></pre></div><pre><code>[('the', 27549), ('and', 26037), ('i', 19540), ('to', 18700), ('of', 18010), ('a', 14383), ('my', 12455), ('in', 10671), ('you', 10630), ('that', 10487)]
+</code></pre>
+<p>So we opened the file from url and loaded into the momory using function <code>download_file</code> then we converted the text file into a giant list callsed <code>nomalised_doc</code> inside the function <code>count_words</code>, there we then converted list into dictionary containing the key as word and value as the number of occurances in the file. Then we simply sorted the dictionary using the value so that highest frequency word are at the top of the dictionary. We used <code>OrderedDict</code> to make sure that dictionary sorted order retains its order every time we request a value from it.<br>
+Now lets solve this using generator. But before I do that I need to explain that we can produce generator object to just from function but also from comprehension. Here is a quick example of it.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># regular list comprehension</span>
+a <span style="color:#f92672">=</span> [i <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">2</span>)]
+print(a)
+<span style="color:#75715e"># generator from comprehension</span>
+b <span style="color:#f92672">=</span> (i <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">2</span>))
+print(b)
+</code></pre></div><pre><code>[0, 1]
+&lt;generator object &lt;genexpr&gt; at 0x7f0e96c18350&gt;
+</code></pre>
+<p>By simply wrapping the comprehensin expression inside the round bracker <code>()</code> we produce generator object.<br>
+With that explained we can see the generator way of doing this.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># generator.py</span>
+<span style="color:#f92672">from</span> collections <span style="color:#f92672">import</span> OrderedDict
+<span style="color:#f92672">from</span> urllib.request <span style="color:#f92672">import</span> urlopen 
+<span style="color:#f92672">from</span> functools <span style="color:#f92672">import</span> reduce
+
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">gen_line</span>(url):
+   texts <span style="color:#f92672">=</span> urlopen(url)
+   <span style="color:#66d9ef">for</span> line <span style="color:#f92672">in</span> texts:
+     <span style="color:#66d9ef">yield</span> line
+    
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">count_words</span>(doc):
+  normalised_doc <span style="color:#f92672">=</span> (word<span style="color:#f92672">.</span>lower() <span style="color:#66d9ef">if</span> word<span style="color:#f92672">.</span>isalpha() <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#34;&#34;</span> <span style="color:#66d9ef">for</span> word <span style="color:#f92672">in</span> doc<span style="color:#f92672">.</span>decode(<span style="color:#e6db74">&#34;utf-8&#34;</span>)<span style="color:#f92672">.</span>split())
+  frequencies <span style="color:#f92672">=</span> {}
+  <span style="color:#66d9ef">for</span> word <span style="color:#f92672">in</span> normalised_doc:
+    <span style="color:#66d9ef">if</span> word <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#34;&#34;</span>:
+      frequencies[word] <span style="color:#f92672">=</span> frequencies<span style="color:#f92672">.</span>get(word,<span style="color:#ae81ff">0</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+  <span style="color:#66d9ef">return</span> frequencies
+
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">combine_counts</span>(d1, d2):
+  d <span style="color:#f92672">=</span> d1<span style="color:#f92672">.</span>copy()
+  <span style="color:#66d9ef">for</span> word, count <span style="color:#f92672">in</span> d2<span style="color:#f92672">.</span>items():
+    d[word] <span style="color:#f92672">=</span> d<span style="color:#f92672">.</span>get(word,<span style="color:#ae81ff">0</span>) <span style="color:#f92672">+</span> count
+  <span style="color:#66d9ef">return</span> d  
+
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main_func</span>():
+    file <span style="color:#f92672">=</span> gen_line(<span style="color:#e6db74">&#34;https://ocw.mit.edu/ans7870/6/6.006/s08/lecturenotes/files/t8.shakespeare.txt&#34;</span>)
+    counts <span style="color:#f92672">=</span> map(count_words, file)
+    total_counts <span style="color:#f92672">=</span> reduce(combine_counts, counts)
+    d <span style="color:#f92672">=</span> OrderedDict(sorted(total_counts<span style="color:#f92672">.</span>items(), key<span style="color:#f92672">=</span><span style="color:#66d9ef">lambda</span> freq:freq[<span style="color:#ae81ff">1</span>], reverse<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>))  
+    top_ten_items <span style="color:#f92672">=</span> list(d<span style="color:#f92672">.</span>items())[:<span style="color:#ae81ff">10</span>]
+    print(top_ten_items)
+    
+main_func()
+</code></pre></div><pre><code>[('the', 27549), ('and', 26037), ('i', 19540), ('to', 18700), ('of', 18010), ('a', 14383), ('my', 12455), ('in', 10671), ('you', 10630), ('that', 10487)]
+</code></pre>
+<p>So this implementaion is bit involved. Lets go line by line. The first function <code>gen_line</code> is similar to download file however instead of readin the whole file in memory <code>gen_line</code> yields each line. See below, function <code>gen_line</code> return generator and when you loop over it, it returns line in the order they appear in text. Withour storing anyting in memory.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">file <span style="color:#f92672">=</span> gen_line(<span style="color:#e6db74">&#34;https://ocw.mit.edu/ans7870/6/6.006/s08/lecturenotes/files/t8.shakespeare.txt&#34;</span>)
+print(file)
+<span style="color:#66d9ef">for</span> line <span style="color:#f92672">in</span> file:
+  print(line)
+  <span style="color:#66d9ef">break</span>
+</code></pre></div><pre><code>&lt;generator object gen_line at 0x7f0e97533b30&gt;
+b'This is the 100th Etext file presented by Project Gutenberg, and\n'
+</code></pre>
+<p>Function <code>count_words</code> reamins the same. However instead of directly using function <code>count_word</code> we instead use python builtin function <code>map</code>. Which applies the function <code>count_word</code> to the generator object returned by function <code>gen_line</code>, essentally each line generated by <code>gen_line</code> function goes through <code>count_words</code> and prduces list of dictionary which contains words and its frequency on that paricluar line. IF its not clear then lets see the output of map below. And by the way map also returns generator.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">file <span style="color:#f92672">=</span> gen_line(<span style="color:#e6db74">&#34;https://ocw.mit.edu/ans7870/6/6.006/s08/lecturenotes/files/t8.shakespeare.txt&#34;</span>)
+counts <span style="color:#f92672">=</span> map(count_words, file)
+
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> counts:
+  print(i)
+  <span style="color:#66d9ef">break</span>
+
+</code></pre></div><pre><code>{'this': 1, 'is': 1, 'the': 1, 'etext': 1, 'file': 1, 'presented': 1, 'by': 1, 'project': 1, 'and': 1}
+</code></pre>
+<p>so with the application of map over count_words to file object returns a dictionary of words and its frequency at that given line. And obvisoustly this is not what we want. Now finally we need to merge all the dictionary while summing the value that way we can count the words and its frequency throughout the text file not just in each line. So thats why we have function <code>combine_counts</code> which merges two dictionary by summing value if there is a common key. If you would like to know how reduct function work here is nice <a href="https://realpython.com/python-reduce-function/">tutorial</a>.<br>
+Here we have delayed the calculation and loading any value up untill the point where we call <code>reduce</code> function. This helps us to keep it memory efficient. See the result of memory profile between these two approach.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">Filename: generator<span style="color:#f92672">.</span>py
+
+Line <span style="color:#75715e">#    Mem usage    Increment  Occurences   Line Contents</span>
+<span style="color:#f92672">============================================================</span>
+    <span style="color:#ae81ff">27</span>     <span style="color:#ae81ff">39.0</span> MiB     <span style="color:#ae81ff">39.0</span> MiB           <span style="color:#ae81ff">1</span>   <span style="color:#a6e22e">@profile</span>(stream <span style="color:#f92672">=</span> fp)
+    <span style="color:#ae81ff">28</span>                                         <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main_func</span>():
+    <span style="color:#ae81ff">29</span>     <span style="color:#ae81ff">39.0</span> MiB      <span style="color:#ae81ff">0.0</span> MiB           <span style="color:#ae81ff">1</span>       file <span style="color:#f92672">=</span> gen_line(<span style="color:#e6db74">&#34;https://ocw.mit.edu/ans7870/6/6.006/s08/lecturenotes/files/t8.shakespeare.txt&#34;</span>)
+    <span style="color:#ae81ff">30</span>     <span style="color:#ae81ff">39.0</span> MiB      <span style="color:#ae81ff">0.0</span> MiB           <span style="color:#ae81ff">1</span>       counts <span style="color:#f92672">=</span> map(count_words, file)
+    <span style="color:#ae81ff">31</span>     <span style="color:#ae81ff">49.7</span> MiB     <span style="color:#ae81ff">10.8</span> MiB           <span style="color:#ae81ff">1</span>       total_counts <span style="color:#f92672">=</span> reduce(combine_counts, counts)
+    <span style="color:#ae81ff">32</span>     <span style="color:#ae81ff">55.9</span> MiB      <span style="color:#ae81ff">6.2</span> MiB      <span style="color:#ae81ff">119017</span>       d <span style="color:#f92672">=</span> OrderedDict(sorted(total_counts<span style="color:#f92672">.</span>items(), key<span style="color:#f92672">=</span><span style="color:#66d9ef">lambda</span> freq:freq[<span style="color:#ae81ff">1</span>], reverse<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>))  
+    <span style="color:#ae81ff">33</span>     <span style="color:#ae81ff">56.2</span> MiB      <span style="color:#ae81ff">0.2</span> MiB           <span style="color:#ae81ff">1</span>       top_ten_items <span style="color:#f92672">=</span> list(d<span style="color:#f92672">.</span>items())[:<span style="color:#ae81ff">10</span>]
+    <span style="color:#ae81ff">34</span>     <span style="color:#ae81ff">56.2</span> MiB      <span style="color:#ae81ff">0.0</span> MiB           <span style="color:#ae81ff">1</span>       print(top_ten_items)  
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">Filename: general_way<span style="color:#f92672">.</span>py
+
+Line <span style="color:#75715e">#    Mem usage    Increment  Occurences   Line Contents</span>
+<span style="color:#f92672">============================================================</span>
+    <span style="color:#ae81ff">25</span>     <span style="color:#ae81ff">39.0</span> MiB     <span style="color:#ae81ff">39.0</span> MiB           <span style="color:#ae81ff">1</span>   <span style="color:#a6e22e">@profile</span>
+    <span style="color:#ae81ff">26</span>                                         <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main_func</span>():
+    <span style="color:#ae81ff">27</span>     <span style="color:#ae81ff">46.5</span> MiB      <span style="color:#ae81ff">7.5</span> MiB           <span style="color:#ae81ff">1</span>       file <span style="color:#f92672">=</span> download_file(<span style="color:#e6db74">&#34;https://ocw.mit.edu/ans7870/6/6.006/s08/lecturenotes/files/t8.shakespeare.txt&#34;</span>)
+    <span style="color:#ae81ff">28</span>    <span style="color:#ae81ff">121.0</span> MiB     <span style="color:#ae81ff">74.4</span> MiB           <span style="color:#ae81ff">1</span>       freq_dict <span style="color:#f92672">=</span> count_words(file)
+    <span style="color:#ae81ff">29</span>                                             <span style="color:#75715e"># get top 10</span>
+    <span style="color:#ae81ff">30</span>    <span style="color:#ae81ff">121.0</span> MiB      <span style="color:#ae81ff">0.0</span> MiB           <span style="color:#ae81ff">1</span>       top_ten_items <span style="color:#f92672">=</span> list(freq_dict<span style="color:#f92672">.</span>items())[:<span style="color:#ae81ff">10</span>]
+    <span style="color:#ae81ff">31</span>    <span style="color:#ae81ff">121.0</span> MiB      <span style="color:#ae81ff">0.0</span> MiB           <span style="color:#ae81ff">1</span>       print(top_ten_items)
+
+</code></pre></div><p>So here we can say that we save quite a lot of memory using generator. But if you have followed along then you must have noticed that my imlementation of generator way of producing word frequency was very time consuming compared to without generator. And the problem here is not with generator but my implementation of it. In particular the function <code>combine_counts</code> in a line where I am copying dictionary <code>d = d1.copy()</code>. Since we have thousands of dictioanries returned from map fucntion when we dictionary copy thousand of times this cost us on time. To solve this we have to modify our function a bit and slightly take a hit on our accuracy of counting. Here is the faster implementaiton.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">gen_line</span>(url):
+	texts <span style="color:#f92672">=</span> urlopen(url)
+	<span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
+		piece <span style="color:#f92672">=</span> texts<span style="color:#f92672">.</span>read(<span style="color:#ae81ff">1024</span><span style="color:#f92672">*</span><span style="color:#ae81ff">10</span>)
+		<span style="color:#66d9ef">if</span> piece:
+			<span style="color:#66d9ef">yield</span> piece
+		<span style="color:#66d9ef">else</span>:
+			<span style="color:#66d9ef">return</span>
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">count_words</span>(doc):
+  normalised_doc <span style="color:#f92672">=</span> (word<span style="color:#f92672">.</span>lower() <span style="color:#66d9ef">if</span> word<span style="color:#f92672">.</span>isalpha() <span style="color:#66d9ef">else</span> <span style="color:#e6db74">&#34;&#34;</span> <span style="color:#66d9ef">for</span> word <span style="color:#f92672">in</span> doc<span style="color:#f92672">.</span>decode(<span style="color:#e6db74">&#34;utf-8&#34;</span>)<span style="color:#f92672">.</span>split())
+  frequencies <span style="color:#f92672">=</span> {}
+  
+  <span style="color:#66d9ef">for</span> word <span style="color:#f92672">in</span> normalised_doc:
+    <span style="color:#66d9ef">if</span> word <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#34;&#34;</span>:
+      frequencies[word] <span style="color:#f92672">=</span> frequencies<span style="color:#f92672">.</span>get(word,<span style="color:#ae81ff">0</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+  <span style="color:#66d9ef">return</span> frequencies
+
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">combine_counts</span>(d1, d2):
+  d <span style="color:#f92672">=</span> d1<span style="color:#f92672">.</span>copy()
+  <span style="color:#66d9ef">for</span> word, count <span style="color:#f92672">in</span> d2<span style="color:#f92672">.</span>items():
+    d[word] <span style="color:#f92672">=</span> d<span style="color:#f92672">.</span>get(word,<span style="color:#ae81ff">0</span>) <span style="color:#f92672">+</span> count
+  <span style="color:#66d9ef">return</span> d  
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main_func</span>():
+    file <span style="color:#f92672">=</span> gen_line(<span style="color:#e6db74">&#34;https://ocw.mit.edu/ans7870/6/6.006/s08/lecturenotes/files/t8.shakespeare.txt&#34;</span>)
+    counts <span style="color:#f92672">=</span> map(count_words, file)
+    <span style="color:#75715e"># total_counts = {key: counts.get([key],0) + counts.get([key],0) for key in counts}</span>
+    total_counts <span style="color:#f92672">=</span> reduce(combine_counts, counts)
+    d <span style="color:#f92672">=</span> OrderedDict(sorted(total_counts<span style="color:#f92672">.</span>items(), key<span style="color:#f92672">=</span><span style="color:#66d9ef">lambda</span> freq:freq[<span style="color:#ae81ff">1</span>], reverse<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>))  
+    top_ten_items <span style="color:#f92672">=</span> list(d<span style="color:#f92672">.</span>items())[:<span style="color:#ae81ff">10</span>]
+    print(top_ten_items)
+    
+main_func()
+   
+</code></pre></div><pre><code>[('the', 27546), ('and', 26031), ('i', 19552), ('to', 18698), ('of', 18009), ('a', 14392), ('my', 12455), ('in', 10668), ('you', 10626), ('that', 10486)]
+</code></pre>
+<p>The bottlenect with my implementation of generator was that there was too many nested dictionary from map operation. And this was beacuse the text file has tens of thousand of lines. So I solved the problem by notyielding the line but chunk of 1034 bytes of text each time. Which results in less line which means less nested dictionay this speeds up the time and its now almost the same time compared with wihout genetator but we also save half the memeory. Since I am not taking each line this has slight effect on the number of count as when I yield 1024 bytes it can fetch incomplete words this result in slight undercounting of words.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"> <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">count_words</span>(doc):
+  normalised_doc <span style="color:#f92672">=</span> (word<span style="color:#f92672">.</span>lower() <span style="color:#66d9ef">for</span> word <span style="color:#f92672">in</span> doc<span style="color:#f92672">.</span>decode(<span style="color:#e6db74">&#34;utf-8&#34;</span>)<span style="color:#f92672">.</span>split())
+  frequencies <span style="color:#f92672">=</span> {}
+  
+  <span style="color:#66d9ef">for</span> word <span style="color:#f92672">in</span> normalised_doc:
+    <span style="color:#66d9ef">if</span> word <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#34;&#34;</span>:
+      frequencies[word] <span style="color:#f92672">=</span> frequencies<span style="color:#f92672">.</span>get(word,<span style="color:#ae81ff">0</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+  <span style="color:#66d9ef">return</span> frequencies
+
+ file <span style="color:#f92672">=</span> gen_line(<span style="color:#e6db74">&#34;https://ocw.mit.edu/ans7870/6/6.006/s08/lecturenotes/files/t8.shakespeare.txt&#34;</span>)
+ counts <span style="color:#f92672">=</span> map(count_words, file)
+</code></pre></div>
+
+  </div>
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://biranjan.github.io/tags/generator/">generator</a></li>
+      <li><a href="https://biranjan.github.io/tags/map-reduce/">map-reduce</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://biranjan.github.io/posts/test2/">
+    <span class="title">« Prev Page</span>
+    <br>
+    <span>Adventure with python decorator 🚣</span>
+  </a>
+</nav>
+
+<div class="share-buttons">
+    <a target="_blank" rel="noopener noreferrer" aria-label="share Using python generator to count word frequency in text file 🗒️ on twitter"
+        href="https://twitter.com/intent/tweet/?text=Using%20python%20generator%20to%20count%20word%20frequency%20in%20text%20file%20%f0%9f%97%92%ef%b8%8f&amp;url=https%3a%2f%2fbiranjan.github.io%2fposts%2fabout_generator%2f&amp;hashtags=generator%2cmap-reduce">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-253.927,424.544c135.939,0 210.268,-112.643 210.268,-210.268c0,-3.218 0,-6.437 -0.153,-9.502c14.406,-10.421 26.973,-23.448 36.935,-38.314c-13.18,5.824 -27.433,9.809 -42.452,11.648c15.326,-9.196 26.973,-23.602 32.49,-40.92c-14.252,8.429 -30.038,14.56 -46.896,17.931c-13.487,-14.406 -32.644,-23.295 -53.946,-23.295c-40.767,0 -73.87,33.104 -73.87,73.87c0,5.824 0.613,11.494 1.992,16.858c-61.456,-3.065 -115.862,-32.49 -152.337,-77.241c-6.284,10.881 -9.962,23.601 -9.962,37.088c0,25.594 13.027,48.276 32.95,61.456c-12.107,-0.307 -23.448,-3.678 -33.41,-9.196l0,0.92c0,35.862 25.441,65.594 59.311,72.49c-6.13,1.686 -12.72,2.606 -19.464,2.606c-4.751,0 -9.348,-0.46 -13.946,-1.38c9.349,29.426 36.628,50.728 68.965,51.341c-25.287,19.771 -57.164,31.571 -91.8,31.571c-5.977,0 -11.801,-0.306 -17.625,-1.073c32.337,21.15 71.264,33.41 112.95,33.41Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share Using python generator to count word frequency in text file 🗒️ on linkedin"
+        href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fbiranjan.github.io%2fposts%2fabout_generator%2f&amp;title=Using%20python%20generator%20to%20count%20word%20frequency%20in%20text%20file%20%f0%9f%97%92%ef%b8%8f&amp;summary=Using%20python%20generator%20to%20count%20word%20frequency%20in%20text%20file%20%f0%9f%97%92%ef%b8%8f&amp;source=https%3a%2f%2fbiranjan.github.io%2fposts%2fabout_generator%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share Using python generator to count word frequency in text file 🗒️ on reddit"
+        href="https://reddit.com/submit?url=https%3a%2f%2fbiranjan.github.io%2fposts%2fabout_generator%2f&title=Using%20python%20generator%20to%20count%20word%20frequency%20in%20text%20file%20%f0%9f%97%92%ef%b8%8f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share Using python generator to count word frequency in text file 🗒️ on facebook"
+        href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fbiranjan.github.io%2fposts%2fabout_generator%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share Using python generator to count word frequency in text file 🗒️ on whatsapp"
+        href="https://api.whatsapp.com/send?text=Using%20python%20generator%20to%20count%20word%20frequency%20in%20text%20file%20%f0%9f%97%92%ef%b8%8f%20-%20https%3a%2f%2fbiranjan.github.io%2fposts%2fabout_generator%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share Using python generator to count word frequency in text file 🗒️ on telegram"
+        href="https://telegram.me/share/url?text=Using%20python%20generator%20to%20count%20word%20frequency%20in%20text%20file%20%f0%9f%97%92%ef%b8%8f&amp;url=https%3a%2f%2fbiranjan.github.io%2fposts%2fabout_generator%2f">
+        <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28">
+            <path
+                d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
+        </svg>
+    </a>
+</div>
+
+  </footer>
+</article>
+    </main>
+    <footer class="footer">
+    <span>&copy; 2021 <a href="https://biranjan.github.io">Hello World!</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)">
+    <button class="top-link" id="top-link" type="button" accesskey="g">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+            <path d="M12 6H0l6-6z" />
+        </svg>
+    </button>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+    menu.onscroll = function () {
+        localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>
