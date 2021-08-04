@@ -1,6 +1,6 @@
 ---
 title: "Using python generator to count word frequency in text file 🗒️"
-date: 2020-09-15T11:30:03+00:00
+date: 2020-07-15T11:30:03+00:00
 # weight: 1
 # aliases: ["/first"]
 tags: ["generator", "map-reduce"]

@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Introspection in python 🕵🏽 | Hello World!</title>
+<meta name="keywords" content="introspection" />
+<meta name="description" content="Introspection in python">
+<meta name="author" content="Me">
+<link rel="canonical" href="https://canonical.url/to/page" />
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.35cd0f65a15cafa92372b8313deef5960aae04b90ad722f2bbf509eb0468137e.css" integrity="sha256-Nc0PZaFcr6kjcrgxPe71lgquBLkK1yLyu/UJ6wRoE34=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js" integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5&#43;kdJvBz5iKbt6B5PJI="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://biranjan.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://biranjan.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://biranjan.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://biranjan.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://biranjan.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<meta name="generator" content="Hugo 0.85.0" />
+<meta property="og:title" content="Introspection in python 🕵🏽" />
+<meta property="og:description" content="Introspection in python" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://biranjan.github.io/posts/python_introspection/" />
+<meta property="og:image" content="https://biranjan.github.io/%3Cimage%20path/url%3E" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-08-05T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2020-08-05T00:00:00&#43;00:00" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://biranjan.github.io/%3Cimage%20path/url%3E" />
+<meta name="twitter:title" content="Introspection in python 🕵🏽"/>
+<meta name="twitter:description" content="Introspection in python"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Posts",
+      "item": "https://biranjan.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "Introspection in python 🕵🏽",
+      "item": "https://biranjan.github.io/posts/python_introspection/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Introspection in python 🕵🏽",
+  "name": "Introspection in python 🕵🏽",
+  "description": "Introspection in python",
+  "keywords": [
+    "introspection"
+  ],
+  "articleBody": "Python introspection Type Introspecting type information.\nWe can use type function to check the type of python object. In the example below we assign 7 to variable val. And as we see type of val is class int. We can further check what is the type of int and surprise surprise it is of class type.\nval = 7 print(type(val)) print(type(int))  We can do a similar introspection with a class object. We can see that the instance of class a is of type a. Whereas the type of class is again type. Similarly, with my_func you can see that even a function is a class. And if we check the type of class function then it is of type type. So all the built-in objects in python are of type type.\nclass a: def __repr__(self): return \"apple\" b = a() print(b) print(type(b)) print(type(a)) def my_func(): return \"hello\" print(type(my_func)) print(type(type(my_func))) apple  Another handy function is isinstance() and issubclass(). And here is how we can use\nprint(isinstance(b,a)) print(issubclass(a, type)) True False  These two functions are self-explanatory. isinstance() just checks whether the first argument is an instance of the second argument. Whereas issubclass() checks whether the first argument is the subclass of the second argument. In the example above we can see that although the class object a is a type of type it is not the subclass of type.\nAttributes To introspect attribute of the python object, I find most useful is dir. This built-in function will list the attributes of python objects, like the example below. For variable val which is of type int, the dunder attributes allow the object to be called by the function. For instance __abs__ attribute makes the variable val callable by built-in function abs()\nval = 7 print(dir(val)) print(abs(val)) ['__abs__', '__add__', '__and__', '__bool__', '__ceil__', '__class__', '__delattr__', '__dir__', '__divmod__', '__doc__', '__eq__', '__float__', '__floor__', '__floordiv__', '__format__', '__ge__', '__getattribute__', '__getnewargs__', '__gt__', '__hash__', '__index__', '__init__', '__init_subclass__', '__int__', '__invert__', '__le__', '__lshift__', '__lt__', '__mod__', '__mul__', '__ne__', '__neg__', '__new__', '__or__', '__pos__', '__pow__', '__radd__', '__rand__', '__rdivmod__', '__reduce__', '__reduce_ex__', '__repr__', '__rfloordiv__', '__rlshift__', '__rmod__', '__rmul__', '__ror__', '__round__', '__rpow__', '__rrshift__', '__rshift__', '__rsub__', '__rtruediv__', '__rxor__', '__setattr__', '__sizeof__', '__str__', '__sub__', '__subclasshook__', '__truediv__', '__trunc__', '__xor__', 'as_integer_ratio', 'bit_length', 'conjugate', 'denominator', 'from_bytes', 'imag', 'numerator', 'real', 'to_bytes'] 7  We can check whether the objects attributed are callable or not by first getting the attribute using function getattr() and then use the function callable() on the result. See the documentation of function to_bytes\nprint(callable(getattr(val, 'to_bytes'))) getattr(val, 'to_bytes') True  So we see attribute to_bytes is callable. And we can convert our variable to bytes.\nval.to_bytes(2,byteorder='big') b'\\x00\\x07'  Introspecting namespace We can introspect all the global variables available by simply using function gloabals()\nglobals() {'__name__': '__main__', '__builtin__': , '__builtins__': , '_ih': ['', 'globals()'], '_oh': {}, '_dh': ['/'], 'In': ['', 'globals()'], 'Out': {}, 'get_ipython': , 'exit': , 'quit': , '_': '', '__': '', '___': '', '_i': '', '_ii': '', '_iii': '', '_i1': 'globals()'}  These are the global variable available to me(might be differnt for you). Now if I define new variable it will be avaialble from globals too.\nnew_int = 2 globals().get('new_int') 2  Let’s inspect Another python library useful for introspect is inspect.\nimport inspect def addition(a:int, b:int) - int: \"\"\"Adds two integers\"\"\" c = a + b return c inspect.isfunction(addition) True  inspect.signature(addition) int  inspect.getdoc(addition) 'Adds two integers'  Inspect has lots of interseting usecases see the doc for more\nFinal words I have shown some of the ways you can introspect objects in python. In most day-to-day use you might never have to check types and instances and it is not recommended either. With the principle of it’s easier to ask forgiveness than permission raising exception is better than checking types and attributes. However, this might be useful for debugging or in general better understanding of how python works.\n",
+  "wordCount" : "659",
+  "inLanguage": "en",
+  "image":"https://biranjan.github.io/%3Cimage%20path/url%3E","datePublished": "2020-08-05T00:00:00Z",
+  "dateModified": "2020-08-05T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Me"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://biranjan.github.io/posts/python_introspection/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Hello World!",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://biranjan.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class=" dark" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    }
+
+</script>
+<noscript>
+    <style type="text/css">
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://biranjan.github.io" accesskey="h" title="Hello World! (Alt + H)">Hello World!</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </span>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://biranjan.github.io/categories/" title="categories">
+                    <span>categories</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://biranjan.github.io/tags/" title="tags">
+                    <span>tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://biranjan.github.io">Home</a>&nbsp;»&nbsp;<a href="https://biranjan.github.io/posts/">Posts</a></div>
+    <h1 class="post-title">
+      Introspection in python 🕵🏽
+    </h1>
+    <div class="post-description">
+      Introspection in python
+    </div>
+    <div class="post-meta">August 5, 2020&nbsp;·&nbsp;4 min&nbsp;·&nbsp;Me&nbsp;|&nbsp;<a href="https://github.com/%3cpath_to_repo%3e/content/posts/python_introspection.md" rel="noopener noreferrer" target="_blank">Suggest Changes</a>
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <div class="details">Table of Contents</div>
+        </summary>
+        <div class="inner"><ul>
+                <li>
+                    <a href="#python-introspection" aria-label="Python introspection">Python introspection</a><ul>
+                        
+                <li>
+                    <a href="#type" aria-label="Type">Type</a></li></ul>
+                </li>
+                <li>
+                    <a href="#attributes" aria-label="Attributes">Attributes</a></li>
+                <li>
+                    <a href="#introspecting-namespace" aria-label="Introspecting namespace">Introspecting namespace</a></li>
+                <li>
+                    <a href="#lets-inspect" aria-label="Let&amp;rsquo;s inspect">Let&rsquo;s inspect</a></li>
+                <li>
+                    <a href="#final-words" aria-label="Final words">Final words</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h2 id="python-introspection">Python introspection<a hidden class="anchor" aria-hidden="true" href="#python-introspection">#</a></h2>
+<h3 id="type">Type<a hidden class="anchor" aria-hidden="true" href="#type">#</a></h3>
+<p>Introspecting type information.</p>
+<p>We can use type function to check the type of python object. In the example below we assign 7 to variable val. And as we see type of val is class int. We can further check what is the type of int and surprise surprise it is of class type.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">val <span style="color:#f92672">=</span> <span style="color:#ae81ff">7</span>
+print(type(val))
+print(type(int))
+
+</code></pre></div><pre><code>&lt;class 'int'&gt;
+&lt;class 'type'&gt;
+</code></pre>
+<p>We can do a similar introspection with a class object. We can see that the instance of class a is of type a. Whereas the type of class is again <code>type</code>. Similarly, with my_func you can see that even a function is a class. And if we check the type of class function then it is of type <code>type</code>. So all the built-in objects in python are of type <code>type</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">a</span>:
+    <span style="color:#66d9ef">def</span> __repr__(self):
+        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;apple&#34;</span>
+b <span style="color:#f92672">=</span> a()
+print(b)
+print(type(b))
+print(type(a))
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">my_func</span>():
+    <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;hello&#34;</span>
+
+print(type(my_func))
+print(type(type(my_func)))
+
+</code></pre></div><pre><code>apple
+&lt;class '__main__.a'&gt;
+&lt;class 'type'&gt;
+&lt;class 'function'&gt;
+&lt;class 'type'&gt;
+</code></pre>
+<p>Another handy function is <code>isinstance()</code> and <code>issubclass()</code>. And here is how we can use</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">print(isinstance(b,a))
+print(issubclass(a, type))
+</code></pre></div><pre><code>True
+False
+</code></pre>
+<p>These two functions are self-explanatory. <code>isinstance()</code> just checks whether the first argument is an instance of the second argument. Whereas <code>issubclass()</code> checks whether the first argument is the subclass of the second argument. In the example above we can see that although the class object <code>a</code> is a type of <code>type</code> it is not the subclass of <code>type</code>.</p>
+<h2 id="attributes">Attributes<a hidden class="anchor" aria-hidden="true" href="#attributes">#</a></h2>
+<p>To introspect attribute of the python object, I find most useful is <code>dir</code>. This built-in function will list the attributes of python objects, like the example below. For variable <code>val</code> which is of type <code>int</code>, the dunder attributes allow the object to be called by the function. For instance <code>__abs__</code> attribute makes the variable <code>val</code> callable by built-in function <code>abs()</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">val <span style="color:#f92672">=</span> <span style="color:#ae81ff">7</span>
+print(dir(val))
+print(abs(val))
+</code></pre></div><pre><code>['__abs__', '__add__', '__and__', '__bool__', '__ceil__', '__class__', '__delattr__', '__dir__', '__divmod__', '__doc__', '__eq__', '__float__', '__floor__', '__floordiv__', '__format__', '__ge__', '__getattribute__', '__getnewargs__', '__gt__', '__hash__', '__index__', '__init__', '__init_subclass__', '__int__', '__invert__', '__le__', '__lshift__', '__lt__', '__mod__', '__mul__', '__ne__', '__neg__', '__new__', '__or__', '__pos__', '__pow__', '__radd__', '__rand__', '__rdivmod__', '__reduce__', '__reduce_ex__', '__repr__', '__rfloordiv__', '__rlshift__', '__rmod__', '__rmul__', '__ror__', '__round__', '__rpow__', '__rrshift__', '__rshift__', '__rsub__', '__rtruediv__', '__rxor__', '__setattr__', '__sizeof__', '__str__', '__sub__', '__subclasshook__', '__truediv__', '__trunc__', '__xor__', 'as_integer_ratio', 'bit_length', 'conjugate', 'denominator', 'from_bytes', 'imag', 'numerator', 'real', 'to_bytes']
+7
+</code></pre>
+<p>We can check whether the objects attributed are callable or not by first getting the attribute using function <code>getattr()</code> and then use the function <code>callable()</code> on the result. See the documentation of function <a href="https://docs.python.org/3/library/stdtypes.html"><code>to_bytes</code></a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">print(callable(getattr(val, <span style="color:#e6db74">&#39;to_bytes&#39;</span>)))
+getattr(val, <span style="color:#e6db74">&#39;to_bytes&#39;</span>)
+
+</code></pre></div><pre><code>True
+
+
+
+
+
+&lt;function int.to_bytes(length, byteorder, *, signed=False)&gt;
+</code></pre>
+<p>So we see attribute <code>to_bytes</code> is callable. And we can convert our variable to bytes.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">val<span style="color:#f92672">.</span>to_bytes(<span style="color:#ae81ff">2</span>,byteorder<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;big&#39;</span>)
+</code></pre></div><pre><code>b'\x00\x07'
+</code></pre>
+<h2 id="introspecting-namespace">Introspecting namespace<a hidden class="anchor" aria-hidden="true" href="#introspecting-namespace">#</a></h2>
+<p>We can introspect all the global variables available by simply using function <code>gloabals()</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">globals()
+</code></pre></div><pre><code>{'__name__': '__main__',
+ '__builtin__': &lt;module 'builtins' (built-in)&gt;,
+ '__builtins__': &lt;module 'builtins' (built-in)&gt;,
+ '_ih': ['', 'globals()'],
+ '_oh': {},
+ '_dh': ['/'],
+ 'In': ['', 'globals()'],
+ 'Out': {},
+ 'get_ipython': &lt;bound method InteractiveShell.get_ipython of &lt;pyolite.interpreter.Interpreter object at 0x2453298&gt;&gt;,
+ 'exit': &lt;IPython.core.autocall.ExitAutocall at 0x2fe7698&gt;,
+ 'quit': &lt;IPython.core.autocall.ExitAutocall at 0x2fe7698&gt;,
+ '_': '',
+ '__': '',
+ '___': '',
+ '_i': '',
+ '_ii': '',
+ '_iii': '',
+ '_i1': 'globals()'}
+</code></pre>
+<p>These are the global variable available to me(might be differnt for you). Now if I define new variable it will be avaialble from globals too.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">new_int <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
+globals()<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;new_int&#39;</span>)
+</code></pre></div><pre><code>2
+</code></pre>
+<h2 id="lets-inspect">Let&rsquo;s inspect<a hidden class="anchor" aria-hidden="true" href="#lets-inspect">#</a></h2>
+<p>Another python library useful for introspect is <code>inspect</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> inspect
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">addition</span>(a:int, b:int) <span style="color:#f92672">-&gt;</span> int:
+    <span style="color:#e6db74">&#34;&#34;&#34;Adds two integers&#34;&#34;&#34;</span>
+    c <span style="color:#f92672">=</span> a <span style="color:#f92672">+</span> b
+    <span style="color:#66d9ef">return</span> c
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">inspect<span style="color:#f92672">.</span>isfunction(addition)
+</code></pre></div><pre><code>True
+</code></pre>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">inspect<span style="color:#f92672">.</span>signature(addition)
+</code></pre></div><pre><code>&lt;Signature (a: int, b: int) -&gt; int&gt;
+</code></pre>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">inspect<span style="color:#f92672">.</span>getdoc(addition)
+</code></pre></div><pre><code>'Adds two integers'
+</code></pre>
+<p>Inspect has lots of interseting usecases see the <a href="https://docs.python.org/3/library/inspect.html">doc for more</a></p>
+<h2 id="final-words">Final words<a hidden class="anchor" aria-hidden="true" href="#final-words">#</a></h2>
+<p>I have shown some of the ways you can introspect objects in python. In most day-to-day use you might never have to check types and instances and it is not recommended either. With the principle of it&rsquo;s easier to ask forgiveness than permission raising exception is better than checking types and attributes. However, this might be useful for debugging or in general better understanding of how python works.</p>
+
+  </div>
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://biranjan.github.io/tags/introspection/">introspection</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://biranjan.github.io/posts/go_and_python/">
+    <span class="title">« Prev Page</span>
+    <br>
+    <span>Go &#43; Python = ❤️</span>
+  </a>
+  <a class="next" href="https://biranjan.github.io/posts/test2/">
+    <span class="title">Next Page »</span>
+    <br>
+    <span>Adventure with python decorator 🚣</span>
+  </a>
+</nav>
+
+<div class="share-buttons">
+    <a target="_blank" rel="noopener noreferrer" aria-label="share Introspection in python 🕵🏽 on twitter"
+        href="https://twitter.com/intent/tweet/?text=Introspection%20in%20python%20%f0%9f%95%b5%f0%9f%8f%bd&amp;url=https%3a%2f%2fbiranjan.github.io%2fposts%2fpython_introspection%2f&amp;hashtags=introspection">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-253.927,424.544c135.939,0 210.268,-112.643 210.268,-210.268c0,-3.218 0,-6.437 -0.153,-9.502c14.406,-10.421 26.973,-23.448 36.935,-38.314c-13.18,5.824 -27.433,9.809 -42.452,11.648c15.326,-9.196 26.973,-23.602 32.49,-40.92c-14.252,8.429 -30.038,14.56 -46.896,17.931c-13.487,-14.406 -32.644,-23.295 -53.946,-23.295c-40.767,0 -73.87,33.104 -73.87,73.87c0,5.824 0.613,11.494 1.992,16.858c-61.456,-3.065 -115.862,-32.49 -152.337,-77.241c-6.284,10.881 -9.962,23.601 -9.962,37.088c0,25.594 13.027,48.276 32.95,61.456c-12.107,-0.307 -23.448,-3.678 -33.41,-9.196l0,0.92c0,35.862 25.441,65.594 59.311,72.49c-6.13,1.686 -12.72,2.606 -19.464,2.606c-4.751,0 -9.348,-0.46 -13.946,-1.38c9.349,29.426 36.628,50.728 68.965,51.341c-25.287,19.771 -57.164,31.571 -91.8,31.571c-5.977,0 -11.801,-0.306 -17.625,-1.073c32.337,21.15 71.264,33.41 112.95,33.41Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share Introspection in python 🕵🏽 on linkedin"
+        href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fbiranjan.github.io%2fposts%2fpython_introspection%2f&amp;title=Introspection%20in%20python%20%f0%9f%95%b5%f0%9f%8f%bd&amp;summary=Introspection%20in%20python%20%f0%9f%95%b5%f0%9f%8f%bd&amp;source=https%3a%2f%2fbiranjan.github.io%2fposts%2fpython_introspection%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share Introspection in python 🕵🏽 on reddit"
+        href="https://reddit.com/submit?url=https%3a%2f%2fbiranjan.github.io%2fposts%2fpython_introspection%2f&title=Introspection%20in%20python%20%f0%9f%95%b5%f0%9f%8f%bd">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share Introspection in python 🕵🏽 on facebook"
+        href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fbiranjan.github.io%2fposts%2fpython_introspection%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share Introspection in python 🕵🏽 on whatsapp"
+        href="https://api.whatsapp.com/send?text=Introspection%20in%20python%20%f0%9f%95%b5%f0%9f%8f%bd%20-%20https%3a%2f%2fbiranjan.github.io%2fposts%2fpython_introspection%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share Introspection in python 🕵🏽 on telegram"
+        href="https://telegram.me/share/url?text=Introspection%20in%20python%20%f0%9f%95%b5%f0%9f%8f%bd&amp;url=https%3a%2f%2fbiranjan.github.io%2fposts%2fpython_introspection%2f">
+        <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28">
+            <path
+                d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
+        </svg>
+    </a>
+</div>
+
+  </footer>
+</article>
+    </main>
+    <footer class="footer">
+    <span>&copy; 2021 <a href="https://biranjan.github.io">Hello World!</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)">
+    <button class="top-link" id="top-link" type="button" accesskey="g">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+            <path d="M12 6H0l6-6z" />
+        </svg>
+    </button>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+    menu.onscroll = function () {
+        localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

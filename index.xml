@@ -8,15 +8,6 @@
     <language>en-us</language>
     <lastBuildDate>Tue, 15 Sep 2020 11:30:03 +0000</lastBuildDate><atom:link href="https://biranjan.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Adventure with python decorator 🚣</title>
-      <link>https://biranjan.github.io/posts/test2/</link>
-      <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
-      
-      <guid>https://biranjan.github.io/posts/test2/</guid>
-      <description>Dive into python decorator 🏊‍♀️</description>
-    </item>
-    
-    <item>
       <title>Go &#43; Python = ❤️</title>
       <link>https://biranjan.github.io/posts/go_and_python/</link>
       <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
@@ -26,9 +17,27 @@
     </item>
     
     <item>
+      <title>Introspection in python 🕵🏽</title>
+      <link>https://biranjan.github.io/posts/python_introspection/</link>
+      <pubDate>Wed, 05 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://biranjan.github.io/posts/python_introspection/</guid>
+      <description>Introspection in python</description>
+    </item>
+    
+    <item>
+      <title>Adventure with python decorator 🚣</title>
+      <link>https://biranjan.github.io/posts/test2/</link>
+      <pubDate>Thu, 16 Jul 2020 11:30:03 +0000</pubDate>
+      
+      <guid>https://biranjan.github.io/posts/test2/</guid>
+      <description>Dive into python decorator 🏊‍♀️</description>
+    </item>
+    
+    <item>
       <title>Using python generator to count word frequency in text file 🗒️</title>
       <link>https://biranjan.github.io/posts/about_generator/</link>
-      <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
+      <pubDate>Wed, 15 Jul 2020 11:30:03 +0000</pubDate>
       
       <guid>https://biranjan.github.io/posts/about_generator/</guid>
       <description>Using generator in map reduce way</description>

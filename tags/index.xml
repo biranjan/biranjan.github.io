@@ -8,27 +8,45 @@
     <language>en-us</language>
     <lastBuildDate>Tue, 15 Sep 2020 11:30:03 +0000</lastBuildDate><atom:link href="https://biranjan.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>go</title>
+      <link>https://biranjan.github.io/tags/go/</link>
+      <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
+      
+      <guid>https://biranjan.github.io/tags/go/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>python</title>
+      <link>https://biranjan.github.io/tags/python/</link>
+      <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
+      
+      <guid>https://biranjan.github.io/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>introspection</title>
+      <link>https://biranjan.github.io/tags/introspection/</link>
+      <pubDate>Wed, 05 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://biranjan.github.io/tags/introspection/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>decorator</title>
       <link>https://biranjan.github.io/tags/decorator/</link>
-      <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
+      <pubDate>Thu, 16 Jul 2020 11:30:03 +0000</pubDate>
       
       <guid>https://biranjan.github.io/tags/decorator/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>first</title>
-      <link>https://biranjan.github.io/tags/first/</link>
-      <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
-      
-      <guid>https://biranjan.github.io/tags/first/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>generator</title>
       <link>https://biranjan.github.io/tags/generator/</link>
-      <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
+      <pubDate>Wed, 15 Jul 2020 11:30:03 +0000</pubDate>
       
       <guid>https://biranjan.github.io/tags/generator/</guid>
       <description></description>
@@ -37,7 +55,7 @@
     <item>
       <title>map-reduce</title>
       <link>https://biranjan.github.io/tags/map-reduce/</link>
-      <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
+      <pubDate>Wed, 15 Jul 2020 11:30:03 +0000</pubDate>
       
       <guid>https://biranjan.github.io/tags/map-reduce/</guid>
       <description></description>

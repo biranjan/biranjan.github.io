@@ -2,19 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://biranjan.github.io/posts/test2/</loc>
-    <lastmod>2020-09-15T11:30:03+00:00</lastmod>
-  </url><url>
     <loc>https://biranjan.github.io/categories/</loc>
     <lastmod>2020-09-15T11:30:03+00:00</lastmod>
   </url><url>
-    <loc>https://biranjan.github.io/tags/decorator/</loc>
+    <loc>https://biranjan.github.io/tags/go/</loc>
     <lastmod>2020-09-15T11:30:03+00:00</lastmod>
   </url><url>
-    <loc>https://biranjan.github.io/tags/first/</loc>
-    <lastmod>2020-09-15T11:30:03+00:00</lastmod>
-  </url><url>
-    <loc>https://biranjan.github.io/tags/generator/</loc>
+    <loc>https://biranjan.github.io/categories/go/</loc>
     <lastmod>2020-09-15T11:30:03+00:00</lastmod>
   </url><url>
     <loc>https://biranjan.github.io/posts/go_and_python/</loc>
@@ -23,10 +17,10 @@
     <loc>https://biranjan.github.io/</loc>
     <lastmod>2020-09-15T11:30:03+00:00</lastmod>
   </url><url>
-    <loc>https://biranjan.github.io/tags/map-reduce/</loc>
+    <loc>https://biranjan.github.io/posts/</loc>
     <lastmod>2020-09-15T11:30:03+00:00</lastmod>
   </url><url>
-    <loc>https://biranjan.github.io/posts/</loc>
+    <loc>https://biranjan.github.io/tags/python/</loc>
     <lastmod>2020-09-15T11:30:03+00:00</lastmod>
   </url><url>
     <loc>https://biranjan.github.io/categories/python/</loc>
@@ -35,7 +29,25 @@
     <loc>https://biranjan.github.io/tags/</loc>
     <lastmod>2020-09-15T11:30:03+00:00</lastmod>
   </url><url>
+    <loc>https://biranjan.github.io/tags/introspection/</loc>
+    <lastmod>2020-08-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://biranjan.github.io/posts/python_introspection/</loc>
+    <lastmod>2020-08-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://biranjan.github.io/posts/test2/</loc>
+    <lastmod>2020-07-16T11:30:03+00:00</lastmod>
+  </url><url>
+    <loc>https://biranjan.github.io/tags/decorator/</loc>
+    <lastmod>2020-07-16T11:30:03+00:00</lastmod>
+  </url><url>
+    <loc>https://biranjan.github.io/tags/generator/</loc>
+    <lastmod>2020-07-15T11:30:03+00:00</lastmod>
+  </url><url>
+    <loc>https://biranjan.github.io/tags/map-reduce/</loc>
+    <lastmod>2020-07-15T11:30:03+00:00</lastmod>
+  </url><url>
     <loc>https://biranjan.github.io/posts/about_generator/</loc>
-    <lastmod>2020-09-15T11:30:03+00:00</lastmod>
+    <lastmod>2020-07-15T11:30:03+00:00</lastmod>
   </url>
 </urlset>

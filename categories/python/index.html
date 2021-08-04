@@ -98,13 +98,53 @@
 <figure class="entry-cover"><img loading="lazy" src="https://biranjan.github.io/%3Cimage%20path/url%3E" alt="">
 </figure>
   <header class="entry-header">
+    <h2>Go &#43; Python = ❤️</h2>
+  </header>
+  <section class="entry-content">
+    <p>Calling go from python
+...</p>
+  </section>
+  <footer class="entry-footer">September 15, 2020&nbsp;·&nbsp;4 min&nbsp;·&nbsp;Me</footer>
+  <a class="entry-link" aria-label="post link to Go &#43; Python = ❤️" href="https://biranjan.github.io/posts/go_and_python/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+<figure class="entry-cover"><img loading="lazy" src="https://biranjan.github.io/%3Cimage%20path/url%3E" alt="">
+</figure>
+  <header class="entry-header">
+    <h2>Introspection in python 🕵🏽</h2>
+  </header>
+  <section class="entry-content">
+    <p>Python introspection Type Introspecting type information.
+We can use type function to check the type of python object. In the example below we assign 7 to variable val. And as we see type of val is class int. We can further check what is the type of int and surprise surprise it is of class type.
+val = 7 print(type(val)) print(type(int)) &lt;class &#39;int&#39;&gt; &lt;class &#39;type&#39;&gt;  We can do a similar introspection with a class object. We can see that the instance of class a is of type a. Whereas the type of class is again type. Similarly, with my_func you can see that even a function is a class. And if we check the type of class function then it is of type type. So all the built-in objects in python are of type type.
+class a: def __repr__(self): return &#34;apple&#34; b = a() print(b) print(type(b)) print(type(a)) def my_func(): return &#34;hello&#34; print(type(my_func)) print(type(type(my_func))) apple &lt;class &#39;__main__.a&#39;&gt; &lt;class &#39;type&#39;&gt; &lt;class &#39;function&#39;&gt; &lt;class &#39;type&#39;&gt;  Another handy function is isinstance() and issubclass(). And here is how we can use
+print(isinstance(b,a)) print(issubclass(a, type)) True False  These two functions are self-explanatory. isinstance() just checks whether the first argument is an instance of the second argument. Whereas issubclass() checks whether the first argument is the subclass of the second argument. In the example above we can see that although the class object a is a type of type it is not the subclass of type.
+Attributes To introspect attribute of the python object, I find most useful is dir. This built-in function will list the attributes of python objects, like the example below. For variable val which is of type int, the dunder attributes allow the object to be called by the function. For instance __abs__ attribute makes the variable val callable by built-in function abs()
+val = 7 print(dir(val)) print(abs(val)) [&#39;__abs__&#39;, &#39;__add__&#39;, &#39;__and__&#39;, &#39;__bool__&#39;, &#39;__ceil__&#39;, &#39;__class__&#39;, &#39;__delattr__&#39;, &#39;__dir__&#39;, &#39;__divmod__&#39;, &#39;__doc__&#39;, &#39;__eq__&#39;, &#39;__float__&#39;, &#39;__floor__&#39;, &#39;__floordiv__&#39;, &#39;__format__&#39;, &#39;__ge__&#39;, &#39;__getattribute__&#39;, &#39;__getnewargs__&#39;, &#39;__gt__&#39;, &#39;__hash__&#39;, &#39;__index__&#39;, &#39;__init__&#39;, &#39;__init_subclass__&#39;, &#39;__int__&#39;, &#39;__invert__&#39;, &#39;__le__&#39;, &#39;__lshift__&#39;, &#39;__lt__&#39;, &#39;__mod__&#39;, &#39;__mul__&#39;, &#39;__ne__&#39;, &#39;__neg__&#39;, &#39;__new__&#39;, &#39;__or__&#39;, &#39;__pos__&#39;, &#39;__pow__&#39;, &#39;__radd__&#39;, &#39;__rand__&#39;, &#39;__rdivmod__&#39;, &#39;__reduce__&#39;, &#39;__reduce_ex__&#39;, &#39;__repr__&#39;, &#39;__rfloordiv__&#39;, &#39;__rlshift__&#39;, &#39;__rmod__&#39;, &#39;__rmul__&#39;, &#39;__ror__&#39;, &#39;__round__&#39;, &#39;__rpow__&#39;, &#39;__rrshift__&#39;, &#39;__rshift__&#39;, &#39;__rsub__&#39;, &#39;__rtruediv__&#39;, &#39;__rxor__&#39;, &#39;__setattr__&#39;, &#39;__sizeof__&#39;, &#39;__str__&#39;, &#39;__sub__&#39;, &#39;__subclasshook__&#39;, &#39;__truediv__&#39;, &#39;__trunc__&#39;, &#39;__xor__&#39;, &#39;as_integer_ratio&#39;, &#39;bit_length&#39;, &#39;conjugate&#39;, &#39;denominator&#39;, &#39;from_bytes&#39;, &#39;imag&#39;, &#39;numerator&#39;, &#39;real&#39;, &#39;to_bytes&#39;] 7  We can check whether the objects attributed are callable or not by first getting the attribute using function getattr() and then use the function callable() on the result. See the documentation of function to_bytes
+print(callable(getattr(val, &#39;to_bytes&#39;))) getattr(val, &#39;to_bytes&#39;) True &lt;function int.to_bytes(length, byteorder, *, signed=False)&gt;  So we see attribute to_bytes is callable. And we can convert our variable to bytes.
+val.to_bytes(2,byteorder=&#39;big&#39;) b&#39;\x00\x07&#39;  Introspecting namespace We can introspect all the global variables available by simply using function gloabals()
+globals() {&#39;__name__&#39;: &#39;__main__&#39;, &#39;__builtin__&#39;: &lt;module &#39;builtins&#39; (built-in)&gt;, &#39;__builtins__&#39;: &lt;module &#39;builtins&#39; (built-in)&gt;, &#39;_ih&#39;: [&#39;&#39;, &#39;globals()&#39;], &#39;_oh&#39;: {}, &#39;_dh&#39;: [&#39;/&#39;], &#39;In&#39;: [&#39;&#39;, &#39;globals()&#39;], &#39;Out&#39;: {}, &#39;get_ipython&#39;: &lt;bound method InteractiveShell.get_ipython of &lt;pyolite.interpreter.Interpreter object at 0x2453298&gt;&gt;, &#39;exit&#39;: &lt;IPython.core.autocall.ExitAutocall at 0x2fe7698&gt;, &#39;quit&#39;: &lt;IPython.core.autocall.ExitAutocall at 0x2fe7698&gt;, &#39;_&#39;: &#39;&#39;, &#39;__&#39;: &#39;&#39;, &#39;___&#39;: &#39;&#39;, &#39;_i&#39;: &#39;&#39;, &#39;_ii&#39;: &#39;&#39;, &#39;_iii&#39;: &#39;&#39;, &#39;_i1&#39;: &#39;globals()&#39;}  These are the global variable available to me(might be differnt for you). Now if I define new variable it will be avaialble from globals too.
+new_int = 2 globals().get(&#39;new_int&#39;) 2  Let’s inspect Another python library useful for introspect is inspect.
+import inspect def addition(a:int, b:int) -&gt; int: &#34;&#34;&#34;Adds two integers&#34;&#34;&#34; c = a &#43; b return c inspect.isfunction(addition) True  inspect.signature(addition) &lt;Signature (a: int, b: int) -&gt; int&gt;  inspect.getdoc(addition) &#39;Adds two integers&#39;  Inspect has lots of interseting usecases see the doc for more
+Final words I have shown some of the ways you can introspect objects in python. In most day-to-day use you might never have to check types and instances and it is not recommended either. With the principle of it’s easier to ask forgiveness than permission raising exception is better than checking types and attributes. However, this might be useful for debugging or in general better understanding of how python works.
+</p>
+  </section>
+  <footer class="entry-footer">August 5, 2020&nbsp;·&nbsp;4 min&nbsp;·&nbsp;Me</footer>
+  <a class="entry-link" aria-label="post link to Introspection in python 🕵🏽" href="https://biranjan.github.io/posts/python_introspection/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+<figure class="entry-cover"><img loading="lazy" src="https://biranjan.github.io/%3Cimage%20path/url%3E" alt="">
+</figure>
+  <header class="entry-header">
     <h2>Adventure with python decorator 🚣</h2>
   </header>
   <section class="entry-content">
     <p>Decorator can be intimidating at first and if you have passed that phase then it might be difficult to find the proper use case, here I will try to cover the basics of decorator and end with some use cases that might be useful.
 ...</p>
   </section>
-  <footer class="entry-footer">September 15, 2020&nbsp;·&nbsp;7 min&nbsp;·&nbsp;Me</footer>
+  <footer class="entry-footer">July 16, 2020&nbsp;·&nbsp;7 min&nbsp;·&nbsp;Me</footer>
   <a class="entry-link" aria-label="post link to Adventure with python decorator 🚣" href="https://biranjan.github.io/posts/test2/"></a>
 </article>
 
@@ -118,7 +158,7 @@
     <p>In this post, I will use a python generator to count the word frequency from a big text file and try to use as little memory as possible.
 ...</p>
   </section>
-  <footer class="entry-footer">September 15, 2020&nbsp;·&nbsp;9 min&nbsp;·&nbsp;Me</footer>
+  <footer class="entry-footer">July 15, 2020&nbsp;·&nbsp;9 min&nbsp;·&nbsp;Me</footer>
   <a class="entry-link" aria-label="post link to Using python generator to count word frequency in text file 🗒️" href="https://biranjan.github.io/posts/about_generator/"></a>
 </article>
     </main>

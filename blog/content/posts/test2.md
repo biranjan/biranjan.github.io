@@ -1,6 +1,6 @@
 ---
 title: "Adventure with python decorator 🚣"
-date: 2020-09-15T11:30:03+00:00
+date: 2020-07-16T11:30:03+00:00
 # weight: 1
 # aliases: ["/first"]
 tags: ["decorator"]

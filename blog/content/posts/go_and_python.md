@@ -3,7 +3,8 @@ title: "Go + Python = ❤️"
 date: 2020-09-15T11:30:03+00:00
 # weight: 1
 aliases: ["/go_python"]
-tags: ["first"]
+tags: ["go", "python"]
+categories: ["go", "python"]
 author: "Me"
 # author: ["Me", "You"] # multiple authors
 showToc: true
