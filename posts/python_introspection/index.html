@@ -65,8 +65,8 @@
   "keywords": [
     "introspection"
   ],
-  "articleBody": "Python introspection Type Introspecting type information.\nWe can use type function to check the type of python object. In the example below we assign 7 to variable val. And as we see type of val is class int. We can further check what is the type of int and surprise surprise it is of class type.\nval = 7 print(type(val)) print(type(int))  We can do a similar introspection with a class object. We can see that the instance of class a is of type a. Whereas the type of class is again type. Similarly, with my_func you can see that even a function is a class. And if we check the type of class function then it is of type type. So all the built-in objects in python are of type type.\nclass a: def __repr__(self): return \"apple\" b = a() print(b) print(type(b)) print(type(a)) def my_func(): return \"hello\" print(type(my_func)) print(type(type(my_func))) apple  Another handy function is isinstance() and issubclass(). And here is how we can use\nprint(isinstance(b,a)) print(issubclass(a, type)) True False  These two functions are self-explanatory. isinstance() just checks whether the first argument is an instance of the second argument. Whereas issubclass() checks whether the first argument is the subclass of the second argument. In the example above we can see that although the class object a is a type of type it is not the subclass of type.\nAttributes To introspect attribute of the python object, I find most useful is dir. This built-in function will list the attributes of python objects, like the example below. For variable val which is of type int, the dunder attributes allow the object to be called by the function. For instance __abs__ attribute makes the variable val callable by built-in function abs()\nval = 7 print(dir(val)) print(abs(val)) ['__abs__', '__add__', '__and__', '__bool__', '__ceil__', '__class__', '__delattr__', '__dir__', '__divmod__', '__doc__', '__eq__', '__float__', '__floor__', '__floordiv__', '__format__', '__ge__', '__getattribute__', '__getnewargs__', '__gt__', '__hash__', '__index__', '__init__', '__init_subclass__', '__int__', '__invert__', '__le__', '__lshift__', '__lt__', '__mod__', '__mul__', '__ne__', '__neg__', '__new__', '__or__', '__pos__', '__pow__', '__radd__', '__rand__', '__rdivmod__', '__reduce__', '__reduce_ex__', '__repr__', '__rfloordiv__', '__rlshift__', '__rmod__', '__rmul__', '__ror__', '__round__', '__rpow__', '__rrshift__', '__rshift__', '__rsub__', '__rtruediv__', '__rxor__', '__setattr__', '__sizeof__', '__str__', '__sub__', '__subclasshook__', '__truediv__', '__trunc__', '__xor__', 'as_integer_ratio', 'bit_length', 'conjugate', 'denominator', 'from_bytes', 'imag', 'numerator', 'real', 'to_bytes'] 7  We can check whether the objects attributed are callable or not by first getting the attribute using function getattr() and then use the function callable() on the result. See the documentation of function to_bytes\nprint(callable(getattr(val, 'to_bytes'))) getattr(val, 'to_bytes') True  So we see attribute to_bytes is callable. And we can convert our variable to bytes.\nval.to_bytes(2,byteorder='big') b'\\x00\\x07'  Introspecting namespace We can introspect all the global variables available by simply using function gloabals()\nglobals() {'__name__': '__main__', '__builtin__': , '__builtins__': , '_ih': ['', 'globals()'], '_oh': {}, '_dh': ['/'], 'In': ['', 'globals()'], 'Out': {}, 'get_ipython': , 'exit': , 'quit': , '_': '', '__': '', '___': '', '_i': '', '_ii': '', '_iii': '', '_i1': 'globals()'}  These are the global variable available to me(might be differnt for you). Now if I define new variable it will be avaialble from globals too.\nnew_int = 2 globals().get('new_int') 2  Let’s inspect Another python library useful for introspect is inspect.\nimport inspect def addition(a:int, b:int) - int: \"\"\"Adds two integers\"\"\" c = a + b return c inspect.isfunction(addition) True  inspect.signature(addition) int  inspect.getdoc(addition) 'Adds two integers'  Inspect has lots of interseting usecases see the doc for more\nFinal words I have shown some of the ways you can introspect objects in python. In most day-to-day use you might never have to check types and instances and it is not recommended either. With the principle of it’s easier to ask forgiveness than permission raising exception is better than checking types and attributes. However, this might be useful for debugging or in general better understanding of how python works.\n",
-  "wordCount" : "659",
+  "articleBody": "Introspection in python is very interesting and it can help debug in various situation.\nIntrospecting type information.\nWe can use type function to check the type of python object. In the example below we assign 7 to variable val. And as we see type of val is class int. We can further check what is the type of int and surprise surprise it is of class type.\nval = 7 print(type(val)) print(type(int))  We can do a similar introspection with a class object. We can see that the instance of class a is of type a. Whereas the type of class is again type. Similarly, with my_func you can see that even a function is a class. And if we check the type of class function then it is of type type. So all the built-in objects in python are of type type.\nclass a: def __repr__(self): return \"apple\" b = a() print(b) print(type(b)) print(type(a)) def my_func(): return \"hello\" print(type(my_func)) print(type(type(my_func))) apple  Another handy function is isinstance() and issubclass(). And here is how we can use\nprint(isinstance(b,a)) print(issubclass(a, type)) True False  These two functions are self-explanatory. isinstance() just checks whether the first argument is an instance of the second argument. Whereas issubclass() checks whether the first argument is the subclass of the second argument. In the example above we can see that although the class object a is a type of type it is not the subclass of type.\nAttributes I find function dir useful to introspect the python object. This built-in function will list the attributes of python objects. For variable val which of type int we can see its built in attributes using dir.\nval = 7 print(dir(val)) print(abs(val)) ['__abs__', '__add__', '__and__', '__bool__', '__ceil__', '__class__', '__delattr__', '__dir__', '__divmod__', '__doc__', '__eq__', '__float__', '__floor__', '__floordiv__', '__format__', '__ge__', '__getattribute__', '__getnewargs__', '__gt__', '__hash__', '__index__', '__init__', '__init_subclass__', '__int__', '__invert__', '__le__', '__lshift__', '__lt__', '__mod__', '__mul__', '__ne__', '__neg__', '__new__', '__or__', '__pos__', '__pow__', '__radd__', '__rand__', '__rdivmod__', '__reduce__', '__reduce_ex__', '__repr__', '__rfloordiv__', '__rlshift__', '__rmod__', '__rmul__', '__ror__', '__round__', '__rpow__', '__rrshift__', '__rshift__', '__rsub__', '__rtruediv__', '__rxor__', '__setattr__', '__sizeof__', '__str__', '__sub__', '__subclasshook__', '__truediv__', '__trunc__', '__xor__', 'as_integer_ratio', 'bit_length', 'conjugate', 'denominator', 'from_bytes', 'imag', 'numerator', 'real', 'to_bytes'] 7  We can check whether the objects attributes are callable or not by first getting the attribute using function getattr() and then using the function callable() on the result. See the documentation of function to_bytes for more if you are interested on what it does.\nprint(callable(getattr(val, 'to_bytes'))) getattr(val, 'to_bytes') True  So we see attribute to_bytes is callable. And we can convert our variable to bytes.\nval.to_bytes(2,byteorder='big') b'\\x00\\x07'  Introspecting namespace We can introspect all the global variables available by simply using function globals()\nglobals() {'__name__': '__main__', '__builtin__': , '__builtins__': , '_ih': ['', 'globals()'], '_oh': {}, '_dh': ['/'], 'In': ['', 'globals()'], 'Out': {}, 'get_ipython': , 'exit': , 'quit': , '_': '', '__': '', '___': '', '_i': '', '_ii': '', '_iii': '', '_i1': 'globals()'}  These are the global variable available to me(might be different for you). Now if I define new variable it will be available from globals too.\nnew_int = 2 globals().get('new_int') 2  Let’s inspect 🔎 Another python library useful for introspect is inspect.\nimport inspect def addition(a:int, b:int) - int: \"\"\"Adds two integers\"\"\" c = a + b return c inspect.isfunction(addition) True  inspect.signature(addition) int  inspect.getdoc(addition) 'Adds two integers'  Inspect has lots of interesting use cases see the doc for more\nFinal words I have shown some of the ways you can introspect objects in python. In most day-to-day use you might never have to check types and instances and it is not recommended either. With the principle of it’s easier to ask forgiveness than permission raising exception is better than checking types and attributes. However, this might be useful for debugging or in general better understanding of how python works.\n",
+  "wordCount" : "658",
   "inLanguage": "en",
   "image":"https://biranjan.github.io/%3Cimage%20path/url%3E","datePublished": "2020-08-05T00:00:00Z",
   "dateModified": "2020-08-05T00:00:00Z",
@@ -168,17 +168,11 @@
         </summary>
         <div class="inner"><ul>
                 <li>
-                    <a href="#python-introspection" aria-label="Python introspection">Python introspection</a><ul>
-                        
-                <li>
-                    <a href="#type" aria-label="Type">Type</a></li></ul>
-                </li>
-                <li>
                     <a href="#attributes" aria-label="Attributes">Attributes</a></li>
                 <li>
                     <a href="#introspecting-namespace" aria-label="Introspecting namespace">Introspecting namespace</a></li>
                 <li>
-                    <a href="#lets-inspect" aria-label="Let&amp;rsquo;s inspect">Let&rsquo;s inspect</a></li>
+                    <a href="#lets-inspect-" aria-label="Let&amp;rsquo;s inspect 🔎">Let&rsquo;s inspect 🔎</a></li>
                 <li>
                     <a href="#final-words" aria-label="Final words">Final words</a>
                 </li>
@@ -187,8 +181,7 @@
     </details>
 </div>
 
-  <div class="post-content"><h2 id="python-introspection">Python introspection<a hidden class="anchor" aria-hidden="true" href="#python-introspection">#</a></h2>
-<h3 id="type">Type<a hidden class="anchor" aria-hidden="true" href="#type">#</a></h3>
+  <div class="post-content"><p>Introspection in python is very interesting and it can help debug in various situation.</p>
 <p>Introspecting type information.</p>
 <p>We can use type function to check the type of python object. In the example below we assign 7 to variable val. And as we see type of val is class int. We can further check what is the type of int and surprise surprise it is of class type.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">val <span style="color:#f92672">=</span> <span style="color:#ae81ff">7</span>
@@ -227,23 +220,18 @@ False
 </code></pre>
 <p>These two functions are self-explanatory. <code>isinstance()</code> just checks whether the first argument is an instance of the second argument. Whereas <code>issubclass()</code> checks whether the first argument is the subclass of the second argument. In the example above we can see that although the class object <code>a</code> is a type of <code>type</code> it is not the subclass of <code>type</code>.</p>
 <h2 id="attributes">Attributes<a hidden class="anchor" aria-hidden="true" href="#attributes">#</a></h2>
-<p>To introspect attribute of the python object, I find most useful is <code>dir</code>. This built-in function will list the attributes of python objects, like the example below. For variable <code>val</code> which is of type <code>int</code>, the dunder attributes allow the object to be called by the function. For instance <code>__abs__</code> attribute makes the variable <code>val</code> callable by built-in function <code>abs()</code></p>
+<p>I find function <code>dir</code> useful to introspect the python object. This built-in function will list the attributes of python objects. For variable <code>val</code> which of type int we can see its built in attributes using <code>dir</code>.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">val <span style="color:#f92672">=</span> <span style="color:#ae81ff">7</span>
 print(dir(val))
 print(abs(val))
 </code></pre></div><pre><code>['__abs__', '__add__', '__and__', '__bool__', '__ceil__', '__class__', '__delattr__', '__dir__', '__divmod__', '__doc__', '__eq__', '__float__', '__floor__', '__floordiv__', '__format__', '__ge__', '__getattribute__', '__getnewargs__', '__gt__', '__hash__', '__index__', '__init__', '__init_subclass__', '__int__', '__invert__', '__le__', '__lshift__', '__lt__', '__mod__', '__mul__', '__ne__', '__neg__', '__new__', '__or__', '__pos__', '__pow__', '__radd__', '__rand__', '__rdivmod__', '__reduce__', '__reduce_ex__', '__repr__', '__rfloordiv__', '__rlshift__', '__rmod__', '__rmul__', '__ror__', '__round__', '__rpow__', '__rrshift__', '__rshift__', '__rsub__', '__rtruediv__', '__rxor__', '__setattr__', '__sizeof__', '__str__', '__sub__', '__subclasshook__', '__truediv__', '__trunc__', '__xor__', 'as_integer_ratio', 'bit_length', 'conjugate', 'denominator', 'from_bytes', 'imag', 'numerator', 'real', 'to_bytes']
 7
 </code></pre>
-<p>We can check whether the objects attributed are callable or not by first getting the attribute using function <code>getattr()</code> and then use the function <code>callable()</code> on the result. See the documentation of function <a href="https://docs.python.org/3/library/stdtypes.html"><code>to_bytes</code></a></p>
+<p>We can check whether the objects attributes are callable or not by first getting the attribute using function <code>getattr()</code> and then using the function <code>callable()</code> on the result. See the documentation of function <a href="https://docs.python.org/3/library/stdtypes.html"><code>to_bytes</code></a> for more if you are interested on what it does.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">print(callable(getattr(val, <span style="color:#e6db74">&#39;to_bytes&#39;</span>)))
 getattr(val, <span style="color:#e6db74">&#39;to_bytes&#39;</span>)
 
 </code></pre></div><pre><code>True
-
-
-
-
-
 &lt;function int.to_bytes(length, byteorder, *, signed=False)&gt;
 </code></pre>
 <p>So we see attribute <code>to_bytes</code> is callable. And we can convert our variable to bytes.</p>
@@ -251,7 +239,7 @@ getattr(val, <span style="color:#e6db74">&#39;to_bytes&#39;</span>)
 </code></pre></div><pre><code>b'\x00\x07'
 </code></pre>
 <h2 id="introspecting-namespace">Introspecting namespace<a hidden class="anchor" aria-hidden="true" href="#introspecting-namespace">#</a></h2>
-<p>We can introspect all the global variables available by simply using function <code>gloabals()</code></p>
+<p>We can introspect all the global variables available by simply using function <code>globals()</code></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">globals()
 </code></pre></div><pre><code>{'__name__': '__main__',
  '__builtin__': &lt;module 'builtins' (built-in)&gt;,
@@ -272,12 +260,12 @@ getattr(val, <span style="color:#e6db74">&#39;to_bytes&#39;</span>)
  '_iii': '',
  '_i1': 'globals()'}
 </code></pre>
-<p>These are the global variable available to me(might be differnt for you). Now if I define new variable it will be avaialble from globals too.</p>
+<p>These are the global variable available to me(might be different for you). Now if I define new variable it will be available from globals too.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">new_int <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
 globals()<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;new_int&#39;</span>)
 </code></pre></div><pre><code>2
 </code></pre>
-<h2 id="lets-inspect">Let&rsquo;s inspect<a hidden class="anchor" aria-hidden="true" href="#lets-inspect">#</a></h2>
+<h2 id="lets-inspect-">Let&rsquo;s inspect 🔎<a hidden class="anchor" aria-hidden="true" href="#lets-inspect-">#</a></h2>
 <p>Another python library useful for introspect is <code>inspect</code>.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> inspect
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">addition</span>(a:int, b:int) <span style="color:#f92672">-&gt;</span> int:
@@ -293,9 +281,10 @@ globals()<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#3
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">inspect<span style="color:#f92672">.</span>getdoc(addition)
 </code></pre></div><pre><code>'Adds two integers'
 </code></pre>
-<p>Inspect has lots of interseting usecases see the <a href="https://docs.python.org/3/library/inspect.html">doc for more</a></p>
+<p>Inspect has lots of interesting use cases see the <a href="https://docs.python.org/3/library/inspect.html">doc for more</a></p>
 <h2 id="final-words">Final words<a hidden class="anchor" aria-hidden="true" href="#final-words">#</a></h2>
 <p>I have shown some of the ways you can introspect objects in python. In most day-to-day use you might never have to check types and instances and it is not recommended either. With the principle of it&rsquo;s easier to ask forgiveness than permission raising exception is better than checking types and attributes. However, this might be useful for debugging or in general better understanding of how python works.</p>
+
 
   </div>
   <footer class="post-footer">

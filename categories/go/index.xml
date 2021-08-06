@@ -6,11 +6,11 @@
     <description>Recent content in go on Hello World!</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 15 Sep 2020 11:30:03 +0000</lastBuildDate><atom:link href="https://biranjan.github.io/categories/go/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 06 Aug 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://biranjan.github.io/categories/go/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Go &#43; Python = ❤️</title>
       <link>https://biranjan.github.io/posts/go_and_python/</link>
-      <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
+      <pubDate>Thu, 06 Aug 2020 00:00:00 +0000</pubDate>
       
       <guid>https://biranjan.github.io/posts/go_and_python/</guid>
       <description>Calling go from python</description>

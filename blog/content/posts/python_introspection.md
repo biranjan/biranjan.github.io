@@ -34,6 +34,8 @@ editPost:
     appendFilePath: true # to append file path to Edit link
 ---
 
+Introspection in python is very interesting and it can help debug in various situation.
+
 Introspecting type information. 
 
 We can use type function to check the type of python object. In the example below we assign 7 to variable val. And as we see type of val is class int. We can further check what is the type of int and surprise surprise it is of class type.
@@ -128,7 +130,7 @@ val.to_bytes(2,byteorder='big')
 
 
 ## Introspecting namespace
-We can introspect all the global variables available by simply using function `gloabals()`
+We can introspect all the global variables available by simply using function `globals()`
 
 
 ```python
@@ -159,7 +161,7 @@ globals()
 
 
 
-These are the global variable available to me(might be differnt for you). Now if I define new variable it will be avaialble from globals too.
+These are the global variable available to me(might be different for you). Now if I define new variable it will be available from globals too.
 
 
 ```python
@@ -170,7 +172,7 @@ globals().get('new_int')
 
 
 
-## Let's inspect
+## Let's inspect 🔎
 Another python library useful for introspect is `inspect`.
 
 
@@ -211,7 +213,7 @@ inspect.getdoc(addition)
 
 
 
-Inspect has lots of interseting usecases see the [doc for more](https://docs.python.org/3/library/inspect.html)
+Inspect has lots of interesting use cases see the [doc for more](https://docs.python.org/3/library/inspect.html)
 
 ## Final words
 I have shown some of the ways you can introspect objects in python. In most day-to-day use you might never have to check types and instances and it is not recommended either. With the principle of it's easier to ask forgiveness than permission raising exception is better than checking types and attributes. However, this might be useful for debugging or in general better understanding of how python works.

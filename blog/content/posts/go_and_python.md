@@ -1,6 +1,6 @@
 ---
 title: "Go + Python = ❤️"
-date: 2020-08-6
+date: 2020-08-06
 # weight: 1
 aliases: ["/go_python"]
 tags: ["go", "python"]
