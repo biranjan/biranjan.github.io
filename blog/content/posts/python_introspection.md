@@ -34,11 +34,6 @@ editPost:
     appendFilePath: true # to append file path to Edit link
 ---
 
-
-## Python introspection
-
-
-### Type
 Introspecting type information. 
 
 We can use type function to check the type of python object. In the example below we assign 7 to variable val. And as we see type of val is class int. We can further check what is the type of int and surprise surprise it is of class type.
@@ -97,8 +92,7 @@ print(issubclass(a, type))
 These two functions are self-explanatory. `isinstance()` just checks whether the first argument is an instance of the second argument. Whereas `issubclass()` checks whether the first argument is the subclass of the second argument. In the example above we can see that although the class object `a` is a type of `type` it is not the subclass of `type`.
 
 ## Attributes
-To introspect attribute of the python object, I find most useful is `dir`. This built-in function will list the attributes of python objects, like the example below. For variable `val` which is of type `int`, the dunder attributes allow the object to be called by the function. For instance `__abs__` attribute makes the variable `val` callable by built-in function `abs()`
-
+I find function `dir` useful to introspect the python object. This built-in function will list the attributes of python objects. For variable `val` which of type int we can see its built in attributes using `dir`.
 
 ```python
 val = 7
@@ -110,7 +104,7 @@ print(abs(val))
     7
 
 
-We can check whether the objects attributed are callable or not by first getting the attribute using function `getattr()` and then use the function `callable()` on the result. See the documentation of function [`to_bytes`](https://docs.python.org/3/library/stdtypes.html)
+We can check whether the objects attributes are callable or not by first getting the attribute using function `getattr()` and then using the function `callable()` on the result. See the documentation of function [`to_bytes`](https://docs.python.org/3/library/stdtypes.html) for more if you are interested on what it does.
 
 
 ```python
@@ -118,13 +112,7 @@ print(callable(getattr(val, 'to_bytes')))
 getattr(val, 'to_bytes')
 
 ```
-
     True
-
-
-
-
-
     <function int.to_bytes(length, byteorder, *, signed=False)>
 
 
@@ -135,10 +123,6 @@ So we see attribute `to_bytes` is callable. And we can convert our variable to b
 ```python
 val.to_bytes(2,byteorder='big')
 ```
-
-
-
-
     b'\x00\x07'
 
 
@@ -182,10 +166,6 @@ These are the global variable available to me(might be differnt for you). Now if
 new_int = 2
 globals().get('new_int')
 ```
-
-
-
-
     2
 
 
@@ -211,9 +191,6 @@ def addition(a:int, b:int) -> int:
 inspect.isfunction(addition)
 ```
 
-
-
-
     True
 
 
@@ -222,10 +199,6 @@ inspect.isfunction(addition)
 ```python
 inspect.signature(addition)
 ```
-
-
-
-
     <Signature (a: int, b: int) -> int>
 
 
@@ -234,10 +207,6 @@ inspect.signature(addition)
 ```python
 inspect.getdoc(addition)
 ```
-
-
-
-
     'Adds two integers'
 
 
@@ -248,6 +217,6 @@ Inspect has lots of interseting usecases see the [doc for more](https://docs.pyt
 I have shown some of the ways you can introspect objects in python. In most day-to-day use you might never have to check types and instances and it is not recommended either. With the principle of it's easier to ask forgiveness than permission raising exception is better than checking types and attributes. However, this might be useful for debugging or in general better understanding of how python works.
 
 
-<!--more-->
+
 
 
